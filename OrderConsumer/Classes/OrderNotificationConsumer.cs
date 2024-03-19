@@ -64,7 +64,7 @@ namespace OrderConsumer.Classes
                 var listUsers = _users.Where(x => 
                                              x.IsActive == true && 
                                              x.IsDelivering == false && 
-                                             x.UserType!.Name!.ToLower() == GetDescriptionFromEnum.GetFromUserTypeEnum(EnumUserType.Entregador).ToLower()).ToList();
+                                             x.UserType!.Name!.ToLower() == GetDescriptionFromEnum.GetFromUserTypeEnum(EnumUserTypes.Entregador).ToLower()).ToList();
 
                 var newNotificationId = Guid.NewGuid();
 

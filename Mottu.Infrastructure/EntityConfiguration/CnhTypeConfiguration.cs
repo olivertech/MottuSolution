@@ -17,7 +17,7 @@ namespace Mottu.Infrastructure.EntityConfiguration
             builder.HasData(
                 new CnhType(Guid.NewGuid(), "A"),
                 new CnhType(Guid.NewGuid(), "B"),
-                new CnhType(Guid.NewGuid(), "A+B"),
+                new CnhType(Guid.NewGuid(), "AB"),
                 new CnhType(Guid.NewGuid(), "NA"));
         }
     }

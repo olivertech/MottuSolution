@@ -133,7 +133,7 @@ namespace Mottu.Domain.Entities
         private void Validate(CnhType cnhType, string cnpj, string cnh, string pathCnhImage = "")
         {
             DomainValidation.When(cnh is null || cnh.Length == 0, "Campo 'nome' é obrigatório");
-            DomainValidation.When(!cnhType.Name!.Contains('A') && !cnhType.Name!.Contains('B') && !cnhType.Name!.Contains("A+B"), "Campo 'tipo da cnh' só pode ser A, B ou A+B");
+            DomainValidation.When(!cnhType.Name!.Contains('A') && !cnhType.Name!.Contains('B') && !cnhType.Name!.Contains("AB"), "Campo 'tipo da cnh' só pode ser A, B ou AB");
             DomainValidation.When(cnpj is null || cnpj.Length == 0, "Campo 'cnpj' é obrigatório");
 
             Cnpj = cnpj;

@@ -137,6 +137,11 @@ namespace Mottu.Api.Controllers
                 if (request is null)
                     return BadRequest(ResponseFactory<RentalResponse>.Error(false, "Request inválido!"));
 
+                var bikesFree = _unitOfWork!.bikeRepository.GetList(x => x.IsLeased == false).Result;
+
+                if (!bikesFree!.Any())
+                    return Ok(ResponseFactory<RentalResponse>.Error(false, String.Format("Não existem motos disponíveis no momento. Tente mais tarde.", _nomeEntidade)));
+
                 var search = _unitOfWork!.rentalRepository.GetList(x => x.Bike!.Id == request.BikeId && x.Bike.IsLeased).Result;
 
                 if (search!.Any())
@@ -149,6 +154,9 @@ namespace Mottu.Api.Controllers
 
                 if (user == null)
                     return Ok(ResponseFactory<RentalResponse>.Error(false, String.Format("Usuário informado para {0} não existe. Verifique o id do usuário.", _nomeEntidade)));
+
+                if (user.CnhType.Name.ToLower() != GetDescriptionFromEnum.GetFromStatusCnhType(EnumCnhTypes.A).ToLower())
+                    return Ok(ResponseFactory<RentalResponse>.Error(false, "Usuário não possui carteira de motorista do tipo A"));
 
                 //Recupera a moto a ser usada na locação
                 var bike = _unitOfWork.bikeRepository.GetById(request.BikeId).Result;

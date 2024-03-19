@@ -277,7 +277,7 @@ namespace Mottu.Infrastructure.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("19e1b2f3-45f5-4351-b467-000c40abd9d5"), "A+B" },
+                    { new Guid("19e1b2f3-45f5-4351-b467-000c40abd9d5"), "AB" },
                     { new Guid("7d033098-629f-4ba3-8809-f9366b203e9b"), "A" },
                     { new Guid("9cad5cf7-688d-47f8-be52-49c51c174102"), "B" },
                     { new Guid("f4958544-c796-43f4-a3cb-568ef6272a8d"), "NA" }

@@ -2,7 +2,7 @@
 
 namespace Mottu.CrossCutting.Helpers
 {
-    public enum EnumUserType
+    public enum EnumUserTypes
     {
         [EnumMember(Value = "Administrador")]
         Administrador = 1,

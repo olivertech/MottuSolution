@@ -195,7 +195,7 @@ namespace Mottu.Infrastructure.Migrations
                         new
                         {
                             Id = new Guid("19e1b2f3-45f5-4351-b467-000c40abd9d5"),
-                            Name = "A+B"
+                            Name = "AB"
                         },
                         new
                         {

@@ -33,11 +33,17 @@ namespace Mottu.Api.Controllers
             if(userId == Guid.Empty || userId.ToString().Length == 0 || !Guid.TryParse(userId.ToString(), out _))
                 return StatusCode(StatusCodes.Status400BadRequest, ResponseFactory<UploadResponse>.Error(false, "Id do usuário inválido!"));
 
+            var user = _unitOfWork!.userRepository.GetById(userId).Result;
+
+            if (user == null)
+                return StatusCode(StatusCodes.Status400BadRequest, ResponseFactory<UploadResponse>.Error(false, "Id do usuário inválido!"));
+
             if (arquivo == null)
                 return StatusCode(StatusCodes.Status400BadRequest, ResponseFactory<UploadResponse>.Error(false, "arquivo inválido!"));
 
             if((!arquivo.ContentType.ToLower().Contains("png")) && (!arquivo.ContentType.ToLower().Contains("bmp")))
                 return StatusCode(StatusCodes.Status400BadRequest, ResponseFactory<UploadResponse>.Error(false, "Formato do arquivo inválido. Enviar apenas BMP ou PNG!"));
+
 
             if (arquivo.Length > 0)
             {
@@ -54,7 +60,6 @@ namespace Mottu.Api.Controllers
                         filestream.Flush();
 
                         //Atualizar usuário com o caminho da imagem enviada
-                        var user = await _unitOfWork!.userRepository.GetById(userId);
                         user!.PathCnhImage = "C:\\Mottu\\Images\\CNH\\" + arquivo.FileName;
                         await _unitOfWork.userRepository.Update(user);
 
