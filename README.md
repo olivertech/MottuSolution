@@ -1,6 +1,6 @@
-Projeto com a proposta de apresentar uma abordagem mais ampla de conhecimentos para montagem de uma solução completa em aspnet core.
+*Descrição do projeto*
 
-Descrição do projeto
+Projeto com a proposta de apresentar uma abordagem mais ampla de conhecimentos para montagem de uma solução completa em aspnet core.
 
 A solução desenvolvida segue o conceito conhecido como "Clean Architecture", utilizado em sistemas com arquiteturas modernas, permitindo maior facilidade para manutenção e expansão, e melhor entendimento do código, com divisão clara de responsabilidades para cada uma das camadas que compõem a solução.
 
@@ -23,6 +23,8 @@ O projeto implementa os seguintes patterns:
 O projeto utiliza mensageria por meio do RabbitMQ em conjunto com o MassTransit.
 
 Para o banco de dados, foi utilizado o Postgrees versão 16.2, implementando a tecnologia ORM por meio do Entity Framework Core, para abstração do banco de dados. Além disso, por meio do EF Core, foi adotado a abordagem Code First para modelagem de banco de dados.
+
+A seguir, a modelagem proposta do banco de dados, de acordo com possíveis funcionalidades imaginadas para esse sistema fictício de gestão de locações de moto.
 
 ![image](https://github.com/olivertech/MottuSolution/assets/6912641/65ecc7e8-85a7-4d4e-9ead-7343eca60c3b)
 
