@@ -1,10 +1,11 @@
-﻿using Newtonsoft.Json;
+﻿using Mottu.CrossCutting.Requests.Base;
+using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace Mottu.CrossCutting.Requests
 {
-    public class FinishRentalRequest
+    public class FinishRentalRequest : BaseRequest
     {
         [JsonPropertyName("rental_id")]
         [JsonProperty(PropertyName = "rental_id")]

@@ -137,25 +137,28 @@ namespace Mottu.Api.Controllers
                 if (request is null)
                     return BadRequest(ResponseFactory<RentalResponse>.Error(false, "Request inválido!"));
 
+                //Verifico se existem motos livres
                 var bikesFree = _unitOfWork!.bikeRepository.GetList(x => x.IsLeased == false).Result;
 
                 if (!bikesFree!.Any())
                     return Ok(ResponseFactory<RentalResponse>.Error(false, String.Format("Não existem motos disponíveis no momento. Tente mais tarde.", _nomeEntidade)));
 
+                //Verifico se a moto em questão enviada se encontra livre
                 var search = _unitOfWork!.rentalRepository.GetList(x => x.Bike!.Id == request.BikeId && x.Bike.IsLeased).Result;
 
                 if (search!.Any())
                     return Ok(ResponseFactory<RentalResponse>.Error(false, String.Format("Já existe uma {0} em andamento (ativa) com essa moto. Informe outra moto.", _nomeEntidade)));
 
+                //Verifico se o usuário existe
                 var entity = _mapper!.Map<Rental>(request);
 
-                //Recupera o usuario a ser associado a locação
                 var user = _unitOfWork.userRepository.GetFullById(request.UserId).Result;
 
                 if (user == null)
                     return Ok(ResponseFactory<RentalResponse>.Error(false, String.Format("Usuário informado para {0} não existe. Verifique o id do usuário.", _nomeEntidade)));
 
-                if (user.CnhType.Name.ToLower() != GetDescriptionFromEnum.GetFromStatusCnhType(EnumCnhTypes.A).ToLower())
+                //Verifico se o usuário possui cnh tipo A
+                if (user!.CnhType!.Name!.ToLower() != GetDescriptionFromEnum.GetFromStatusCnhType(EnumCnhTypes.A).ToLower())
                     return Ok(ResponseFactory<RentalResponse>.Error(false, "Usuário não possui carteira de motorista do tipo A"));
 
                 //Recupera a moto a ser usada na locação
@@ -164,7 +167,7 @@ namespace Mottu.Api.Controllers
                 if (bike == null)
                     return Ok(ResponseFactory<RentalResponse>.Error(false, String.Format("Moto informada para {0} não existe. Verifique o id da moto.", _nomeEntidade)));
 
-                //Recupera o plano associado a locação
+                //Verifico se o plano solicitado existe
                 var plan = _unitOfWork.planRepository.GetById(request.PlanId).Result;
 
                 if (plan == null)

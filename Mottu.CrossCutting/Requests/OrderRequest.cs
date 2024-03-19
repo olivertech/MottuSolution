@@ -1,4 +1,5 @@
-﻿using Mottu.Domain.Entities;
+﻿using Mottu.CrossCutting.Requests.Base;
+using Mottu.Domain.Entities;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Mottu.CrossCutting.Requests
 {
-    public class OrderRequest
+    public class OrderRequest : BaseRequest
     {
         [JsonPropertyName("id")]
         [JsonProperty(PropertyName = "id")]

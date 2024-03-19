@@ -5,6 +5,7 @@ using Mottu.Api.Classes;
 using Mottu.Api.Services;
 using Mottu.CrossCutting.Dependencies;
 
+//Configurações para uso do Minio
 var endpoint = "play.min.io";
 var accessKey = "Q3AM3UQ867SPQQA43P2F";
 var secretKey = "zuf+tfteSlswRu7BJ86wtrueekitnifILbZam1KYY3TG";

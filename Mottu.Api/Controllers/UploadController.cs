@@ -10,6 +10,10 @@ using System.Net;
 
 namespace Mottu.Api.Controllers
 {
+    /// <summary>
+    /// Não tive tempo de implementar com o Minio,
+    /// Então acabou ficando apenas com pasta local
+    /// </summary>
     [Route("api/Upload")]
     [SwaggerTag("Upload")]
     [ApiController]
@@ -22,12 +26,5 @@ namespace Mottu.Api.Controllers
         {
             this.minioClient = minioClient;
         }
-
-        //[HttpGet]
-        //[ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
-        //public async Task<IActionResult> GetUrl(string bucketID)
-        //{
-            //return Ok(await minioClient.PresignedGetObjectAsync(new PresignedGetObjectArgs().WithBucket(bucketID).ConfigureAwait(false));
-        //}
     }
 }

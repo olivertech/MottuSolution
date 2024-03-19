@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
+using Mottu.CrossCutting.Helpers;
 using Mottu.CrossCutting.Messaging;
 using Mottu.CrossCutting.Requests;
 using Mottu.CrossCutting.Responses;
@@ -23,21 +24,13 @@ namespace Mottu.Api.Controllers
         private readonly IPublishEndpoint _publishEndpoint;
         private readonly IOrderNotificationService _orderNotificationService;
         private readonly INotificationMessage _notificationMessage;
-        private readonly INotificationRepository _notificationRepository;
-        private readonly IAcceptedOrderRepository _acceptedOrderRepository;
-        private readonly INotificatedUserRepository _notificatedUserRepository;
-        private readonly IOrderRepository _orderRepository;
 
         public OrderController(IUnitOfWork unitOfWork,
                                IMapper? mapper,
                                IBus bus,
                                IPublishEndpoint publishEndpoint,
                                IOrderNotificationService orderNotificationService,
-                               INotificationMessage notificationMessage,
-                               INotificationRepository notificationRepository,
-                               IAcceptedOrderRepository acceptedOrderRepository,
-                               INotificatedUserRepository notificatedUserRepository,
-                               IOrderRepository orderRepository)
+                               INotificationMessage notificationMessage)
             : base(unitOfWork, mapper)
         {
             _nomeEntidade = "Pedido";
@@ -47,10 +40,6 @@ namespace Mottu.Api.Controllers
             _publishEndpoint = publishEndpoint;
             _orderNotificationService = orderNotificationService;
             _notificationMessage = notificationMessage;
-            _notificationRepository = notificationRepository;
-            _acceptedOrderRepository = acceptedOrderRepository;
-            _notificatedUserRepository = notificatedUserRepository;
-            _orderRepository = orderRepository;
         }
 
         [HttpGet]
@@ -108,6 +97,15 @@ namespace Mottu.Api.Controllers
             {
                 if (request is null)
                     return BadRequest(ResponseFactory<OrderResponse>.Error(false, "Request inválido!"));
+
+                //Valido solicitante da requisição
+                var requester = _unitOfWork!.userRepository.GetFullById(request.RequestUserId).Result;
+
+                if (requester is null)
+                    return BadRequest(ResponseFactory<OrderResponse>.Error(false, "Request inválido!"));
+
+                if (requester.UserType!.Name!.ToLower() != GetDescriptionFromEnum.GetFromUserTypeEnum(EnumUserTypes.Administrador).ToLower())
+                    return BadRequest(ResponseFactory<OrderResponse>.Error(false, "Usuário solicitante inválido!"));
 
                 var entity = _mapper!.Map<Order>(request);
 

@@ -9,6 +9,10 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace Mottu.Api.Controllers
 {
+    /// <summary>
+    /// Controller que recebe arquivos e salva localmente
+    /// na pasta C:\\Mottu\\Images\\CNH\\
+    /// </summary>
     [Route("api/UploadFile")]
     [SwaggerTag("UplodFile")]
     [ApiController]
