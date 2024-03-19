@@ -1,0 +1,82 @@
+using MassTransit;
+using Microsoft.OpenApi.Models;
+using Minio;
+using Mottu.Api.Classes;
+using Mottu.Api.Services;
+using Mottu.CrossCutting.Dependencies;
+
+var endpoint = "play.min.io";
+var accessKey = "Q3AM3UQ867SPQQA43P2F";
+var secretKey = "zuf+tfteSlswRu7BJ86wtrueekitnifILbZam1KYY3TG";
+
+var builder = WebApplication.CreateBuilder(args);
+
+// MassTransit configuration to use RabbitMQ Broker
+//builder.Services.AddMassTransit(x =>
+//{
+//    x.UsingRabbitMq((ctx, cfg) =>
+//    {
+//        cfg.Host("rabbitmq://localhost", h =>
+//        {
+//            h.Username("guest");
+//            h.Password("guest");
+//        });
+//        cfg.ConfigureEndpoints(ctx);
+//    });
+//});
+
+//builder.Services.AddOptions<MassTransitHostOptions>()
+//    .Configure(options =>
+//    {
+//        options.WaitUntilStarted = true;
+//        options.StartTimeout = TimeSpan.FromSeconds(30);
+//        options.StopTimeout = TimeSpan.FromSeconds(10);
+//    });
+
+//builder.Services.AddHttpClient<OrderNotificationService>(client =>
+//{
+//    client.BaseAddress = new Uri("https://localhost:7297/PlaceOrderNotification/Send");
+//    client.DefaultRequestHeaders.Add("Accept", "application/json");
+//});
+
+builder.Services.AddHttpClient();
+
+// Add services to the container.
+builder.Services
+    .AddEndpointsApiExplorer()
+    .AddSwaggerGen(c =>
+    {
+        c.SwaggerDoc("v1", new OpenApiInfo { Title = "Mottu.Api", Version = "v1" });
+    })
+    .AddAutoMapper(typeof(Program))
+    .AddControllers()
+    .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
+builder.Services.AddDependenciesInjection(builder.Configuration);
+// MassTransit configuration to use RabbitMQ Broker
+builder.Services.AddMassTransitServices();
+
+// Add Minio using the default endpoint
+builder.Services.AddMinio(accessKey, secretKey);
+
+// Add Minio using the custom endpoint and configure additional settings for default MinioClient initialization
+builder.Services.AddMinio(configureClient => configureClient
+    .WithEndpoint(endpoint)
+    .WithCredentials(accessKey, secretKey));
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();
