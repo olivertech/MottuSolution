@@ -11,34 +11,6 @@ var secretKey = "zuf+tfteSlswRu7BJ86wtrueekitnifILbZam1KYY3TG";
 
 var builder = WebApplication.CreateBuilder(args);
 
-// MassTransit configuration to use RabbitMQ Broker
-//builder.Services.AddMassTransit(x =>
-//{
-//    x.UsingRabbitMq((ctx, cfg) =>
-//    {
-//        cfg.Host("rabbitmq://localhost", h =>
-//        {
-//            h.Username("guest");
-//            h.Password("guest");
-//        });
-//        cfg.ConfigureEndpoints(ctx);
-//    });
-//});
-
-//builder.Services.AddOptions<MassTransitHostOptions>()
-//    .Configure(options =>
-//    {
-//        options.WaitUntilStarted = true;
-//        options.StartTimeout = TimeSpan.FromSeconds(30);
-//        options.StopTimeout = TimeSpan.FromSeconds(10);
-//    });
-
-//builder.Services.AddHttpClient<OrderNotificationService>(client =>
-//{
-//    client.BaseAddress = new Uri("https://localhost:7297/PlaceOrderNotification/Send");
-//    client.DefaultRequestHeaders.Add("Accept", "application/json");
-//});
-
 builder.Services.AddHttpClient();
 
 // Add services to the container.

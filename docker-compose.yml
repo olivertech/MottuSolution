@@ -1,0 +1,29 @@
+version: "3"
+services:
+    postgres:
+        image: postgres:16.2
+        environment:
+            - POSTGRES_USER: postgres
+            - POSTGRES_PASSWORD: 12345
+            - POSTGRES_DB: MottuDB
+            - POSTGRES_HOST_AUTH_METHOD: trust
+        ports:
+            - 5432:5432
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+    rabbitmq:
+        image: rabbitmq:3-management
+        ports:
+            - 5672:5672
+            - 15672:15672
+        volumes:
+            # data persistence
+            - /docker_conf/rabbitmq/data/:/var/lib/rabbitmq/
+            # data mapping -> host: container
+            # queues and messages data of the container will be stored on the host
+        environment:
+            - RABBITMQ_DEFAULT_USER=guest
+            - RABBITMQ_DEFAULT_PASS=guest
+        restart: always
+volumes:
+    postgres_data:
