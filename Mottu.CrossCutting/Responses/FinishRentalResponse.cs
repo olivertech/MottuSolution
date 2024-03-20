@@ -1,8 +1,9 @@
-﻿using Mottu.Domain.Entities;
+﻿using Mottu.CrossCutting.Interfaces;
+using Mottu.Domain.Entities;
 
 namespace Mottu.CrossCutting.Responses
 {
-    public class FinishRentalResponse
+    public class FinishRentalResponse : IResponse
     {
         public Rental? Rental { get; set; }
         public string TotalValueRental { get; set; }

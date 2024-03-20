@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Mottu.Application.Services;
 using Mottu.CrossCutting.Helpers;
 using Mottu.CrossCutting.Responses;
 using Mottu.Domain.Entities;
 using Mottu.Domain.Interfaces;
+using Mottu.Infrastructure.Repositories;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Mottu.Api.Controllers
@@ -28,6 +30,23 @@ namespace Mottu.Api.Controllers
         [ProducesResponseType(typeof(int), StatusCodes.Status400BadRequest, Type = typeof(AppUserResponse))]
         public async Task<IActionResult> AcceptOrder(Guid userId, Guid orderId)
         {
+            //var service = new AcceptedOrderService(_unitOfWork!, _mapper).AcceptOrder(userId, orderId);
+
+            //if(!service.Result)
+            //{
+            //    BadRequestObjectResult badRequest;
+
+            //    switch (service.StatusCode)
+            //    {
+            //        case EnumStatusCode.Status200OK:
+            //            break;
+            //        case EnumStatusCode.Status400BadRequest:
+            //            badRequest = BadRequest(ResponseFactory<AppUserResponse>.Error(false, service.Message!));
+            //            break;
+            //        case EnumStatusCode.Status500InternalServerError:
+            //            break;
+            //    }
+            //}
             //Valida usuario
             if (!Guid.TryParse(userId.ToString(), out _))
                 return BadRequest(ResponseFactory<AppUserResponse>.Error(false, "Id do usuário inválido!"));
@@ -74,7 +93,7 @@ namespace Mottu.Api.Controllers
                     //Atualiza o status do pedido para aceito 
                     order.StatusOrder = newStatusOrder;
                     await _unitOfWork.orderRepository.Update(order);
-                    
+
                     //Atualiza o usuario, marcando IsDelivering = true
                     user.IsDelivering = true;
                     await _unitOfWork.userRepository.Update(user);

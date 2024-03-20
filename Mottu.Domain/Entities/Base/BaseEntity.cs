@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Mottu.Domain.Interfaces;
 
 namespace Mottu.Domain.Entities.Base
 {
-    public class BaseEntity
+    public class BaseEntity : IEntity
     {
         /// <summary>
         /// Por questões próprias do MongoDb,

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Mottu.Application.Services;
 using Mottu.CrossCutting.Requests;
 using Mottu.CrossCutting.Responses;
 using Mottu.Domain.Entities;
@@ -22,10 +23,10 @@ namespace Mottu.Api.Controllers
         [HttpGet]
         [Route(nameof(GetAll))]
         [Produces("application/json")]
-        public async Task<IActionResult> GetAll()
+        public IActionResult GetAll()
         {
-            var list = await _unitOfWork!.statusOrderRepository.GetAll();
-            return Ok(list);
+            var service = new StatusOrderService(_unitOfWork!, _mapper).GetAll();
+            return Ok(service.Result);
         }
 
         [HttpGet]

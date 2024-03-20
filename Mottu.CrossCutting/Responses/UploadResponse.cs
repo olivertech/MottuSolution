@@ -1,6 +1,8 @@
-﻿namespace Mottu.CrossCutting.Responses
+﻿using Mottu.CrossCutting.Interfaces;
+
+namespace Mottu.CrossCutting.Responses
 {
-    public class UploadResponse
+    public class UploadResponse : IResponse
     {
         public UploadResponse()
         {

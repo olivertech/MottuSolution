@@ -1,10 +1,11 @@
-﻿using Mottu.Domain.Entities;
+﻿using Mottu.CrossCutting.Interfaces;
+using Mottu.Domain.Entities;
 using Newtonsoft.Json;
 using System.Text.Json.Serialization;
 
 namespace Mottu.CrossCutting.Responses
 {
-    public class AppUserResponse
+    public class AppUserResponse : IResponse
     {
         [JsonProperty(PropertyName = "id")]
         public Guid Id { get; set; }
