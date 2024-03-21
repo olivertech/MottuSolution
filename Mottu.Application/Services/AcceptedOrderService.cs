@@ -37,7 +37,6 @@ namespace Mottu.Application.Services
                 return ServiceResponseFactory<AppUserResponse>.Return(false, Application.Helpers.EnumStatusCode.Status400BadRequest, "Usuário inválido.");
 
 
-
             return ServiceResponseFactory<AppUserResponse>.Return(true, Application.Helpers.EnumStatusCode.Status200OK, "OK");
         }
     }

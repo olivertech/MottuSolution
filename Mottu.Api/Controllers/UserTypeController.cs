@@ -38,7 +38,7 @@ namespace Mottu.Api.Controllers
         public async Task<IActionResult> GetById(Guid id)
         {
             if (id.ToString().Length == 0)
-                return BadRequest(ResponseFactory<UserTypeResponse>.Error(false, "Id inválido!"));
+                return BadRequest(ResponseFactory<UserTypeResponse>.Error("Id inválido!"));
 
             var entities = await _unitOfWork!.userTypeRepository.GetById(id);
             return Ok(entities);
@@ -50,7 +50,7 @@ namespace Mottu.Api.Controllers
         public async Task<IActionResult> GetListByName(string name)
         {
             if(name is null)
-                return BadRequest(ResponseFactory<UserTypeResponse>.Error(false, "Nome inválido!"));
+                return BadRequest(ResponseFactory<UserTypeResponse>.Error("Nome inválido!"));
 
             var entities = await _unitOfWork!.userTypeRepository.GetList(x => x.Name!.ToLower() == name.ToLower());
             return Ok(entities);
@@ -77,12 +77,12 @@ namespace Mottu.Api.Controllers
             try
             {
                 if (request is null)
-                    return BadRequest(ResponseFactory<UserTypeResponse>.Error(false, "Request inválido!"));
+                    return BadRequest(ResponseFactory<UserTypeResponse>.Error("Request inválido!"));
 
                 var search = _unitOfWork!.userTypeRepository.GetAll().Result;
 
                 if (search!.Any(x => x.Name == request.Name))
-                    return Ok(ResponseFactory<UserTypeResponse>.Error(false, String.Format("Já existe um {0} com esse nome.", _nomeEntidade)));
+                    return Ok(ResponseFactory<UserTypeResponse>.Error(String.Format("Já existe um {0} com esse nome.", _nomeEntidade)));
 
                 var entity = _mapper!.Map<UserType>(request);
 
@@ -94,16 +94,16 @@ namespace Mottu.Api.Controllers
                 if (result != null)
                 {
                     var response = _mapper.Map<UserTypeResponse>(entity);
-                    return Ok(ResponseFactory<UserTypeResponse>.Success(true, String.Format("Inclusão de {0} Realizada Com Sucesso.", _nomeEntidade), response));
+                    return Ok(ResponseFactory<UserTypeResponse>.Success(String.Format("Inclusão de {0} Realizada Com Sucesso.", _nomeEntidade), response));
                 }
                 else
                 {
-                    return StatusCode(StatusCodes.Status500InternalServerError, ResponseFactory<UserTypeResponse>.Error(false, String.Format("Não foi possível incluir o {0}! Verifique os dados enviados.", _nomeEntidade)));
+                    return StatusCode(StatusCodes.Status500InternalServerError, ResponseFactory<UserTypeResponse>.Error(String.Format("Não foi possível incluir o {0}! Verifique os dados enviados.", _nomeEntidade)));
                 }
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ResponseFactory<UserTypeResponse>.Error(false, String.Format("Erro ao inserir o {0} -> ", _nomeEntidade) + ex.Message));
+                return StatusCode(StatusCodes.Status500InternalServerError, ResponseFactory<UserTypeResponse>.Error(String.Format("Erro ao inserir o {0} -> ", _nomeEntidade) + ex.Message));
             }
         }
 
@@ -120,17 +120,17 @@ namespace Mottu.Api.Controllers
             try
             {
                 if (request is null || !Guid.TryParse(request.Id.ToString(), out _))
-                    return BadRequest(ResponseFactory<UserTypeResponse>.Error(false, "Id informado inválido!"));
+                    return BadRequest(ResponseFactory<UserTypeResponse>.Error("Id informado inválido!"));
 
                 var entity = _unitOfWork!.userTypeRepository.GetById(request.Id).Result;
 
                 if (entity is null)
-                    return NotFound(ResponseFactory<UserTypeResponse>.Error(false, "Id informado inválido!"));
+                    return NotFound(ResponseFactory<UserTypeResponse>.Error("Id informado inválido!"));
 
                 var search = _unitOfWork!.statusOrderRepository.GetAll().Result;
 
                 if (search!.Any(x => x.Name == request.Name && x.Id != request.Id))
-                    return Ok(ResponseFactory<UserTypeResponse>.Error(false, String.Format("Já existe um {0} com esse nome.", _nomeEntidade)));
+                    return Ok(ResponseFactory<UserTypeResponse>.Error(String.Format("Já existe um {0} com esse nome.", _nomeEntidade)));
 
                 _mapper!.Map(request, entity);
 
@@ -141,16 +141,16 @@ namespace Mottu.Api.Controllers
                 if (result)
                 {
                     var response = _mapper!.Map<UserTypeResponse>(entity);
-                    return Ok(ResponseFactory<UserTypeResponse>.Success(true, String.Format("Atualização do {0} realizada com sucesso.", _nomeEntidade), response));
+                    return Ok(ResponseFactory<UserTypeResponse>.Success(String.Format("Atualização do {0} realizada com sucesso.", _nomeEntidade), response));
                 }
                 else
                 {
-                    return StatusCode(StatusCodes.Status304NotModified, ResponseFactory<UserTypeResponse>.Error(false, String.Format("{0} não encontrado para atualização!", _nomeEntidade)));
+                    return StatusCode(StatusCodes.Status304NotModified, ResponseFactory<UserTypeResponse>.Error(String.Format("{0} não encontrado para atualização!", _nomeEntidade)));
                 }
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ResponseFactory<UserTypeResponse>.Error(false, String.Format("Erro ao atualizar o {0} -> ", _nomeEntidade) + ex.Message));
+                return StatusCode(StatusCodes.Status500InternalServerError, ResponseFactory<UserTypeResponse>.Error(String.Format("Erro ao atualizar o {0} -> ", _nomeEntidade) + ex.Message));
             }
         }
 
@@ -163,12 +163,12 @@ namespace Mottu.Api.Controllers
         public IActionResult Delete(Guid id)
         {
             if (id.ToString().Length == 0)
-                return BadRequest(ResponseFactory<UserTypeResponse>.Error(false, "Id informado igual a 0!"));
+                return BadRequest(ResponseFactory<UserTypeResponse>.Error("Id informado igual a 0!"));
 
             var entity = _unitOfWork!.userTypeRepository.GetById(id).Result;
 
             if (entity is null)
-                return NotFound(ResponseFactory<UserTypeResponse>.Error(false, "Id informado inválido!"));
+                return NotFound(ResponseFactory<UserTypeResponse>.Error("Id informado inválido!"));
 
             var result = _unitOfWork.userTypeRepository.Delete(id).Result;
 
@@ -177,11 +177,11 @@ namespace Mottu.Api.Controllers
             if (result)
             {
                 var response = _mapper!.Map<UserTypeResponse>(entity);
-                return Ok(ResponseFactory<UserTypeResponse>.Success(true, String.Format("Remoção de {0} realizado com sucesso.", _nomeEntidade), response));
+                return Ok(ResponseFactory<UserTypeResponse>.Success(String.Format("Remoção de {0} realizado com sucesso.", _nomeEntidade), response));
             }
             else
             {
-                return StatusCode(StatusCodes.Status404NotFound, ResponseFactory<UserTypeResponse>.Error(false, String.Format("{0} não encontrado para remoção!", _nomeEntidade)));
+                return StatusCode(StatusCodes.Status404NotFound, ResponseFactory<UserTypeResponse>.Error(String.Format("{0} não encontrado para remoção!", _nomeEntidade)));
             }
         }
     }

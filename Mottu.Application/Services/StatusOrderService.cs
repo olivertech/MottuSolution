@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Mottu.Application.Helpers;
 using Mottu.Application.Interfaces;
 using Mottu.Application.Interfaces.Base;
 using Mottu.Application.Responses;
@@ -21,6 +22,16 @@ namespace Mottu.Application.Services
             : base(unitOfWork)
         {
             _mapper = mapper;
+        }
+
+        public async override Task<IEnumerable<StatusOrder>> GetAll()
+        {
+            var convert = new ConvertModelToResponse<StatusOrder, StatusOrderResponse>(_mapper);
+
+            var list = await _unitOfWork!.statusOrderRepository.GetAll();
+            List<StatusOrderResponse> result = convert.GetResponsList(list!);
+
+            return list!;
         }
     }
 }

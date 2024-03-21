@@ -29,8 +29,8 @@ namespace Mottu.Api.Controllers
         [Produces("application/json")]
         public IActionResult GetAll()
         {
-            var service = new CnhTypeService(_unitOfWork!, _mapper).GetAll();
-            return Ok(service.Result);
+            var result = _cnhTypeService!.GetAll();
+            return Ok(result.Result);
         }
 
         [HttpGet]
@@ -39,7 +39,7 @@ namespace Mottu.Api.Controllers
         public async Task<IActionResult> GetById(Guid id)
         {
             if (id.ToString().Length == 0)
-                return BadRequest(ResponseFactory<CnhTypeResponse>.Error(false, "Id inválido!"));
+                return BadRequest(ResponseFactory<CnhTypeResponse>.Error("Id inválido!"));
 
             var entities = await _unitOfWork!.cnhTypeRepository.GetById(id);
             return Ok(entities);
@@ -51,7 +51,7 @@ namespace Mottu.Api.Controllers
         public async Task<IActionResult> GetListByPlate(string name)
         {
             if (name is null)
-                return BadRequest(ResponseFactory<CnhTypeResponse>.Error(false, "Nome inválido!"));
+                return BadRequest(ResponseFactory<CnhTypeResponse>.Error("Nome inválido!"));
 
             var entities = await _unitOfWork!.cnhTypeRepository.GetList(x => x.Name!.ToLower() == name.ToLower());
             return Ok(entities);
@@ -78,12 +78,12 @@ namespace Mottu.Api.Controllers
             try
             {
                 if (request is null)
-                    return BadRequest(ResponseFactory<CnhTypeResponse>.Error(false, "Request inválido!"));
+                    return BadRequest(ResponseFactory<CnhTypeResponse>.Error("Request inválido!"));
 
                 var search = _unitOfWork!.cnhTypeRepository.GetAll().Result;
 
                 if (search!.Any(x => x.Name == request.Name))
-                    return Ok(ResponseFactory<CnhTypeResponse>.Error(false, String.Format("Já existe um {0} com essa letra.", _nomeEntidade)));
+                    return Ok(ResponseFactory<CnhTypeResponse>.Error(String.Format("Já existe um {0} com essa letra.", _nomeEntidade)));
 
                 var entity = _mapper!.Map<CnhType>(request);
 
@@ -95,16 +95,16 @@ namespace Mottu.Api.Controllers
                 if (result != null)
                 {
                     var response = _mapper.Map<CnhTypeResponse>(entity);
-                    return Ok(ResponseFactory<CnhTypeResponse>.Success(true, String.Format("Inclusão de {0} Realizada Com Sucesso.", _nomeEntidade), response));
+                    return Ok(ResponseFactory<CnhTypeResponse>.Success(String.Format("Inclusão de {0} Realizada Com Sucesso.", _nomeEntidade), response));
                 }
                 else
                 {
-                    return StatusCode(StatusCodes.Status500InternalServerError, ResponseFactory<CnhTypeResponse>.Error(false, String.Format("Não foi possível incluir a {0}! Verifique os dados enviados.", _nomeEntidade)));
+                    return StatusCode(StatusCodes.Status500InternalServerError, ResponseFactory<CnhTypeResponse>.Error(String.Format("Não foi possível incluir a {0}! Verifique os dados enviados.", _nomeEntidade)));
                 }
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ResponseFactory<CnhTypeResponse>.Error(false, String.Format("Erro ao inserir a {0} -> ", _nomeEntidade) + ex.Message));
+                return StatusCode(StatusCodes.Status500InternalServerError, ResponseFactory<CnhTypeResponse>.Error(String.Format("Erro ao inserir a {0} -> ", _nomeEntidade) + ex.Message));
             }
         }
 
@@ -121,17 +121,17 @@ namespace Mottu.Api.Controllers
             try
             {
                 if (request is null || !Guid.TryParse(request.Id.ToString(), out _))
-                    return BadRequest(ResponseFactory<CnhTypeResponse>.Error(false, "Id informado inválido!"));
+                    return BadRequest(ResponseFactory<CnhTypeResponse>.Error("Id informado inválido!"));
 
                 var entity = _unitOfWork!.cnhTypeRepository.GetById(request.Id).Result;
 
                 if (entity is null)
-                    return NotFound(ResponseFactory<CnhTypeResponse>.Error(false, "Id informado inválido!"));
+                    return NotFound(ResponseFactory<CnhTypeResponse>.Error("Id informado inválido!"));
 
                 var search = _unitOfWork!.cnhTypeRepository.GetAll().Result;
 
                 if (search!.Any(x => x.Name == request.Name && x.Id != request.Id))
-                    return Ok(ResponseFactory<CnhTypeResponse>.Error(false, String.Format("Já existe um {0} com essa letra.", _nomeEntidade)));
+                    return Ok(ResponseFactory<CnhTypeResponse>.Error(String.Format("Já existe um {0} com essa letra.", _nomeEntidade)));
 
                 _mapper!.Map(request, entity);
 
@@ -142,16 +142,16 @@ namespace Mottu.Api.Controllers
                 if (result)
                 {
                     var response = _mapper!.Map<CnhTypeResponse>(entity);
-                    return Ok(ResponseFactory<CnhTypeResponse>.Success(true, String.Format("Atualização da {0} realizada com sucesso.", _nomeEntidade), response));
+                    return Ok(ResponseFactory<CnhTypeResponse>.Success(String.Format("Atualização da {0} realizada com sucesso.", _nomeEntidade), response));
                 }
                 else
                 {
-                    return StatusCode(StatusCodes.Status304NotModified, ResponseFactory<CnhTypeResponse>.Error(false, String.Format("{0} não encontrada para atualização!", _nomeEntidade)));
+                    return StatusCode(StatusCodes.Status304NotModified, ResponseFactory<CnhTypeResponse>.Error(String.Format("{0} não encontrada para atualização!", _nomeEntidade)));
                 }
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ResponseFactory<CnhTypeResponse>.Error(false, String.Format("Erro ao atualizar a {0} -> ", _nomeEntidade) + ex.Message));
+                return StatusCode(StatusCodes.Status500InternalServerError, ResponseFactory<CnhTypeResponse>.Error(String.Format("Erro ao atualizar a {0} -> ", _nomeEntidade) + ex.Message));
             }
         }
 
@@ -164,12 +164,12 @@ namespace Mottu.Api.Controllers
         public IActionResult Delete(Guid id)
         {
             if (id.ToString().Length == 0)
-                return BadRequest(ResponseFactory<CnhTypeResponse>.Error(false, "Id informado igual a 0!"));
+                return BadRequest(ResponseFactory<CnhTypeResponse>.Error("Id informado igual a 0!"));
 
             var entity = _unitOfWork!.cnhTypeRepository.GetById(id).Result;
 
             if (entity is null)
-                return NotFound(ResponseFactory<CnhTypeResponse>.Error(false, "Id informado inválido!"));
+                return NotFound(ResponseFactory<CnhTypeResponse>.Error("Id informado inválido!"));
 
             var result = _unitOfWork.cnhTypeRepository.Delete(id).Result;
 
@@ -178,11 +178,11 @@ namespace Mottu.Api.Controllers
             if (result)
             {
                 var response = _mapper!.Map<CnhTypeResponse>(entity);
-                return Ok(ResponseFactory<CnhTypeResponse>.Success(true, String.Format("Remoção de {0} realizada com sucesso.", _nomeEntidade), response));
+                return Ok(ResponseFactory<CnhTypeResponse>.Success(String.Format("Remoção de {0} realizada com sucesso.", _nomeEntidade), response));
             }
             else
             {
-                return StatusCode(StatusCodes.Status404NotFound, ResponseFactory<CnhTypeResponse>.Error(false, String.Format("{0} não encontrada para remoção!", _nomeEntidade)));
+                return StatusCode(StatusCodes.Status404NotFound, ResponseFactory<CnhTypeResponse>.Error(String.Format("{0} não encontrada para remoção!", _nomeEntidade)));
             }
         }
     }

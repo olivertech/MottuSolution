@@ -50,8 +50,8 @@ namespace Mottu.Api.Controllers
         [Produces("application/json")]
         public async Task<IActionResult> GetAll()
         {
-            var list = await _unitOfWork!.orderRepository.GetAll();
-            return Ok(list);
+            var result = _orderService!.GetAll();
+            return Ok(result.Result);
         }
 
         [HttpGet]
@@ -60,7 +60,7 @@ namespace Mottu.Api.Controllers
         public async Task<IActionResult> GetById(Guid id)
         {
             if (id.ToString().Length == 0)
-                return BadRequest(ResponseFactory<OrderResponse>.Error(false, "Id inválido!"));
+                return BadRequest(ResponseFactory<OrderResponse>.Error("Id inválido!"));
 
             var entities = await _unitOfWork!.orderRepository.GetById(id);
             return Ok(entities);
@@ -72,7 +72,7 @@ namespace Mottu.Api.Controllers
         public async Task<IActionResult> GetListByDate(DateOnly date)
         {
             if (date == DateOnly.MinValue)
-                return BadRequest(ResponseFactory<OrderResponse>.Error(false, "Data inválida!"));
+                return BadRequest(ResponseFactory<OrderResponse>.Error("Data inválida!"));
 
             var entities = await _unitOfWork!.orderRepository.GetList(x => x.DateOrder == date);
             return Ok(entities);
@@ -99,16 +99,16 @@ namespace Mottu.Api.Controllers
             try
             {
                 if (request is null)
-                    return BadRequest(ResponseFactory<OrderResponse>.Error(false, "Request inválido!"));
+                    return BadRequest(ResponseFactory<OrderResponse>.Error("Request inválido!"));
 
                 //Valido solicitante da requisição
                 var requester = _unitOfWork!.userRepository.GetFullById(request.RequestUserId).Result;
 
                 if (requester is null)
-                    return BadRequest(ResponseFactory<OrderResponse>.Error(false, "Request inválido!"));
+                    return BadRequest(ResponseFactory<OrderResponse>.Error("Request inválido!"));
 
                 if (requester.UserType!.Name!.ToLower() != GetDescriptionFromEnum.GetFromUserTypeEnum(EnumUserTypes.Administrador).ToLower())
-                    return BadRequest(ResponseFactory<OrderResponse>.Error(false, "Usuário solicitante inválido!"));
+                    return BadRequest(ResponseFactory<OrderResponse>.Error("Usuário solicitante inválido!"));
 
                 var entity = _mapper!.Map<Order>(request);
 
@@ -138,16 +138,16 @@ namespace Mottu.Api.Controllers
                 if (result != null)
                 {
                     var response = _mapper.Map<OrderResponse>(entity);
-                    return Ok(ResponseFactory<OrderResponse>.Success(true, String.Format("Inclusão de {0} Realizado Com Sucesso.", _nomeEntidade), response));
+                    return Ok(ResponseFactory<OrderResponse>.Success(String.Format("Inclusão de {0} Realizado Com Sucesso.", _nomeEntidade), response));
                 }
                 else
                 {
-                    return StatusCode(StatusCodes.Status500InternalServerError, ResponseFactory<OrderResponse>.Error(false, String.Format("Não foi possível incluir o {0}! Verifique os dados enviados.", _nomeEntidade)));
+                    return StatusCode(StatusCodes.Status500InternalServerError, ResponseFactory<OrderResponse>.Error(String.Format("Não foi possível incluir o {0}! Verifique os dados enviados.", _nomeEntidade)));
                 }
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ResponseFactory<OrderResponse>.Error(false, String.Format("Erro ao inserir o {0} -> ", _nomeEntidade) + ex.Message));
+                return StatusCode(StatusCodes.Status500InternalServerError, ResponseFactory<OrderResponse>.Error(String.Format("Erro ao inserir o {0} -> ", _nomeEntidade) + ex.Message));
             }
         }
 
@@ -164,12 +164,12 @@ namespace Mottu.Api.Controllers
             try
             {
                 if (request is null || !Guid.TryParse(request.Id.ToString(), out _))
-                    return BadRequest(ResponseFactory<OrderResponse>.Error(false, "Id informado inválido!"));
+                    return BadRequest(ResponseFactory<OrderResponse>.Error("Id informado inválido!"));
 
                 var entity = _unitOfWork!.orderRepository.GetById(request.Id).Result;
 
                 if (entity is null)
-                    return NotFound(ResponseFactory<OrderResponse>.Error(false, "Id informado inválido!"));
+                    return NotFound(ResponseFactory<OrderResponse>.Error("Id informado inválido!"));
 
                 _mapper!.Map(request, entity);
 
@@ -180,16 +180,16 @@ namespace Mottu.Api.Controllers
                 if (result)
                 {
                     var response = _mapper!.Map<OrderResponse>(entity);
-                    return Ok(ResponseFactory<OrderResponse>.Success(true, String.Format("Atualização do {0} realizada com sucesso.", _nomeEntidade), response));
+                    return Ok(ResponseFactory<OrderResponse>.Success(String.Format("Atualização do {0} realizada com sucesso.", _nomeEntidade), response));
                 }
                 else
                 {
-                    return StatusCode(StatusCodes.Status304NotModified, ResponseFactory<OrderResponse>.Error(false, String.Format("{0} não encontrado para atualização!", _nomeEntidade)));
+                    return StatusCode(StatusCodes.Status304NotModified, ResponseFactory<OrderResponse>.Error(String.Format("{0} não encontrado para atualização!", _nomeEntidade)));
                 }
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ResponseFactory<OrderResponse>.Error(false, String.Format("Erro ao atualizar a {0} -> ", _nomeEntidade) + ex.Message));
+                return StatusCode(StatusCodes.Status500InternalServerError, ResponseFactory<OrderResponse>.Error(String.Format("Erro ao atualizar a {0} -> ", _nomeEntidade) + ex.Message));
             }
         }
 
@@ -206,17 +206,17 @@ namespace Mottu.Api.Controllers
             try
             {
                 if (request is null || !Guid.TryParse(request.Id.ToString(), out _))
-                    return BadRequest(ResponseFactory<OrderResponse>.Error(false, "Id informado inválido!"));
+                    return BadRequest(ResponseFactory<OrderResponse>.Error("Id informado inválido!"));
 
                 var entity = _unitOfWork!.orderRepository.GetById(request.Id).Result;
 
                 if (entity is null)
-                    return NotFound(ResponseFactory<OrderResponse>.Error(false, "Id informado inválido!"));
+                    return NotFound(ResponseFactory<OrderResponse>.Error("Id informado inválido!"));
 
                 var statusOrder = _unitOfWork!.statusOrderRepository.GetById(request.StatusOrderId).Result;
 
                 if (statusOrder is null)
-                    return NotFound(ResponseFactory<OrderResponse>.Error(false, "Id informando da situação do pedido inválido!"));
+                    return NotFound(ResponseFactory<OrderResponse>.Error("Id informando da situação do pedido inválido!"));
 
                 entity.StatusOrder = statusOrder;
 
@@ -227,16 +227,16 @@ namespace Mottu.Api.Controllers
                 if (result)
                 {
                     var response = _mapper!.Map<OrderResponse>(entity);
-                    return Ok(ResponseFactory<OrderResponse>.Success(true, String.Format("Atualização do {0} realizada com sucesso.", _nomeEntidade), response));
+                    return Ok(ResponseFactory<OrderResponse>.Success(String.Format("Atualização do {0} realizada com sucesso.", _nomeEntidade), response));
                 }
                 else
                 {
-                    return StatusCode(StatusCodes.Status304NotModified, ResponseFactory<OrderResponse>.Error(false, String.Format("{0} não encontrado para atualização!", _nomeEntidade)));
+                    return StatusCode(StatusCodes.Status304NotModified, ResponseFactory<OrderResponse>.Error(String.Format("{0} não encontrado para atualização!", _nomeEntidade)));
                 }
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ResponseFactory<OrderResponse>.Error(false, String.Format("Erro ao atualizar a {0} -> ", _nomeEntidade) + ex.Message));
+                return StatusCode(StatusCodes.Status500InternalServerError, ResponseFactory<OrderResponse>.Error(String.Format("Erro ao atualizar a {0} -> ", _nomeEntidade) + ex.Message));
             }
         }
     }

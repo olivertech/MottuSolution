@@ -43,7 +43,7 @@ namespace Mottu.Api.Controllers
             //        case EnumStatusCode.Status200OK:
             //            break;
             //        case EnumStatusCode.Status400BadRequest:
-            //            badRequest = BadRequest(ResponseFactory<AppUserResponse>.Error(false, service.Message!));
+            //            badRequest = BadRequest(ResponseFactory<AppUserResponse>.Error(service.Message!));
             //            break;
             //        case EnumStatusCode.Status500InternalServerError:
             //            break;
@@ -51,21 +51,21 @@ namespace Mottu.Api.Controllers
             //}
             //Valida usuario
             if (!Guid.TryParse(userId.ToString(), out _))
-                return BadRequest(ResponseFactory<AppUserResponse>.Error(false, "Id do usuário inválido!"));
+                return BadRequest(ResponseFactory<AppUserResponse>.Error("Id do usuário inválido!"));
 
             var user = _unitOfWork!.userRepository.GetById(userId).Result;
 
             if (user == null)
-                return BadRequest(ResponseFactory<AppUserResponse>.Error(false, "Usuário inválido."));
+                return BadRequest(ResponseFactory<AppUserResponse>.Error("Usuário inválido."));
 
             //Valida pedido
             if (!Guid.TryParse(orderId.ToString(), out _))
-                return BadRequest(ResponseFactory<AppUserResponse>.Error(false, "Id do pedido inválido!"));
+                return BadRequest(ResponseFactory<AppUserResponse>.Error("Id do pedido inválido!"));
 
             var order = _unitOfWork!.orderRepository.GetById(orderId).Result;
 
             if (order == null)
-                return BadRequest(ResponseFactory<AppUserResponse>.Error(false, "Pedido inválido."));
+                return BadRequest(ResponseFactory<AppUserResponse>.Error("Pedido inválido."));
 
             var today = DateOnly.FromDateTime(DateTime.Now);
 
@@ -103,16 +103,16 @@ namespace Mottu.Api.Controllers
                     _unitOfWork.CommitAsync().Wait();
 
                     var response = _mapper!.Map<AcceptedOrderResponse>(acceptedOrderResult);
-                    return Ok(ResponseFactory<AcceptedOrderResponse>.Success(true, String.Format("Inclusão de aceite de {0} Realizado Com Sucesso.", _nomeEntidade), response!));
+                    return Ok(ResponseFactory<AcceptedOrderResponse>.Success(String.Format("Inclusão de aceite de {0} Realizado Com Sucesso.", _nomeEntidade), response!));
                 }
                 else
                 {
-                    return BadRequest(ResponseFactory<AcceptedOrderResponse>.Error(false, "Usuário Já aceitou esse pedido."));
+                    return BadRequest(ResponseFactory<AcceptedOrderResponse>.Error("Usuário Já aceitou esse pedido."));
                 }
             }
             else
             {
-                return StatusCode(StatusCodes.Status400BadRequest, ResponseFactory<AcceptedOrderResponse>.Error(false, "Não foi possível aceitar o pedido! Verifique os dados enviados."));
+                return StatusCode(StatusCodes.Status400BadRequest, ResponseFactory<AcceptedOrderResponse>.Error("Não foi possível aceitar o pedido! Verifique os dados enviados."));
             }
         }
     }

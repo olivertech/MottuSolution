@@ -33,13 +33,13 @@ namespace Mottu.Application.Responses
         /// Métodos que criam o objeto de retorno
         /// </summary>
         /// <returns></returns>
-        public static ResponseFactory<T> Success(bool sucess, string message, T content)
+        public static ResponseFactory<T> Success(string message, T content)
         {
             return new ResponseFactory<T>()
             {
                 Message = message,
                 Content = content,
-                Sucess = sucess
+                Sucess = true
             };
         }
 
@@ -47,12 +47,12 @@ namespace Mottu.Application.Responses
         /// Métodos que criam o objeto de retorno para erros
         /// </summary>
         /// <returns></returns>
-        public static ResponseFactory<T> Error(bool error, string message)
+        public static ResponseFactory<T> Error(string message)
         {
             return new ResponseFactory<T>()
             {
                 Message = message,
-                Sucess = error
+                Sucess = false
             };
         }
     }

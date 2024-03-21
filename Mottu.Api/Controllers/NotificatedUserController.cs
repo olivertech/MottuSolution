@@ -30,16 +30,16 @@ namespace Mottu.Api.Controllers
         public async Task<IActionResult> GetListOfNotificatedUsers(NotificatedUserRequest request)
         {
             if (request is null)
-                return BadRequest(ResponseFactory<OrderResponse>.Error(false, "Request inválido!"));
+                return BadRequest(ResponseFactory<OrderResponse>.Error("Request inválido!"));
 
             //Valido solicitante da requisição
             var requester = _unitOfWork!.userRepository.GetFullById(request.RequestUserId).Result;
 
             if (requester is null)
-                return BadRequest(ResponseFactory<OrderResponse>.Error(false, "Request inválido!"));
+                return BadRequest(ResponseFactory<OrderResponse>.Error("Request inválido!"));
 
             if (requester.UserType!.Name!.ToLower() != GetDescriptionFromEnum.GetFromUserTypeEnum(EnumUserTypes.Administrador).ToLower())
-                return BadRequest(ResponseFactory<OrderResponse>.Error(false, "Usuário solicitante inválido!"));
+                return BadRequest(ResponseFactory<OrderResponse>.Error("Usuário solicitante inválido!"));
 
             var convert = new ConvertModelToResponse<AppUser, AppUserResponse>(_mapper);
 
@@ -56,7 +56,7 @@ namespace Mottu.Api.Controllers
                 Order = orderResponse
             };
 
-            return Ok(ResponseFactory<ListNotificatedUsersResponse>.Success(true, "Listagem retornada com sucesso.", responseListNotificatedUsers));
+            return Ok(ResponseFactory<ListNotificatedUsersResponse>.Success("Listagem retornada com sucesso.", responseListNotificatedUsers));
         }
     }
 }

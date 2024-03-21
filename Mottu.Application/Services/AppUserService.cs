@@ -22,5 +22,10 @@ namespace Mottu.Application.Services
         {
             _mapper = mapper;
         }
+
+        public override Task<IEnumerable<AppUser>> GetAll()
+        {
+            return base.GetAll();
+        }
     }
 }

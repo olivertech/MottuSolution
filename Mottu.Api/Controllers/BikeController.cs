@@ -9,6 +9,7 @@ using Mottu.Application.Services;
 using Mottu.Domain.Entities;
 using Mottu.Domain.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
+using System.Diagnostics.Eventing.Reader;
 
 namespace Mottu.Api.Controllers
 {
@@ -29,17 +30,17 @@ namespace Mottu.Api.Controllers
         [Produces("application/json")]
         public async Task<IActionResult> GetAll(BaseRequest request)
         {
-            //Valido solicitante da requisição
-            var requester = _unitOfWork!.userRepository.GetFullById(request.RequestUserId).Result;
+            var service = await _bikeService!.GetAll(request);
 
-            if (requester is null)
-                return BadRequest(ResponseFactory<OrderResponse>.Error(false, "Request inválido!"));
-
-            if (requester.UserType!.Name!.ToLower() != GetDescriptionFromEnum.GetFromUserTypeEnum(EnumUserTypes.Administrador).ToLower())
-                return BadRequest(ResponseFactory<OrderResponse>.Error(false, "Usuário solicitante inválido!"));
-
-            var list = await _unitOfWork!.bikeRepository.GetAll();
-            return Ok(list);
+            if (!service.Result)
+            {
+                BadRequestObjectResult badRequest = BadRequest(ResponseFactory<BikeResponse>.Error(service.Message!));
+                return badRequest;
+            }
+            else
+            {
+                return Ok(service.Content);
+            }
         }
 
         [HttpGet]
@@ -51,13 +52,13 @@ namespace Mottu.Api.Controllers
             var requester = _unitOfWork!.userRepository.GetFullById(request.RequestUserId).Result;
 
             if (requester is null)
-                return BadRequest(ResponseFactory<OrderResponse>.Error(false, "Request inválido!"));
+                return BadRequest(ResponseFactory<OrderResponse>.Error("Request inválido!"));
 
             if (requester.UserType!.Name!.ToLower() != GetDescriptionFromEnum.GetFromUserTypeEnum(EnumUserTypes.Administrador).ToLower())
-                return BadRequest(ResponseFactory<OrderResponse>.Error(false, "Usuário solicitante inválido!"));
+                return BadRequest(ResponseFactory<OrderResponse>.Error("Usuário solicitante inválido!"));
 
             if (request.Id.ToString().Length == 0)
-                return BadRequest(ResponseFactory<BikeResponse>.Error(false, "Id inválido!"));
+                return BadRequest(ResponseFactory<BikeResponse>.Error("Id inválido!"));
 
             var entities = await _unitOfWork!.bikeRepository.GetById(request.Id);
 
@@ -73,13 +74,13 @@ namespace Mottu.Api.Controllers
             var requester = _unitOfWork!.userRepository.GetFullById(request.RequestUserId).Result;
 
             if (requester is null)
-                return BadRequest(ResponseFactory<OrderResponse>.Error(false, "Request inválido!"));
+                return BadRequest(ResponseFactory<OrderResponse>.Error("Request inválido!"));
 
             if (requester.UserType!.Name!.ToLower() != GetDescriptionFromEnum.GetFromUserTypeEnum(EnumUserTypes.Administrador).ToLower())
-                return BadRequest(ResponseFactory<OrderResponse>.Error(false, "Usuário solicitante inválido!"));
+                return BadRequest(ResponseFactory<OrderResponse>.Error("Usuário solicitante inválido!"));
 
             if (request.Plate is null)
-                return BadRequest(ResponseFactory<BikeResponse>.Error(false, "Placa inválida!"));
+                return BadRequest(ResponseFactory<BikeResponse>.Error("Placa inválida!"));
 
             var entities = await _unitOfWork!.bikeRepository.GetList(x => x.Plate!.ToLower() == request.Plate.ToLower());
 
@@ -107,21 +108,21 @@ namespace Mottu.Api.Controllers
             try
             {
                 if (request is null)
-                    return BadRequest(ResponseFactory<BikeResponse>.Error(false, "Request inválido!"));
+                    return BadRequest(ResponseFactory<BikeResponse>.Error("Request inválido!"));
 
                 //Valido solicitante da requisição
                 var requester = _unitOfWork!.userRepository.GetFullById(request.RequestUserId).Result;
 
                 if (requester is null)
-                    return BadRequest(ResponseFactory<OrderResponse>.Error(false, "Request inválido!"));
+                    return BadRequest(ResponseFactory<OrderResponse>.Error("Request inválido!"));
 
                 if (requester.UserType!.Name!.ToLower() != GetDescriptionFromEnum.GetFromUserTypeEnum(EnumUserTypes.Administrador).ToLower())
-                    return BadRequest(ResponseFactory<OrderResponse>.Error(false, "Usuário solicitante inválido!"));
+                    return BadRequest(ResponseFactory<OrderResponse>.Error("Usuário solicitante inválido!"));
 
                 var search = _unitOfWork!.bikeRepository.GetAll().Result;
 
                 if (search!.Any(x => x.Plate == request.Plate))
-                    return Ok(ResponseFactory<BikeResponse>.Error(false, String.Format("Já existe uma {0} com essa placa.", _nomeEntidade)));
+                    return Ok(ResponseFactory<BikeResponse>.Error(String.Format("Já existe uma {0} com essa placa.", _nomeEntidade)));
 
                 var entity = _mapper!.Map<Bike>(request);
 
@@ -133,16 +134,16 @@ namespace Mottu.Api.Controllers
                 if (result != null)
                 {
                     var response = _mapper.Map<BikeResponse>(entity);
-                    return Ok(ResponseFactory<BikeResponse>.Success(true, String.Format("Inclusão de {0} Realizada Com Sucesso.", _nomeEntidade), response));
+                    return Ok(ResponseFactory<BikeResponse>.Success(String.Format("Inclusão de {0} Realizada Com Sucesso.", _nomeEntidade), response));
                 }
                 else
                 {
-                    return StatusCode(StatusCodes.Status500InternalServerError, ResponseFactory<BikeResponse>.Error(false, String.Format("Não foi possível incluir a {0}! Verifique os dados enviados.", _nomeEntidade)));
+                    return StatusCode(StatusCodes.Status500InternalServerError, ResponseFactory<BikeResponse>.Error(String.Format("Não foi possível incluir a {0}! Verifique os dados enviados.", _nomeEntidade)));
                 }
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ResponseFactory<BikeResponse>.Error(false, String.Format("Erro ao inserir a {0} -> ", _nomeEntidade) + ex.Message));
+                return StatusCode(StatusCodes.Status500InternalServerError, ResponseFactory<BikeResponse>.Error(String.Format("Erro ao inserir a {0} -> ", _nomeEntidade) + ex.Message));
             }
         }
 
@@ -159,26 +160,26 @@ namespace Mottu.Api.Controllers
             try
             {
                 if (request is null || !Guid.TryParse(request.Id.ToString(), out _))
-                    return BadRequest(ResponseFactory<BikeResponse>.Error(false, "Id informado inválido!"));
+                    return BadRequest(ResponseFactory<BikeResponse>.Error("Id informado inválido!"));
 
                 //Valido solicitante da requisição
                 var requester = _unitOfWork!.userRepository.GetFullById(request.RequestUserId).Result;
 
                 if (requester is null)
-                    return BadRequest(ResponseFactory<OrderResponse>.Error(false, "Request inválido!"));
+                    return BadRequest(ResponseFactory<OrderResponse>.Error("Request inválido!"));
 
                 if (requester.UserType!.Name!.ToLower() != GetDescriptionFromEnum.GetFromUserTypeEnum(EnumUserTypes.Administrador).ToLower())
-                    return BadRequest(ResponseFactory<OrderResponse>.Error(false, "Usuário solicitante inválido!"));
+                    return BadRequest(ResponseFactory<OrderResponse>.Error("Usuário solicitante inválido!"));
 
                 var bike = _unitOfWork!.bikeRepository.GetById(request.Id).Result;
 
                 if (bike is null)
-                    return NotFound(ResponseFactory<BikeResponse>.Error(false, "Id informado inválido!"));
+                    return NotFound(ResponseFactory<BikeResponse>.Error("Id informado inválido!"));
 
                 var search = _unitOfWork!.bikeRepository.GetAll().Result;
 
                 if (search!.Any(x => x.Plate == request.Plate && x.Id != request.Id))
-                    return Ok(ResponseFactory<BikeResponse>.Error(false, String.Format("Já existe uma {0} com essa placa.", _nomeEntidade)));
+                    return Ok(ResponseFactory<BikeResponse>.Error(String.Format("Já existe uma {0} com essa placa.", _nomeEntidade)));
 
                 bike.Plate = request.Plate;
 
@@ -189,16 +190,16 @@ namespace Mottu.Api.Controllers
                 if (result)
                 {
                     var response = _mapper!.Map<BikeResponse>(bike);
-                    return Ok(ResponseFactory<BikeResponse>.Success(true, String.Format("Atualização da {0} realizada com sucesso.", _nomeEntidade), response));
+                    return Ok(ResponseFactory<BikeResponse>.Success(String.Format("Atualização da {0} realizada com sucesso.", _nomeEntidade), response));
                 }
                 else
                 {
-                    return StatusCode(StatusCodes.Status304NotModified, ResponseFactory<BikeResponse>.Error(false, String.Format("{0} não encontrada para atualização!", _nomeEntidade)));
+                    return StatusCode(StatusCodes.Status304NotModified, ResponseFactory<BikeResponse>.Error(String.Format("{0} não encontrada para atualização!", _nomeEntidade)));
                 }
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ResponseFactory<BikeResponse>.Error(false, String.Format("Erro ao atualizar a {0} -> ", _nomeEntidade) + ex.Message));
+                return StatusCode(StatusCodes.Status500InternalServerError, ResponseFactory<BikeResponse>.Error(String.Format("Erro ao atualizar a {0} -> ", _nomeEntidade) + ex.Message));
             }
         }
 
@@ -211,31 +212,31 @@ namespace Mottu.Api.Controllers
         public IActionResult Delete(BikeRequestDelete request)
         {
             if (request.Id.ToString().Length == 0)
-                return BadRequest(ResponseFactory<BikeResponse>.Error(false, "Id informado igual a 0!"));
+                return BadRequest(ResponseFactory<BikeResponse>.Error("Id informado igual a 0!"));
 
             //Valido solicitante da requisição
             var requester = _unitOfWork!.userRepository.GetFullById(request.RequestUserId).Result;
 
             if (requester is null)
-                return BadRequest(ResponseFactory<OrderResponse>.Error(false, "Request inválido!"));
+                return BadRequest(ResponseFactory<OrderResponse>.Error("Request inválido!"));
 
             if (requester.UserType!.Name!.ToLower() != GetDescriptionFromEnum.GetFromUserTypeEnum(EnumUserTypes.Administrador).ToLower())
-                return BadRequest(ResponseFactory<OrderResponse>.Error(false, "Usuário solicitante inválido!"));
+                return BadRequest(ResponseFactory<OrderResponse>.Error("Usuário solicitante inválido!"));
 
             var entity = _unitOfWork!.bikeRepository.GetById(request.Id).Result;
 
             if (entity is null)
-                return NotFound(ResponseFactory<BikeResponse>.Error(false, "Id informado inválido!"));
+                return NotFound(ResponseFactory<BikeResponse>.Error("Id informado inválido!"));
 
             //Verifico se a moto se encontra locada
             if (entity.IsLeased)
-                return BadRequest(ResponseFactory<BikeResponse>.Error(false, String.Format("{0} não pode ser removida, pois se encontra alocada!", _nomeEntidade)));
+                return BadRequest(ResponseFactory<BikeResponse>.Error(String.Format("{0} não pode ser removida, pois se encontra alocada!", _nomeEntidade)));
 
             //Verifico se existe alguma locação já realizada com essa moto
             var search = _unitOfWork.rentalRepository.GetList(x => x.Bike.Id == request.Id).Result;
 
             if (search!.Any())
-                return BadRequest(ResponseFactory<BikeResponse>.Error(false, String.Format("{0} não pode ser removida, pois existem locações associadas!", _nomeEntidade)));
+                return BadRequest(ResponseFactory<BikeResponse>.Error(String.Format("{0} não pode ser removida, pois existem locações associadas!", _nomeEntidade)));
 
             var result = _unitOfWork.bikeRepository.Delete(request.Id).Result;
 
@@ -244,11 +245,11 @@ namespace Mottu.Api.Controllers
             if (result)
             {
                 var response = _mapper!.Map<BikeResponse>(entity);
-                return Ok(ResponseFactory<BikeResponse>.Success(true, String.Format("Remoção de {0} realizada com sucesso.", _nomeEntidade), response));
+                return Ok(ResponseFactory<BikeResponse>.Success(String.Format("Remoção de {0} realizada com sucesso.", _nomeEntidade), response));
             }
             else
             {
-                return StatusCode(StatusCodes.Status404NotFound, ResponseFactory<BikeResponse>.Error(false, String.Format("{0} não encontrada para remoção!", _nomeEntidade)));
+                return StatusCode(StatusCodes.Status404NotFound, ResponseFactory<BikeResponse>.Error(String.Format("{0} não encontrada para remoção!", _nomeEntidade)));
             }
         }
     }

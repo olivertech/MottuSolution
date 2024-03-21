@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using Mottu.Application.Helpers;
 using Mottu.Application.Interfaces;
 using Mottu.Application.Interfaces.Base;
+using Mottu.Application.Requests.Base;
 using Mottu.Application.Responses;
 using Mottu.Application.Services.Base;
 using Mottu.Domain.Entities;
@@ -21,6 +23,25 @@ namespace Mottu.Application.Services
             : base(unitOfWork)
         {
             _mapper = mapper;
+        }
+
+        public async Task<ServiceResponseFactory<IEnumerable<BikeResponse>>> GetAll(BaseRequest request)
+        {
+            //Valido solicitante da requisição
+            var requester = _unitOfWork!.userRepository.GetFullById(request.RequestUserId).Result;
+
+            if (requester is null)
+                return ServiceResponseFactory<IEnumerable<BikeResponse>>.Return(false, EnumStatusCode.Status400BadRequest, "Request inválido!");
+
+            if (requester.UserType!.Name!.ToLower() != GetDescriptionFromEnum.GetFromUserTypeEnum(EnumUserTypes.Administrador).ToLower())
+                return ServiceResponseFactory<IEnumerable<BikeResponse>>.Return(false, EnumStatusCode.Status400BadRequest, "Usuário solicitante inválido!");
+
+            var list = await _unitOfWork!.bikeRepository.GetAll();
+
+            var convert = new ConvertModelToResponse<Bike, BikeResponse>(_mapper);
+            var result = convert.GetResponsList(list!);
+
+            return ServiceResponseFactory<IEnumerable<BikeResponse>>.Return(true, EnumStatusCode.Status200OK, "OK", result);
         }
     }
 }

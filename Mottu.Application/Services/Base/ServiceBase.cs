@@ -57,41 +57,5 @@ namespace Mottu.Application.Services.Base
         {
             throw new NotImplementedException();
         }
-
-        //public async Task<IEnumerable<UserType>> GetAll()
-        //{
-        //    var list = await _unitOfWork!.userTypeRepository.GetAll();
-        //    return list!;
-        //}
-
-        //public Task<int> GetById(Guid id)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public Task<int> GetCount()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public Task<IEnumerable<UserType>> GetList()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public Task<UserType> Insert(UserTypeResponse request)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public Task<UserType> Update(UserTypeResponse request)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public Task<UserType> Delete(Guid id)
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }

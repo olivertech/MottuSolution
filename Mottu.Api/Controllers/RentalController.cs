@@ -45,7 +45,7 @@ namespace Mottu.Api.Controllers
         public async Task<IActionResult> GetById(Guid id)
         {
             if (id.ToString().Length == 0)
-                return BadRequest(ResponseFactory<RentalResponse>.Error(false, "Id inválido!"));
+                return BadRequest(ResponseFactory<RentalResponse>.Error("Id inválido!"));
 
             var entities = await _unitOfWork!.rentalRepository.GetFullById(id);
             return Ok(entities);
@@ -57,7 +57,7 @@ namespace Mottu.Api.Controllers
         public async Task<IActionResult> GetListByBike(Guid bikeId)
         {
             if (!Guid.TryParse(bikeId.ToString(), out _))
-                return BadRequest(ResponseFactory<RentalResponse>.Error(false, "Id da Moto inválida!"));
+                return BadRequest(ResponseFactory<RentalResponse>.Error("Id da Moto inválida!"));
 
             //Recupera qualquer locação que tenha o id da moto recebida e que conste como em locação
             var entities = await _unitOfWork!.rentalRepository.GetList(x => x.Bike!.Id == bikeId && x.Bike.IsLeased);
@@ -85,15 +85,15 @@ namespace Mottu.Api.Controllers
             try
             {
                 if (request is null)
-                    return BadRequest(ResponseFactory<RentalResponse>.Error(false, "Request inválido!"));
+                    return BadRequest(ResponseFactory<RentalResponse>.Error("Request inválido!"));
 
                 var rental = _unitOfWork!.rentalRepository.GetFullById(request.RentalId).Result;
 
                 if (rental is null)
-                    return Ok(ResponseFactory<RentalResponse>.Error(false, String.Format("{0} não encontrada!", _nomeEntidade)));
+                    return Ok(ResponseFactory<RentalResponse>.Error(String.Format("{0} não encontrada!", _nomeEntidade)));
 
                 if (!DateOnly.TryParse(request.FinishRentalDate.ToString(), out _))
-                    return Ok(ResponseFactory<RentalResponse>.Error(false, String.Format("Data inválida para fechar {0}!", _nomeEntidade)));
+                    return Ok(ResponseFactory<RentalResponse>.Error(String.Format("Data inválida para fechar {0}!", _nomeEntidade)));
 
                 ///===========================
                 /// Calcular valor da locação
@@ -117,11 +117,11 @@ namespace Mottu.Api.Controllers
 
                 var response = new FinishRentalResponse(rental, rentalValue + fine);
 
-                return Ok(ResponseFactory<FinishRentalResponse>.Success(true, String.Format("Total a ser pago pela {0}.", _nomeEntidade), response));
+                return Ok(ResponseFactory<FinishRentalResponse>.Success(String.Format("Total a ser pago pela {0}.", _nomeEntidade), response));
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ResponseFactory<RentalResponse>.Error(false, String.Format("Erro ao encerrar {0} -> ", _nomeEntidade) + ex.Message));
+                return StatusCode(StatusCodes.Status500InternalServerError, ResponseFactory<RentalResponse>.Error(String.Format("Erro ao encerrar {0} -> ", _nomeEntidade) + ex.Message));
             }
         }
 
@@ -137,19 +137,19 @@ namespace Mottu.Api.Controllers
             try
             {
                 if (request is null)
-                    return BadRequest(ResponseFactory<RentalResponse>.Error(false, "Request inválido!"));
+                    return BadRequest(ResponseFactory<RentalResponse>.Error("Request inválido!"));
 
                 //Verifico se existem motos livres
                 var bikesFree = _unitOfWork!.bikeRepository.GetList(x => x.IsLeased == false).Result;
 
                 if (!bikesFree!.Any())
-                    return Ok(ResponseFactory<RentalResponse>.Error(false, String.Format("Não existem motos disponíveis no momento. Tente mais tarde.", _nomeEntidade)));
+                    return Ok(ResponseFactory<RentalResponse>.Error(String.Format("Não existem motos disponíveis no momento. Tente mais tarde.", _nomeEntidade)));
 
                 //Verifico se a moto em questão enviada se encontra livre
                 var search = _unitOfWork!.rentalRepository.GetList(x => x.Bike!.Id == request.BikeId && x.Bike.IsLeased).Result;
 
                 if (search!.Any())
-                    return Ok(ResponseFactory<RentalResponse>.Error(false, String.Format("Já existe uma {0} em andamento (ativa) com essa moto. Informe outra moto.", _nomeEntidade)));
+                    return Ok(ResponseFactory<RentalResponse>.Error(String.Format("Já existe uma {0} em andamento (ativa) com essa moto. Informe outra moto.", _nomeEntidade)));
 
                 //Verifico se o usuário existe
                 var entity = _mapper!.Map<Rental>(request);
@@ -157,23 +157,23 @@ namespace Mottu.Api.Controllers
                 var user = _unitOfWork.userRepository.GetFullById(request.UserId).Result;
 
                 if (user == null)
-                    return Ok(ResponseFactory<RentalResponse>.Error(false, String.Format("Usuário informado para {0} não existe. Verifique o id do usuário.", _nomeEntidade)));
+                    return Ok(ResponseFactory<RentalResponse>.Error(String.Format("Usuário informado para {0} não existe. Verifique o id do usuário.", _nomeEntidade)));
 
                 //Verifico se o usuário possui cnh tipo A
                 if (user!.CnhType!.Name!.ToLower() != GetDescriptionFromEnum.GetFromStatusCnhType(EnumCnhTypes.A).ToLower())
-                    return Ok(ResponseFactory<RentalResponse>.Error(false, "Usuário não possui carteira de motorista do tipo A"));
+                    return Ok(ResponseFactory<RentalResponse>.Error("Usuário não possui carteira de motorista do tipo A"));
 
                 //Recupera a moto a ser usada na locação
                 var bike = _unitOfWork.bikeRepository.GetById(request.BikeId).Result;
 
                 if (bike == null)
-                    return Ok(ResponseFactory<RentalResponse>.Error(false, String.Format("Moto informada para {0} não existe. Verifique o id da moto.", _nomeEntidade)));
+                    return Ok(ResponseFactory<RentalResponse>.Error(String.Format("Moto informada para {0} não existe. Verifique o id da moto.", _nomeEntidade)));
 
                 //Verifico se o plano solicitado existe
                 var plan = _unitOfWork.planRepository.GetById(request.PlanId).Result;
 
                 if (plan == null)
-                    return Ok(ResponseFactory<RentalResponse>.Error(false, String.Format("Plano informado para {0} não existe. Verifique o id da plano.", _nomeEntidade)));
+                    return Ok(ResponseFactory<RentalResponse>.Error(String.Format("Plano informado para {0} não existe. Verifique o id da plano.", _nomeEntidade)));
 
                 bike!.IsLeased = true;
 
@@ -194,16 +194,16 @@ namespace Mottu.Api.Controllers
                 if (result != null)
                 {
                     var response = _mapper.Map<RentalResponse>(result);
-                    return Ok(ResponseFactory<RentalResponse>.Success(true, String.Format("Inclusão de {0} Realizada Com Sucesso.", _nomeEntidade), response));
+                    return Ok(ResponseFactory<RentalResponse>.Success(String.Format("Inclusão de {0} Realizada Com Sucesso.", _nomeEntidade), response));
                 }
                 else
                 {
-                    return StatusCode(StatusCodes.Status500InternalServerError, ResponseFactory<RentalResponse>.Error(false, String.Format("Não foi possível incluir a {0}! Verifique os dados enviados.", _nomeEntidade)));
+                    return StatusCode(StatusCodes.Status500InternalServerError, ResponseFactory<RentalResponse>.Error(String.Format("Não foi possível incluir a {0}! Verifique os dados enviados.", _nomeEntidade)));
                 }
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ResponseFactory<RentalResponse>.Error(false, String.Format("Erro ao inserir a {0} -> ", _nomeEntidade) + ex.Message));
+                return StatusCode(StatusCodes.Status500InternalServerError, ResponseFactory<RentalResponse>.Error(String.Format("Erro ao inserir a {0} -> ", _nomeEntidade) + ex.Message));
             }
         }
 
@@ -220,17 +220,17 @@ namespace Mottu.Api.Controllers
             try
             {
                 if (request is null || !Guid.TryParse(request.Id.ToString(), out _))
-                    return BadRequest(ResponseFactory<RentalResponse>.Error(false, "Id informado inválido!"));
+                    return BadRequest(ResponseFactory<RentalResponse>.Error("Id informado inválido!"));
 
                 var entity = _unitOfWork!.rentalRepository.GetById(request.Id).Result;
 
                 if (entity is null)
-                    return NotFound(ResponseFactory<RentalResponse>.Error(false, "Id informado inválido!"));
+                    return NotFound(ResponseFactory<RentalResponse>.Error("Id informado inválido!"));
 
                 var bike = _unitOfWork!.bikeRepository.GetById(request.BikeId).Result;
 
                 if (bike is null)
-                    return NotFound(ResponseFactory<RentalResponse>.Error(false, "Id da moto inválido!"));
+                    return NotFound(ResponseFactory<RentalResponse>.Error("Id da moto inválido!"));
 
                 bike.IsLeased = false;
 
@@ -243,16 +243,16 @@ namespace Mottu.Api.Controllers
                 if (result)
                 {
                     var response = _mapper!.Map<RentalResponse>(entity);
-                    return Ok(ResponseFactory<RentalResponse>.Success(true, String.Format("Atualização da {0} realizada com sucesso.", _nomeEntidade), response));
+                    return Ok(ResponseFactory<RentalResponse>.Success(String.Format("Atualização da {0} realizada com sucesso.", _nomeEntidade), response));
                 }
                 else
                 {
-                    return StatusCode(StatusCodes.Status304NotModified, ResponseFactory<RentalResponse>.Error(false, String.Format("{0} não encontrada para atualização!", _nomeEntidade)));
+                    return StatusCode(StatusCodes.Status304NotModified, ResponseFactory<RentalResponse>.Error(String.Format("{0} não encontrada para atualização!", _nomeEntidade)));
                 }
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ResponseFactory<RentalResponse>.Error(false, String.Format("Erro ao atualizar a {0} -> ", _nomeEntidade) + ex.Message));
+                return StatusCode(StatusCodes.Status500InternalServerError, ResponseFactory<RentalResponse>.Error(String.Format("Erro ao atualizar a {0} -> ", _nomeEntidade) + ex.Message));
             }
         }
 
@@ -265,12 +265,12 @@ namespace Mottu.Api.Controllers
         public IActionResult Delete(Guid id)
         {
             if (id.ToString().Length == 0)
-                return BadRequest(ResponseFactory<RentalResponse>.Error(false, "Id informado igual a 0!"));
+                return BadRequest(ResponseFactory<RentalResponse>.Error("Id informado igual a 0!"));
 
             var entity = _unitOfWork!.rentalRepository.GetById(id).Result;
 
             if (entity is null)
-                return NotFound(ResponseFactory<RentalResponse>.Error(false, "Id informado inválido!"));
+                return NotFound(ResponseFactory<RentalResponse>.Error("Id informado inválido!"));
 
             entity.EndDate = DateOnly.FromDateTime(DateTime.Now);
             entity.IsActive = false;
@@ -287,11 +287,11 @@ namespace Mottu.Api.Controllers
             if (result)
             {
                 var response = _mapper!.Map<RentalResponse>(entity);
-                return Ok(ResponseFactory<RentalResponse>.Success(true, String.Format("Remoção de {0} realizada com sucesso.", _nomeEntidade), response));
+                return Ok(ResponseFactory<RentalResponse>.Success(String.Format("Remoção de {0} realizada com sucesso.", _nomeEntidade), response));
             }
             else
             {
-                return StatusCode(StatusCodes.Status404NotFound, ResponseFactory<RentalResponse>.Error(false, String.Format("{0} não encontrada para remoção!", _nomeEntidade)));
+                return StatusCode(StatusCodes.Status404NotFound, ResponseFactory<RentalResponse>.Error(String.Format("{0} não encontrada para remoção!", _nomeEntidade)));
             }
         }
     }

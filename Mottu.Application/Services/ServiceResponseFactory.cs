@@ -31,12 +31,26 @@ namespace Mottu.Application.Services
         public string? Message { get; private set; }
 
         /// <summary>
-        /// Conteudo de resposta composto por uma classe response 
-        /// com as propriedades preenchidas
-        /// que deverão ser retornadas a controller
+        /// Conteudo de resposta composto por uma classe com as propriedades preenchidas
+        /// que deverão ser retornadas ao requisitante
         /// </summary>
-        //[DataMember(Name = "content")]
-        //public T? Content { get; private set; }
+        [DataMember(Name = "content")]
+        public T? Content { get; private set; }
+
+        /// <summary>
+        /// Método que criam o objeto de retorno
+        /// </summary>
+        /// <returns></returns>
+        public static ServiceResponseFactory<T> Return(bool result, EnumStatusCode statusCode, string message, T content)
+        {
+            return new ServiceResponseFactory<T>()
+            {
+                Result = result,
+                StatusCode = statusCode,
+                Message = message,
+                Content = content
+            };
+        }
 
         /// <summary>
         /// Método que criam o objeto de retorno
@@ -48,8 +62,7 @@ namespace Mottu.Application.Services
             {
                 Result = result,
                 StatusCode = statusCode,
-                Message = message,
-                //Content = content,
+                Message = message
             };
         }
     }

@@ -35,21 +35,21 @@ namespace Mottu.Api.Controllers
         {
             //Valida usuario
             if (!Guid.TryParse(userId.ToString(), out _))
-                return BadRequest(ResponseFactory<DeliveredOrderResponse>.Error(false, "Id do usuário inválido!"));
+                return BadRequest(ResponseFactory<DeliveredOrderResponse>.Error("Id do usuário inválido!"));
 
             var user = _unitOfWork!.userRepository.GetById(userId).Result;
 
             if (user == null)
-                return BadRequest(ResponseFactory<DeliveredOrderResponse>.Error(false, "Usuário inválido."));
+                return BadRequest(ResponseFactory<DeliveredOrderResponse>.Error("Usuário inválido."));
 
             //Valida pedido
             if (!Guid.TryParse(orderId.ToString(), out _))
-                return BadRequest(ResponseFactory<DeliveredOrderResponse>.Error(false, "Id do pedido inválido!"));
+                return BadRequest(ResponseFactory<DeliveredOrderResponse>.Error("Id do pedido inválido!"));
 
             var order = _unitOfWork!.orderRepository.GetById(orderId).Result;
 
             if (order == null)
-                return BadRequest(ResponseFactory<DeliveredOrderResponse>.Error(false, "Pedido inválido."));
+                return BadRequest(ResponseFactory<DeliveredOrderResponse>.Error("Pedido inválido."));
 
             var today = DateOnly.FromDateTime(DateTime.Now);
 
@@ -87,16 +87,16 @@ namespace Mottu.Api.Controllers
                     _unitOfWork.CommitAsync().Wait();
 
                     var response = _mapper!.Map<DeliveredOrderResponse>(deliveredOrderResult);
-                    return Ok(ResponseFactory<DeliveredOrderResponse>.Success(true, String.Format("Inclusão de entrega de {0} Realizado Com Sucesso.", _nomeEntidade), response!));
+                    return Ok(ResponseFactory<DeliveredOrderResponse>.Success(String.Format("Inclusão de entrega de {0} Realizado Com Sucesso.", _nomeEntidade), response!));
                 }
                 else
                 {
-                    return BadRequest(ResponseFactory<DeliveredOrderResponse>.Error(false, "Usuário Já entregou esse pedido."));
+                    return BadRequest(ResponseFactory<DeliveredOrderResponse>.Error("Usuário Já entregou esse pedido."));
                 }
             }
             else
             {
-                return StatusCode(StatusCodes.Status400BadRequest, ResponseFactory<DeliveredOrderResponse>.Error(false, "Não foi possível entregar o pedido! Verifique os dados enviados."));
+                return StatusCode(StatusCodes.Status400BadRequest, ResponseFactory<DeliveredOrderResponse>.Error("Não foi possível entregar o pedido! Verifique os dados enviados."));
             }
         }
     }
