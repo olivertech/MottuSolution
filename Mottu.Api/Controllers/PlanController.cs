@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Mottu.CrossCutting.Requests;
-using Mottu.CrossCutting.Responses;
+using Mottu.Api.Controllers.Base;
+using Mottu.Application.Requests;
+using Mottu.Application.Responses;
+using Mottu.Application.Services;
 using Mottu.Domain.Entities;
 using Mottu.Domain.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
@@ -11,12 +13,13 @@ namespace Mottu.Api.Controllers
     [Route("api/Plan")]
     [SwaggerTag("Plano")]
     [ApiController]
-    public class PlanController : BaseController
+    public class PlanController : ControllerBase<Plan, PlanResponse>
     {
         public PlanController(IUnitOfWork unitOfWork, IMapper? mapper)
             : base(unitOfWork, mapper)
         {
             _nomeEntidade = "Plano";
+            _planService = new PlanService(_unitOfWork!, _mapper);
         }
 
         [HttpGet]

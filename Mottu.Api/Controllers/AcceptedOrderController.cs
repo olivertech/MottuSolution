@@ -1,24 +1,26 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Mottu.Application.Services;
-using Mottu.CrossCutting.Helpers;
-using Mottu.CrossCutting.Responses;
+using Mottu.Application.Helpers;
+using Mottu.Application.Responses;
 using Mottu.Domain.Entities;
 using Mottu.Domain.Interfaces;
 using Mottu.Infrastructure.Repositories;
 using Swashbuckle.AspNetCore.Annotations;
+using Mottu.Api.Controllers.Base;
 
 namespace Mottu.Api.Controllers
 {
     [Route("api/AcceptedOrder")]
     [SwaggerTag("PedidosAceitos")]
     [ApiController]
-    public class AcceptedOrderController : BaseController
+    public class AcceptedOrderController : ControllerBase<AcceptedOrder, AcceptedOrderResponse>
     {
         public AcceptedOrderController(IUnitOfWork unitOfWork, IMapper? mapper)
             : base(unitOfWork, mapper)
         {
             _nomeEntidade = "Pedido";
+            _acceptedOrderService = new AcceptedOrderService(_unitOfWork!, _mapper);
         }
 
         [HttpPost]
@@ -30,7 +32,7 @@ namespace Mottu.Api.Controllers
         [ProducesResponseType(typeof(int), StatusCodes.Status400BadRequest, Type = typeof(AppUserResponse))]
         public async Task<IActionResult> AcceptOrder(Guid userId, Guid orderId)
         {
-            //var service = new AcceptedOrderService(_unitOfWork!, _mapper).AcceptOrder(userId, orderId);
+            //_service..AcceptOrder(userId, orderId);
 
             //if(!service.Result)
             //{

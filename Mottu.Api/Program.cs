@@ -3,7 +3,7 @@ using Microsoft.OpenApi.Models;
 using Minio;
 using Mottu.Api.Classes;
 using Mottu.Api.Services;
-using Mottu.CrossCutting.Dependencies;
+using Mottu.Application.Dependencies;
 
 //Configurações para uso do Minio
 var endpoint = "play.min.io";

@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Mottu.CrossCutting.Helpers;
-using Mottu.CrossCutting.Requests;
-using Mottu.CrossCutting.Responses;
+using Mottu.Api.Controllers.Base;
+using Mottu.Application.Helpers;
+using Mottu.Application.Interfaces;
+using Mottu.Application.Requests;
+using Mottu.Application.Responses;
+using Mottu.Application.Services;
 using Mottu.Domain.Entities;
 using Mottu.Domain.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
@@ -12,12 +15,13 @@ namespace Mottu.Api.Controllers
     [Route("api/NotificatedUser")]
     [SwaggerTag("UsuarioNotificado")]
     [ApiController]
-    public class NotificatedUserController : BaseController
+    public class NotificatedUserController : ControllerBase<NotificatedUser, OrderResponse>
     {
         public NotificatedUserController(IUnitOfWork unitOfWork, IMapper? mapper)
             : base(unitOfWork, mapper)
         {
             _nomeEntidade = "Usuário Notificado";
+            _notificatedUserService = new NotificatedUserService(_unitOfWork!, _mapper);
         }
 
         [HttpPost]

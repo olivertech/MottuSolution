@@ -1,4 +1,4 @@
-﻿namespace Mottu.CrossCutting.Messaging
+﻿namespace Mottu.Application.Messaging
 {
     public interface INotificationMessage
     {

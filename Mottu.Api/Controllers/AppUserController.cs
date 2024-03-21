@@ -1,24 +1,27 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Mottu.CrossCutting.Requests;
-using Mottu.CrossCutting.Responses;
-using Mottu.CrossCutting.Helpers;
+using Mottu.Application.Requests;
+using Mottu.Application.Responses;
+using Mottu.Application.Helpers;
 using Mottu.Domain.Entities;
 using Mottu.Domain.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 using MassTransit;
+using Mottu.Application.Services;
+using Mottu.Api.Controllers.Base;
 
 namespace Mottu.Api.Controllers
 {
     [Route("api/User")]
     [SwaggerTag("Usuário")]
     [ApiController]
-    public class AppUserController : BaseController
+    public class AppUserController : ControllerBase<AppUser, AppUserResponse>
     {
         public AppUserController(IUnitOfWork unitOfWork, IMapper? mapper)
             : base(unitOfWork, mapper)
         {
             _nomeEntidade = "Usuário";
+            _appUserService = new AppUserService(_unitOfWork!, _mapper);
         }
 
         [HttpGet]

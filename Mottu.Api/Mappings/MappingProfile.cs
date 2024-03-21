@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Mottu.Api.Classes;
-using Mottu.CrossCutting.Messaging;
-using Mottu.CrossCutting.Requests;
-using Mottu.CrossCutting.Responses;
+using Mottu.Application.Messaging;
+using Mottu.Application.Requests;
+using Mottu.Application.Responses;
 using Mottu.Domain.Entities;
 
 namespace Mottu.Api.Mappings

@@ -1,7 +1,7 @@
 ﻿using MassTransit;
 using Microsoft.EntityFrameworkCore;
-using Mottu.CrossCutting.Helpers;
-using Mottu.CrossCutting.Messaging;
+using Mottu.Application.Helpers;
+using Mottu.Application.Messaging;
 using Mottu.Domain.Entities;
 using Mottu.Infrastructure.Context;
 using Serilog;

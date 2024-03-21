@@ -1,23 +1,26 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Mottu.Application.Services;
-using Mottu.CrossCutting.Requests;
-using Mottu.CrossCutting.Responses;
+using Mottu.Application.Requests;
+using Mottu.Application.Responses;
 using Mottu.Domain.Entities;
 using Mottu.Domain.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
+using Mottu.Application.Interfaces;
+using Mottu.Api.Controllers.Base;
 
 namespace Mottu.Api.Controllers
 {
     [Route("api/UserType")]
     [SwaggerTag("Tipo de Usuário")]
     [ApiController]
-    public class UserTypeController : BaseController
+    public class UserTypeController : ControllerBase<UserType, UserTypeResponse>
     {
         public UserTypeController(IUnitOfWork unitOfWork, IMapper? mapper)
             : base(unitOfWork, mapper)
         {
             _nomeEntidade = "Tipo de Usuário";
+            _userTypeService = new UserTypeService(_unitOfWork!, _mapper);
         }
 
         [HttpGet]
@@ -25,8 +28,8 @@ namespace Mottu.Api.Controllers
         [Produces("application/json")]
         public IActionResult GetAll()
         {
-            var service = new UserTypeService(_unitOfWork!, _mapper).GetAll();
-            return Ok(service.Result);
+            var result = _userTypeService!.GetAll();
+            return Ok(result.Result);
         }
 
         [HttpGet]

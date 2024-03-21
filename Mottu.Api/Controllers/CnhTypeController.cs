@@ -1,24 +1,27 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Mottu.Application.Services;
-using Mottu.CrossCutting.Requests;
-using Mottu.CrossCutting.Responses;
+using Mottu.Application.Requests;
+using Mottu.Application.Responses;
 using Mottu.Domain.Entities;
 using Mottu.Domain.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Xml.Linq;
+using Mottu.Application.Interfaces;
+using Mottu.Api.Controllers.Base;
 
 namespace Mottu.Api.Controllers
 {
     [Route("api/CnhType")]
     [SwaggerTag("Tipo de CNH")]
     [ApiController]
-    public class CnhTypeController : BaseController
+    public class CnhTypeController : ControllerBase<CnhType, CnhTypeResponse>
     {
         public CnhTypeController(IUnitOfWork unitOfWork, IMapper? mapper)
             : base(unitOfWork, mapper)
         {
             _nomeEntidade = "Tipo de CNH";
+            _cnhTypeService = new CnhTypeService(_unitOfWork!, _mapper);
         }
 
         [HttpGet]
@@ -26,7 +29,7 @@ namespace Mottu.Api.Controllers
         [Produces("application/json")]
         public IActionResult GetAll()
         {
-            var service = new CnHTypeService(_unitOfWork!, _mapper).GetAll();
+            var service = new CnhTypeService(_unitOfWork!, _mapper).GetAll();
             return Ok(service.Result);
         }
 

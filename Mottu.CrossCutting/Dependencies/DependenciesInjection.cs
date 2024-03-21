@@ -3,12 +3,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Mottu.Api.Services;
-using Mottu.CrossCutting.Messaging;
+using Mottu.Application.Interfaces;
+using Mottu.Application.Messaging;
+using Mottu.Application.Services;
+using Mottu.Application.Services.Base;
 using Mottu.Domain.Interfaces;
 using Mottu.Infrastructure.Context;
 using Mottu.Infrastructure.Repositories;
 
-namespace Mottu.CrossCutting.Dependencies
+namespace Mottu.Application.Dependencies
 {
     /// <summary>
     /// Classe estática que concentra as configurações
@@ -24,7 +27,7 @@ namespace Mottu.CrossCutting.Dependencies
                                                     configuration.GetConnectionString("DefaultConnection"))
                                                 );
 
-            //Services injections configuration
+            //Repository injections
             services.AddScoped<IAcceptedOrderRepository, AcceptedOrderRepository>();
             services.AddScoped<IBikeRepository, BikeRepository>();
             services.AddScoped<ICnhTypeRepository, CnhTypeRepository>();
@@ -41,6 +44,20 @@ namespace Mottu.CrossCutting.Dependencies
             services.AddScoped<IOrderNotificationService, OrderNotificationService>();
             services.AddScoped<IDeliveredOrderRepository, DeliveredOrderRepository>();
 
+            //Service injections
+            services.AddScoped<IAcceptedOrderService, AcceptedOrderService>();
+            services.AddScoped<IAppUserService, AppUserService>();
+            services.AddScoped<IBikeService, BikeService>();
+            services.AddScoped<ICnhTypeService, CnhTypeService>();
+            services.AddScoped<IDeliveredOrderService, DeliveredOrderService>();
+            services.AddScoped<INotificatedUserService, NotificatedUserService>();
+            services.AddScoped<INotificationService, NotificationService>();
+            services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IPlanService, PlanService>();
+            services.AddScoped<IRentalService, RentalService>();
+            services.AddScoped<IStatusOrderService, StatusOrderService>();
+            services.AddScoped<IUserTypeService, UserTypeService>();
+            
             return services;
         }
     }

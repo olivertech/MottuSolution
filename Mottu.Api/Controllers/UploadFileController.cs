@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
-using Mottu.CrossCutting.Responses;
+using Mottu.Api.Controllers.Base;
+using Mottu.Application.Responses;
+using Mottu.Application.Services;
+using Mottu.Domain.Entities.Base;
 using Mottu.Domain.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Drawing;
@@ -16,7 +19,7 @@ namespace Mottu.Api.Controllers
     [Route("api/UploadFile")]
     [SwaggerTag("UplodFile")]
     [ApiController]
-    public class UploadFileController : BaseController
+    public class UploadFileController : ControllerBase<BaseEntity, UploadResponse>
     {
         public static IWebHostEnvironment? _environment;
 

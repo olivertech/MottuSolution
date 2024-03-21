@@ -11,5 +11,5 @@ namespace Mottu.Domain.Interfaces.Base
         Task<T?> Insert(T entity);
         Task<bool> Update(T entity);
         Task<bool> Delete(Guid? id);
-    }
+    }   
 }

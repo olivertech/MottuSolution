@@ -1,19 +1,20 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Mottu.Application.Helpers;
-using Mottu.CrossCutting.Requests;
-using Mottu.CrossCutting.Responses;
-using Mottu.CrossCutting.Helpers;
+using Mottu.Application.Requests;
+using Mottu.Application.Responses;
 using Mottu.Domain.Entities;
 using Mottu.Domain.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
+using Mottu.Application.Services;
+using Mottu.Api.Controllers.Base;
 
 namespace Mottu.Api.Controllers
 {
     [Route("api/Rental")]
     [SwaggerTag("Locação")]
     [ApiController]
-    public class RentalController : BaseController
+    public class RentalController : ControllerBase<Rental, RentalResponse>
     {
         public static IConfiguration? _configuration;
 
@@ -22,6 +23,7 @@ namespace Mottu.Api.Controllers
         {
             _nomeEntidade = "Locação";
             _configuration = configuration;
+            _rentalService = new RentalService(_unitOfWork!, _mapper);
         }
 
         [HttpGet]

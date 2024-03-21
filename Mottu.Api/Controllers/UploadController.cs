@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Minio;
 using Minio.DataModel.Args;
 using Minio.Exceptions;
+using Mottu.Api.Controllers.Base;
+using Mottu.Application.Interfaces;
 using Mottu.Domain.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Collections.Generic;
@@ -17,7 +19,7 @@ namespace Mottu.Api.Controllers
     [Route("api/Upload")]
     [SwaggerTag("Upload")]
     [ApiController]
-    public class UploadController : BaseController
+    public class UploadController : ControllerBase<IEntity, IResponse>
     {
         private readonly IMinioClient minioClient;
 

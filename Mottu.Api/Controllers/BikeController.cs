@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Mottu.CrossCutting.Helpers;
-using Mottu.CrossCutting.Requests;
-using Mottu.CrossCutting.Requests.Base;
-using Mottu.CrossCutting.Responses;
+using Mottu.Api.Controllers.Base;
+using Mottu.Application.Helpers;
+using Mottu.Application.Requests;
+using Mottu.Application.Requests.Base;
+using Mottu.Application.Responses;
+using Mottu.Application.Services;
 using Mottu.Domain.Entities;
 using Mottu.Domain.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
@@ -13,13 +15,14 @@ namespace Mottu.Api.Controllers
     [Route("api/Bike")]
     [SwaggerTag("Moto")]
     [ApiController]
-        public class BikeController : BaseController
+    public class BikeController : ControllerBase<Bike, BikeResponse>
+    {
+        public BikeController(IUnitOfWork unitOfWork, IMapper? mapper)
+            : base(unitOfWork, mapper)
         {
-            public BikeController(IUnitOfWork unitOfWork, IMapper? mapper)
-                : base(unitOfWork, mapper)
-            {
-                _nomeEntidade = "Moto";
-            }
+            _nomeEntidade = "Moto";
+            _bikeService = new BikeService(_unitOfWork!, _mapper);
+        }
 
         [HttpPost]
         [Route(nameof(GetAll))]
@@ -74,7 +77,7 @@ namespace Mottu.Api.Controllers
 
             if (requester.UserType!.Name!.ToLower() != GetDescriptionFromEnum.GetFromUserTypeEnum(EnumUserTypes.Administrador).ToLower())
                 return BadRequest(ResponseFactory<OrderResponse>.Error(false, "Usuário solicitante inválido!"));
-            
+
             if (request.Plate is null)
                 return BadRequest(ResponseFactory<BikeResponse>.Error(false, "Placa inválida!"));
 
@@ -225,7 +228,7 @@ namespace Mottu.Api.Controllers
                 return NotFound(ResponseFactory<BikeResponse>.Error(false, "Id informado inválido!"));
 
             //Verifico se a moto se encontra locada
-            if(entity.IsLeased)
+            if (entity.IsLeased)
                 return BadRequest(ResponseFactory<BikeResponse>.Error(false, String.Format("{0} não pode ser removida, pois se encontra alocada!", _nomeEntidade)));
 
             //Verifico se existe alguma locação já realizada com essa moto

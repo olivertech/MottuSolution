@@ -1,4 +1,4 @@
-﻿using Mottu.CrossCutting.Messaging;
+﻿using Mottu.Application.Messaging;
 using Newtonsoft.Json;
 using System.Text;
 

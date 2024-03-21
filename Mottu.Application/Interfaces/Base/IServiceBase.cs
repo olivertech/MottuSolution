@@ -1,5 +1,4 @@
-﻿using Mottu.CrossCutting.Interfaces;
-using Mottu.Domain.Entities.Base;
+﻿using Mottu.Domain.Entities.Base;
 using Mottu.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -7,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mottu.Application
+namespace Mottu.Application.Interfaces.Base
 {
-    public interface IService<E,R> 
+    public interface IServiceBase<E, R>
         where E : IEntity
         where R : IResponse
     {

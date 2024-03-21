@@ -7,7 +7,8 @@ using System.Linq.Expressions;
 
 namespace Mottu.Infrastructure.Repositories.Base
 {
-    public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : BaseEntity
+    public abstract class RepositoryBase<T> : IRepositoryBase<T> 
+        where T : BaseEntity
     {
         protected readonly AppDbContext? _context;
         protected readonly DbSet<T>? _entities;

@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
-using Mottu.CrossCutting.Helpers;
-using Mottu.CrossCutting.Messaging;
-using Mottu.CrossCutting.Requests;
-using Mottu.CrossCutting.Responses;
+using Mottu.Api.Controllers.Base;
+using Mottu.Application.Helpers;
+using Mottu.Application.Messaging;
+using Mottu.Application.Requests;
+using Mottu.Application.Responses;
+using Mottu.Application.Services;
 using Mottu.Domain.Entities;
 using Mottu.Domain.Interfaces;
 using Serilog;
@@ -16,7 +18,7 @@ namespace Mottu.Api.Controllers
     [Route("api/Order")]
     [SwaggerTag("Pedido")]
     [ApiController]
-    public class OrderController : BaseController
+    public class OrderController : ControllerBase<Order, OrderResponse>
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper? mapper;
@@ -40,6 +42,7 @@ namespace Mottu.Api.Controllers
             _publishEndpoint = publishEndpoint;
             _orderNotificationService = orderNotificationService;
             _notificationMessage = notificationMessage;
+            _orderService = new OrderService(_unitOfWork!, _mapper);
         }
 
         [HttpGet]

@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
-using Mottu.CrossCutting.Responses;
-using Mottu.CrossCutting.Services;
+using Mottu.Application.Interfaces;
+using Mottu.Application.Interfaces.Base;
+using Mottu.Application.Responses;
+using Mottu.Application.Services;
+using Mottu.Application.Services.Base;
 using Mottu.Domain.Entities;
 using Mottu.Domain.Interfaces;
 using System;
@@ -12,14 +15,13 @@ using System.Threading.Tasks;
 
 namespace Mottu.Application.Services
 {
-    public class AcceptedOrderService : IService<AcceptedOrder, AcceptedOrderResponse>
+    public class AcceptedOrderService : ServiceBase<AcceptedOrder, AcceptedOrderResponse>, IAcceptedOrderService
     {
-        protected readonly IUnitOfWork? _unitOfWork;
         protected readonly IMapper? _mapper;
 
         public AcceptedOrderService(IUnitOfWork unitOfWork, IMapper? mapper)
+            : base(unitOfWork)
         {
-            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
@@ -27,49 +29,16 @@ namespace Mottu.Application.Services
         {
             //Valida usuario
             if (!Guid.TryParse(userId.ToString(), out _))
-                return ServiceResponseFactory<AppUserResponse>.Return(false, CrossCutting.Helpers.EnumStatusCode.Status400BadRequest, "Id do usuário inválido!");
+                return ServiceResponseFactory<AppUserResponse>.Return(false, Application.Helpers.EnumStatusCode.Status400BadRequest, "Id do usuário inválido!");
 
             var user = _unitOfWork!.userRepository.GetById(userId).Result;
 
             if (user == null)
-                return ServiceResponseFactory<AppUserResponse>.Return(false, CrossCutting.Helpers.EnumStatusCode.Status400BadRequest, "Usuário inválido.");
+                return ServiceResponseFactory<AppUserResponse>.Return(false, Application.Helpers.EnumStatusCode.Status400BadRequest, "Usuário inválido.");
 
-            return ServiceResponseFactory<AppUserResponse>.Return(true, CrossCutting.Helpers.EnumStatusCode.Status200OK, "OK");
-        }
 
-        public Task<IEnumerable<AcceptedOrder>> GetAll()
-        {
-            throw new NotImplementedException();
-        }
 
-        public Task<int> GetById(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<int> GetCount()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<AcceptedOrder>> GetList()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<AcceptedOrder> Insert(AcceptedOrderResponse request)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<AcceptedOrder> Update(AcceptedOrderResponse request)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<AcceptedOrder> Delete(Guid id)
-        {
-            throw new NotImplementedException();
+            return ServiceResponseFactory<AppUserResponse>.Return(true, Application.Helpers.EnumStatusCode.Status200OK, "OK");
         }
     }
 }

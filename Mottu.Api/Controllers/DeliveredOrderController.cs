@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Minio.DataModel.Notification;
-using Mottu.CrossCutting.Helpers;
-using Mottu.CrossCutting.Responses;
+using Mottu.Api.Controllers.Base;
+using Mottu.Application.Helpers;
+using Mottu.Application.Interfaces;
+using Mottu.Application.Responses;
+using Mottu.Application.Services;
 using Mottu.Domain.Entities;
 using Mottu.Domain.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
@@ -12,12 +15,13 @@ namespace Mottu.Api.Controllers
     [Route("api/DeliveredOrder")]
     [SwaggerTag("PedidosEntregues")]
     [ApiController]
-    public class DeliveredOrderController : BaseController
+    public class DeliveredOrderController : ControllerBase<DeliveredOrder, DeliveredOrderResponse>
     {
         public DeliveredOrderController(IUnitOfWork unitOfWork, IMapper? mapper)
             : base(unitOfWork, mapper)
         {
             _nomeEntidade = "Pedido";
+            _deliveredOrderService = new DeliveredOrderService(_unitOfWork!, _mapper);
         }
 
         [HttpPost]
