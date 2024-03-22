@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
 using MassTransit;
+using MassTransit.Internals.GraphValidation;
 using Microsoft.AspNetCore.Mvc;
+using Minio.DataModel.Notification;
 using Mottu.Api.Controllers.Base;
 using Mottu.Application.Helpers;
+using Mottu.Application.Interfaces;
 using Mottu.Application.Messaging;
 using Mottu.Application.Requests;
 using Mottu.Application.Responses;
@@ -48,10 +51,11 @@ namespace Mottu.Api.Controllers
         [HttpGet]
         [Route(nameof(GetAll))]
         [Produces("application/json")]
-        public async Task<IActionResult> GetAll()
+        public IActionResult GetAll()
         {
-            var result = _orderService!.GetAll();
-            return Ok(result.Result);
+            var list = _orderService!.GetAll().Result;
+            var responseList = _mapper!.Map<IEnumerable<Order>, IEnumerable<OrderResponse>>(list!);
+            return Ok(ResponseFactory<IEnumerable<OrderResponse>>.Success(String.Format("Lista de pedidos recuperada com sucesso.", _nomeEntidade), responseList));
         }
 
         [HttpGet]

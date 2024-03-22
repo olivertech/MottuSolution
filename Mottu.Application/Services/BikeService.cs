@@ -39,9 +39,9 @@ namespace Mottu.Application.Services
             var list = await _unitOfWork!.bikeRepository.GetAll();
 
             var convert = new ConvertModelToResponse<Bike, BikeResponse>(_mapper);
-            var result = convert.GetResponsList(list!);
+            var content = convert.GetResponsList(list!);
 
-            return ServiceResponseFactory<IEnumerable<BikeResponse>>.Return(true, EnumStatusCode.Status200OK, "OK", result);
+            return ServiceResponseFactory<IEnumerable<BikeResponse>>.Return(true, EnumStatusCode.Status200OK, "OK", content);
         }
     }
 }

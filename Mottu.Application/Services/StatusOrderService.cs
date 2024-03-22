@@ -24,14 +24,9 @@ namespace Mottu.Application.Services
             _mapper = mapper;
         }
 
-        public async override Task<IEnumerable<StatusOrder>> GetAll()
+        public override Task<IEnumerable<StatusOrder>?> GetAll()
         {
-            var convert = new ConvertModelToResponse<StatusOrder, StatusOrderResponse>(_mapper);
-
-            var list = await _unitOfWork!.statusOrderRepository.GetAll();
-            List<StatusOrderResponse> result = convert.GetResponsList(list!);
-
-            return list!;
+            return _unitOfWork!.statusOrderRepository!.GetAll();
         }
     }
 }

@@ -46,7 +46,7 @@ namespace Mottu.Application.Services.Base
             return new RequestValidationResponse(true, userId, EnumStatusCode.Status200OK, "Usuário requisitante válido");
         }
 
-        public virtual Task<IEnumerable<E>> GetAll()
+        public virtual Task<IEnumerable<E>?> GetAll()
         {
             throw new NotImplementedException();
         }

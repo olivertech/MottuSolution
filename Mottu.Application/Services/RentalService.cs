@@ -22,5 +22,10 @@ namespace Mottu.Application.Services
         {
             _mapper = mapper;
         }
+
+        public override Task<IEnumerable<Rental>?> GetAll()
+        {
+            return _unitOfWork!.rentalRepository!.GetFullAll();
+        }
     }
 }

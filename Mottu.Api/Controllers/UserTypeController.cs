@@ -28,8 +28,9 @@ namespace Mottu.Api.Controllers
         [Produces("application/json")]
         public IActionResult GetAll()
         {
-            var result = _userTypeService!.GetAll();
-            return Ok(result.Result);
+            var list = _userTypeService!.GetAll().Result;
+            var responseList = _mapper!.Map<IEnumerable<UserType>, IEnumerable<UserTypeResponse>>(list!);
+            return Ok(ResponseFactory<IEnumerable<UserTypeResponse>>.Success(String.Format("Lista de tipos de usuário recuperada com sucesso.", _nomeEntidade), responseList));
         }
 
         [HttpGet]

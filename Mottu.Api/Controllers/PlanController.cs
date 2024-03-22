@@ -25,10 +25,11 @@ namespace Mottu.Api.Controllers
         [HttpGet]
         [Route(nameof(GetAll))]
         [Produces("application/json")]
-        public async Task<IActionResult> GetAll()
+        public IActionResult GetAll()
         {
-            var list = await _unitOfWork!.planRepository.GetAll();
-            return Ok(list);
+            var list = _planService!.GetAll().Result;
+            var responseList = _mapper!.Map<IEnumerable<Plan>, IEnumerable<PlanResponse>>(list!);
+            return Ok(ResponseFactory<IEnumerable<PlanResponse>>.Success(String.Format("Lista de planos recuperada com sucesso.", _nomeEntidade), responseList));
         }
 
         [HttpGet]

@@ -23,10 +23,9 @@ namespace Mottu.Application.Services
             _mapper = mapper;
         }
 
-        public async override Task<IEnumerable<UserType>> GetAll()
+        public override Task<IEnumerable<UserType>?> GetAll()
         {
-            var list = await _unitOfWork!.userTypeRepository.GetAll();
-            return list!;
+            return _unitOfWork!.userTypeRepository!.GetAll();
         }
     }
 }

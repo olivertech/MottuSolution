@@ -36,7 +36,6 @@ namespace Mottu.Api.Mappings
             CreateMap<Order, OrderResponse>();
             CreateMap<AcceptedOrder, AcceptedOrderResponse>();
             CreateMap<DeliveredOrder, DeliveredOrderResponse>();
-
             CreateMap<NotificationMessage, OrderResponse>();
         }
     }

@@ -39,7 +39,7 @@ namespace Mottu.Api.Controllers
             }
             else
             {
-                return Ok(service.Content);
+                return Ok(ResponseFactory<IEnumerable<BikeResponse>>.Success(service.Message!, service.Content!));
             }
         }
 

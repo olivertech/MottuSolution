@@ -29,14 +29,11 @@ namespace Mottu.Api.Controllers
         [HttpGet]
         [Route(nameof(GetAll))]
         [Produces("application/json")]
-        public async Task<IActionResult> GetAll()
+        public IActionResult GetAll()
         {
-            var convert = new ConvertModelToResponse<Rental, RentalResponse>(_mapper);
-
-            var list = await _unitOfWork!.rentalRepository.GetFullAll();
-            List<RentalResponse> result = convert.GetResponsList(list!);
-
-            return Ok(result);
+            var list = _rentalService!.GetAll().Result;
+            var responseList = _mapper!.Map<IEnumerable<Rental>, IEnumerable<RentalResponse>>(list!);
+            return Ok(ResponseFactory<IEnumerable<RentalResponse>>.Success(String.Format("Lista de locações recuperada com sucesso.", _nomeEntidade), responseList));
         }
 
         [HttpGet]

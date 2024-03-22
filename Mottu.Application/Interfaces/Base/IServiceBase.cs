@@ -12,7 +12,7 @@ namespace Mottu.Application.Interfaces.Base
         where E : IEntity
         where R : IResponse
     {
-        Task<IEnumerable<E>> GetAll();
+        Task<IEnumerable<E>?> GetAll();
         Task<int> GetById(Guid id);
         Task<IEnumerable<E>> GetList();
         Task<int> GetCount();
