@@ -13,9 +13,9 @@ namespace Mottu.Application.Responses
         public DateOnly? AcceptedDate { get; set; }
 
         [JsonProperty(PropertyName = "user")]
-        public AppUser? User { get; private set; }
+        public AppUser? User { get; set; }
 
         [JsonProperty(PropertyName = "order")]
-        public Order? Order { get; private set; }
+        public Order? Order { get; set; }
     }
 }

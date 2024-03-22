@@ -27,36 +27,18 @@ namespace Mottu.Api.Controllers
         [HttpPost]
         [Route(nameof(GetListOfNotificatedUsers))]
         [Produces("application/json")]
-        public async Task<IActionResult> GetListOfNotificatedUsers(NotificatedUserRequest request)
+        public IActionResult GetListOfNotificatedUsers(NotificatedUserRequest request)
         {
-            if (request is null)
-                return BadRequest(ResponseFactory<OrderResponse>.Error("Request inválido!"));
+            var service = _notificatedUserService!.GetListOfNotificatedUsers(request).Result;
 
-            //Valido solicitante da requisição
-            var requester = _unitOfWork!.userRepository.GetFullById(request.RequestUserId).Result;
-
-            if (requester is null)
-                return BadRequest(ResponseFactory<OrderResponse>.Error("Request inválido!"));
-
-            if (requester.UserType!.Name!.ToLower() != GetDescriptionFromEnum.GetFromUserTypeEnum(EnumUserTypes.Administrador).ToLower())
-                return BadRequest(ResponseFactory<OrderResponse>.Error("Usuário solicitante inválido!"));
-
-            var convert = new ConvertModelToResponse<AppUser, AppUserResponse>(_mapper);
-
-            var list = await _unitOfWork!.userRepository.GetFullListOfNotificatedUsers(request.OrderId);
-            List<AppUserResponse> result = convert.GetResponsList(list!);
-
-            var order = _unitOfWork.orderRepository.GetById(request.OrderId).Result;
-
-            var orderResponse = _mapper!.Map<OrderResponse>(order);
-
-            var responseListNotificatedUsers = new ListNotificatedUsersResponse
+            if (service.StatusCode != EnumStatusCode.Status200OK)
             {
-                ListNotificatedUsers = result,
-                Order = orderResponse
-            };
-
-            return Ok(ResponseFactory<ListNotificatedUsersResponse>.Success("Listagem retornada com sucesso.", responseListNotificatedUsers));
+                return BadRequest(ResponseFactory<ListNotificatedUsersResponse>.Error(service.Message!));
+            }
+            else
+            {
+                return Ok(service.Content);
+            }
         }
     }
 }
