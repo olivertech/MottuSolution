@@ -1,11 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Mottu.Domain.Entities;
-using Mottu.Domain.Interfaces;
-using Mottu.Infrastructure.Context;
-using Mottu.Infrastructure.Repositories.Base;
-using System.Diagnostics.CodeAnalysis;
-
-namespace Mottu.Infrastructure.Repositories
+﻿namespace Mottu.Infrastructure.Repositories
 {
     public class AppUserRepository : RepositoryBase<AppUser>, IAppUserRepository
     {

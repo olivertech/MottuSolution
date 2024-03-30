@@ -1,7 +1,4 @@
-﻿using Mottu.Domain.Interfaces;
-using Mottu.Infrastructure.Context;
-
-namespace Mottu.Infrastructure.Repositories
+﻿namespace Mottu.Infrastructure.Repositories
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {

@@ -1,8 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Mottu.Domain.Entities;
-using Mottu.Infrastructure.EntityConfiguration;
-
-namespace Mottu.Infrastructure.Context
+﻿namespace Mottu.Infrastructure.Context
 {
     public class AppDbContext : DbContext
     {

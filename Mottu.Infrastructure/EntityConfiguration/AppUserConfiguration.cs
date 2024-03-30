@@ -1,8 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Mottu.Domain.Entities;
-
-namespace Mottu.Infrastructure.EntityConfiguration
+﻿namespace Mottu.Infrastructure.EntityConfiguration
 {
     public class AppUserConfiguration : IEntityTypeConfiguration<AppUser>
     {

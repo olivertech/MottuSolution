@@ -1,11 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Mottu.Domain.Entities.Base;
-using Mottu.Domain.Interfaces.Base;
-using Mottu.Infrastructure.Context;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq.Expressions;
-
-namespace Mottu.Infrastructure.Repositories.Base
+﻿namespace Mottu.Infrastructure.Repositories.Base
 {
     public abstract class RepositoryBase<T> : IRepositoryBase<T> 
         where T : BaseEntity
