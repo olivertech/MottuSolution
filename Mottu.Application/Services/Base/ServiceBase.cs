@@ -2,15 +2,7 @@
 using Mottu.Application.Interfaces;
 using Mottu.Application.Interfaces.Base;
 using Mottu.Application.Responses;
-using Mottu.Domain.Entities;
-using Mottu.Domain.Entities.Base;
 using Mottu.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Mottu.Application.Services.Base
 {
@@ -32,7 +24,7 @@ namespace Mottu.Application.Services.Base
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        protected async Task<RequestValidationResponse> ValidateRequester(Guid userId)
+        protected async Task<RequestValidationResponse> ValidateAdminRequester(Guid userId)
         {
             //Valido solicitante da requisição
             var requester = await _unitOfWork!.userRepository.GetFullById(userId);

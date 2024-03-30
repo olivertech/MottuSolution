@@ -1,7 +1,6 @@
 ﻿using Mottu.Application.Interfaces;
 using Mottu.Domain.Entities;
 using Newtonsoft.Json;
-using System.Text.Json.Serialization;
 
 namespace Mottu.Application.Responses
 {

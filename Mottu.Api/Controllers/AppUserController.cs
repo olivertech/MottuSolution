@@ -1,16 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using Mottu.Application.Requests;
-using Mottu.Application.Responses;
-using Mottu.Application.Helpers;
-using Mottu.Domain.Entities;
-using Mottu.Domain.Interfaces;
-using Swashbuckle.AspNetCore.Annotations;
-using MassTransit;
-using Mottu.Application.Services;
-using Mottu.Api.Controllers.Base;
-
-namespace Mottu.Api.Controllers
+﻿namespace Mottu.Api.Controllers
 {
     [Route("api/User")]
     [SwaggerTag("Usuário")]

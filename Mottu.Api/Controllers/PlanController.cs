@@ -1,14 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using Mottu.Api.Controllers.Base;
-using Mottu.Application.Requests;
-using Mottu.Application.Responses;
-using Mottu.Application.Services;
-using Mottu.Domain.Entities;
-using Mottu.Domain.Interfaces;
-using Swashbuckle.AspNetCore.Annotations;
-
-namespace Mottu.Api.Controllers
+﻿namespace Mottu.Api.Controllers
 {
     [Route("api/Plan")]
     [SwaggerTag("Plano")]

@@ -1,17 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using Mottu.Api.Controllers.Base;
-using Mottu.Application.Helpers;
-using Mottu.Application.Requests;
-using Mottu.Application.Requests.Base;
-using Mottu.Application.Responses;
-using Mottu.Application.Services;
-using Mottu.Domain.Entities;
-using Mottu.Domain.Interfaces;
-using Swashbuckle.AspNetCore.Annotations;
-using System.Diagnostics.Eventing.Reader;
-
-namespace Mottu.Api.Controllers
+﻿namespace Mottu.Api.Controllers
 {
     [Route("api/Bike")]
     [SwaggerTag("Moto")]

@@ -1,17 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using Mottu.Application.Services;
-using Mottu.Application.Helpers;
-using Mottu.Application.Responses;
-using Mottu.Domain.Entities;
-using Mottu.Domain.Interfaces;
-using Mottu.Infrastructure.Repositories;
-using Swashbuckle.AspNetCore.Annotations;
-using Mottu.Api.Controllers.Base;
-using Mottu.Application.Requests;
-using MassTransit;
-
-namespace Mottu.Api.Controllers
+﻿namespace Mottu.Api.Controllers
 {
     [Route("api/AcceptedOrder")]
     [SwaggerTag("PedidosAceitos")]

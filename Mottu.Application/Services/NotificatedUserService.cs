@@ -32,7 +32,7 @@ namespace Mottu.Application.Services
                 return ServiceResponseFactory<ListNotificatedUsersResponse>.Return(false, Application.Helpers.EnumStatusCode.Status400BadRequest, "Request inválido!");
 
             //Valida o requester
-            var validation = await ValidateRequester((Guid)request.RequestUserId!);
+            var validation = await ValidateAdminRequester((Guid)request.RequestUserId!);
 
             if (!validation.IsValid)
                 return ServiceResponseFactory<ListNotificatedUsersResponse>.Return(false, validation.StatusCode, validation.Message!);

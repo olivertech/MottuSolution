@@ -6,9 +6,7 @@ using Mottu.Application.Responses;
 using Mottu.Domain.Entities;
 using Mottu.Domain.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
-using Mottu.Application.Interfaces;
 using Mottu.Api.Controllers.Base;
-using System.Xml.Linq;
 
 namespace Mottu.Api.Controllers
 {

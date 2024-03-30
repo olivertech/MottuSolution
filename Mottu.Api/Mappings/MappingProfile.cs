@@ -1,11 +1,4 @@
-﻿using AutoMapper;
-using Mottu.Api.Classes;
-using Mottu.Application.Messaging;
-using Mottu.Application.Requests;
-using Mottu.Application.Responses;
-using Mottu.Domain.Entities;
-
-namespace Mottu.Api.Mappings
+﻿namespace Mottu.Api.Mappings
 {
     public class MappingProfile : Profile
     {

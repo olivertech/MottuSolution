@@ -1,16 +1,4 @@
-﻿using AutoMapper;
-using MassTransit;
-using Microsoft.AspNetCore.Mvc;
-using Mottu.Api.Controllers.Base;
-using Mottu.Application.Responses;
-using Mottu.Application.Services;
-using Mottu.Domain.Entities.Base;
-using Mottu.Domain.Interfaces;
-using Swashbuckle.AspNetCore.Annotations;
-using System.Drawing;
-using static System.Net.Mime.MediaTypeNames;
-
-namespace Mottu.Api.Controllers
+﻿namespace Mottu.Api.Controllers
 {
     /// <summary>
     /// Controller que recebe arquivos e salva localmente

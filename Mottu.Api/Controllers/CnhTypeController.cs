@@ -1,16 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using Mottu.Application.Services;
-using Mottu.Application.Requests;
-using Mottu.Application.Responses;
-using Mottu.Domain.Entities;
-using Mottu.Domain.Interfaces;
-using Swashbuckle.AspNetCore.Annotations;
-using System.Xml.Linq;
-using Mottu.Application.Interfaces;
-using Mottu.Api.Controllers.Base;
-
-namespace Mottu.Api.Controllers
+﻿namespace Mottu.Api.Controllers
 {
     [Route("api/CnhType")]
     [SwaggerTag("Tipo de CNH")]

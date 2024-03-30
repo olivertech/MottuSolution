@@ -1,16 +1,8 @@
 ﻿using AutoMapper;
 using Mottu.Application.Services.Base;
-using Mottu.Application.Responses;
 using Mottu.Domain.Entities;
 using Mottu.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Mottu.Application.Interfaces.Base;
 using Mottu.Application.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Mottu.Application.Requests;
 
 namespace Mottu.Application.Services
@@ -66,7 +58,7 @@ namespace Mottu.Application.Services
         public override async Task<ServiceResponseFactory<UserType>> Insert(UserTypeRequest request)
         {
             //Valida o requester
-            var validation = await ValidateRequester((Guid)request.RequestUserId!);
+            var validation = await ValidateAdminRequester((Guid)request.RequestUserId!);
 
             if (!validation.IsValid)
                 return ServiceResponseFactory<UserType>.Return(false, validation.StatusCode, validation.Message!);
@@ -100,7 +92,7 @@ namespace Mottu.Application.Services
         public override async Task<ServiceResponseFactory<UserType>> Update(UserTypeRequest request)
         {
             //Valida o requester
-            var validation = await ValidateRequester((Guid)request.RequestUserId!);
+            var validation = await ValidateAdminRequester((Guid)request.RequestUserId!);
 
             if (!validation.IsValid)
                 return ServiceResponseFactory<UserType>.Return(false, validation.StatusCode, validation.Message!);
@@ -138,7 +130,7 @@ namespace Mottu.Application.Services
         public override async Task<ServiceResponseFactory<UserType>> Delete(UserTypeRequest request)
         {
             //Valida o requester
-            var validation = await ValidateRequester((Guid)request.RequestUserId!);
+            var validation = await ValidateAdminRequester((Guid)request.RequestUserId!);
 
             if (!validation.IsValid)
                 return ServiceResponseFactory<UserType>.Return(false, validation.StatusCode, validation.Message!);

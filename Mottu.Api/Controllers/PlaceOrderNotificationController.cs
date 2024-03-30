@@ -1,13 +1,4 @@
-﻿using AutoMapper;
-using MassTransit;
-using Microsoft.AspNetCore.Mvc;
-using Mottu.Api.Controllers.Base;
-using Mottu.Application.Interfaces;
-using Mottu.Application.Messaging;
-using Mottu.Application.Services;
-using Mottu.Domain.Entities.Base;
-using Mottu.Domain.Interfaces;
-using Swashbuckle.AspNetCore.Annotations;
+﻿using Mottu.Application.Messaging;
 
 namespace Mottu.Api.Controllers
 {

@@ -1,16 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using Minio.DataModel.Notification;
-using Mottu.Api.Controllers.Base;
-using Mottu.Application.Helpers;
-using Mottu.Application.Interfaces;
-using Mottu.Application.Responses;
-using Mottu.Application.Services;
-using Mottu.Domain.Entities;
-using Mottu.Domain.Interfaces;
-using Swashbuckle.AspNetCore.Annotations;
-
-namespace Mottu.Api.Controllers
+﻿namespace Mottu.Api.Controllers
 {
     [Route("api/DeliveredOrder")]
     [SwaggerTag("PedidosEntregues")]

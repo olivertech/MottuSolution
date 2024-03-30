@@ -1,20 +1,4 @@
-﻿using AutoMapper;
-using MassTransit;
-using MassTransit.Internals.GraphValidation;
-using Microsoft.AspNetCore.Mvc;
-using Minio.DataModel.Notification;
-using Mottu.Api.Controllers.Base;
-using Mottu.Application.Helpers;
-using Mottu.Application.Interfaces;
-using Mottu.Application.Messaging;
-using Mottu.Application.Requests;
-using Mottu.Application.Responses;
-using Mottu.Application.Services;
-using Mottu.Domain.Entities;
-using Mottu.Domain.Interfaces;
-using Serilog;
-using Serilog.Events;
-using Swashbuckle.AspNetCore.Annotations;
+﻿using Mottu.Application.Messaging;
 
 namespace Mottu.Api.Controllers
 {
