@@ -26,7 +26,7 @@
             if (entity == null)
                 return ServiceResponseFactory<UserType>.Return(false, Application.Helpers.EnumStatusCode.Status400BadRequest, "Id inválido!");
 
-            return ServiceResponseFactory<UserType>.Return(true, Application.Helpers.EnumStatusCode.Status200OK, "Tipo de usuário recuperado com sucesso.", entity!);
+            return ServiceResponseFactory<UserType>.Return(true, Application.Helpers.EnumStatusCode.Status200OK, "Tipo de Usuário recuperado com sucesso.", entity!);
         }
 
         public async Task<ServiceResponseFactory<IEnumerable<UserType>>> GetListByName(string name)
@@ -39,7 +39,7 @@
             if (entities != null)
                 return ServiceResponseFactory<IEnumerable<UserType>>.Return(true, Application.Helpers.EnumStatusCode.Status200OK, "Tipo de usuário recuperado por nome com sucesso.", entities);
             else
-                return ServiceResponseFactory<IEnumerable<UserType>>.Return(false, Application.Helpers.EnumStatusCode.Status400BadRequest, "Não existe tipos de usuário para o nome informado!");
+                return ServiceResponseFactory<IEnumerable<UserType>>.Return(false, Application.Helpers.EnumStatusCode.Status400BadRequest, "Não existe Tipo de Usuário para o nome informado!");
         }
 
         public override async Task<ServiceResponseFactory<int>> GetCount()
@@ -70,7 +70,7 @@
             var entity = _mapper!.Map<UserType>(request);
 
             entity.Id = Guid.NewGuid();
-            entity.Name = request.Name!.ToUpper();
+            entity.Name = request.Name!;
 
             var result = await _unitOfWork.userTypeRepository.Insert(entity);
 

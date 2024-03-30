@@ -7,7 +7,20 @@
     {
         #region Propriedades
 
-        public string? Name { get; set; }
+        public string? _name { get; private set; }
+
+        public string? Name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                if (value != null)
+                    _name = value!.ToUpper();
+            }
+        }
 
         #endregion
 

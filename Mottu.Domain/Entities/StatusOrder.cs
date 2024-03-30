@@ -7,7 +7,20 @@
     {
         #region Proriedades
 
-        public string? Name { get; private set; }
+        public string? _name { get; private set; }
+
+        public string? Name 
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                if (value != null)
+                    _name = value!.ToUpper();
+            }
+        }
 
         #endregion
 
