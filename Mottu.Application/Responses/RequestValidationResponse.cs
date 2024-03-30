@@ -1,6 +1,4 @@
-﻿using Mottu.Application.Helpers;
-
-namespace Mottu.Application.Responses
+﻿namespace Mottu.Application.Responses
 {
     public class RequestValidationResponse
     {

@@ -1,7 +1,4 @@
-﻿using Mottu.Application.Interfaces;
-using Mottu.Domain.Entities;
-
-namespace Mottu.Application.Responses
+﻿namespace Mottu.Application.Responses
 {
     public class FinishRentalResponse : IResponse
     {

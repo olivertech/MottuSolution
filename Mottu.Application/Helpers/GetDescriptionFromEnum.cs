@@ -1,6 +1,4 @@
-﻿using System.Runtime.Serialization;
-
-namespace Mottu.Application.Helpers
+﻿namespace Mottu.Application.Helpers
 {
     public static class GetDescriptionFromEnum
     {

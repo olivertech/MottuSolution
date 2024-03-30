@@ -1,13 +1,4 @@
-﻿using AutoMapper;
-using Mottu.Application.Helpers;
-using Mottu.Application.Interfaces;
-using Mottu.Application.Requests;
-using Mottu.Application.Responses;
-using Mottu.Application.Services.Base;
-using Mottu.Domain.Entities;
-using Mottu.Domain.Interfaces;
-
-namespace Mottu.Application.Services
+﻿namespace Mottu.Application.Services
 {
     public class AcceptedOrderService : ServiceBase<AcceptedOrder, AcceptedOrderRequest>, IAcceptedOrderService
     {

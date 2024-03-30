@@ -1,8 +1,4 @@
-﻿using Mottu.Application.Interfaces;
-using Mottu.Domain.Entities;
-using Newtonsoft.Json;
-
-namespace Mottu.Application.Responses
+﻿namespace Mottu.Application.Responses
 {
     public class AcceptedOrderResponse : IResponse
     {

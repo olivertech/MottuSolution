@@ -1,6 +1,4 @@
-﻿using Mottu.Application.Interfaces;
-
-namespace Mottu.Application.Responses
+﻿namespace Mottu.Application.Responses
 {
     public class UploadResponse : IResponse
     {

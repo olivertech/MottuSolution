@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-
-namespace Mottu.Application.Helpers
+﻿namespace Mottu.Application.Helpers
 {
     public class ConvertModelToResponse<M,R> 
         where M : class

@@ -1,9 +1,4 @@
-﻿using Mottu.Application.Interfaces;
-using Newtonsoft.Json;
-using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
-
-namespace Mottu.Application.Requests
+﻿namespace Mottu.Application.Requests
 {
     public class AcceptedOrderRequest : IRequest
     {

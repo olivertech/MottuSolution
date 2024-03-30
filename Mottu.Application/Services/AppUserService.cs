@@ -1,11 +1,4 @@
-﻿using AutoMapper;
-using Mottu.Application.Services.Base;
-using Mottu.Domain.Entities;
-using Mottu.Domain.Interfaces;
-using Mottu.Application.Interfaces;
-using Mottu.Application.Requests;
-
-namespace Mottu.Application.Services
+﻿namespace Mottu.Application.Services
 {
     public class AppUserService : ServiceBase<AppUser, AppUserRequest>, IAppUserService
     {

@@ -1,7 +1,4 @@
-﻿using Mottu.Application.Interfaces;
-using Newtonsoft.Json;
-
-namespace Mottu.Application.Responses
+﻿namespace Mottu.Application.Responses
 {
     public class UserTypeResponse : IResponse
     {

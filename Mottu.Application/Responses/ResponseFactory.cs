@@ -1,6 +1,4 @@
-﻿using System.Runtime.Serialization;
-
-namespace Mottu.Application.Responses
+﻿namespace Mottu.Application.Responses
 {
     /// <summary>
     /// Classe genérica usada para montar os

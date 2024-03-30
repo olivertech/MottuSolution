@@ -1,7 +1,4 @@
-﻿using Mottu.Application.Helpers;
-using System.Runtime.Serialization;
-
-namespace Mottu.Application.Services
+﻿namespace Mottu.Application.Services
 {
     /// <summary>
     /// Classe genérica usada para montar os

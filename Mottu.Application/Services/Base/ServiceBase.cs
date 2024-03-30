@@ -1,10 +1,4 @@
-﻿using Mottu.Application.Helpers;
-using Mottu.Application.Interfaces;
-using Mottu.Application.Interfaces.Base;
-using Mottu.Application.Responses;
-using Mottu.Domain.Interfaces;
-
-namespace Mottu.Application.Services.Base
+﻿namespace Mottu.Application.Services.Base
 {
     public class ServiceBase<E, R> : IServiceBase<E, R>
         where E : IEntity

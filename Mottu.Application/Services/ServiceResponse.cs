@@ -1,6 +1,4 @@
-﻿using Mottu.Application.Helpers;
-
-namespace Mottu.Application.Services
+﻿namespace Mottu.Application.Services
 {
     public static class ServiceResponse<T>
     {

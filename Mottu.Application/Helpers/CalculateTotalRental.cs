@@ -1,8 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Mottu.Application.Requests;
-using Mottu.Domain.Entities;
-
-namespace Mottu.Application.Helpers
+﻿namespace Mottu.Application.Helpers
 {
     public class CalculateTotalRental
     {

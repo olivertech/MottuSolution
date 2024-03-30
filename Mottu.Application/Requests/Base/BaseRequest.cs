@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json;
-using System.Text.Json.Serialization;
-
-namespace Mottu.Application.Requests.Base
+﻿namespace Mottu.Application.Requests.Base
 {
     public class BaseRequest
     {
