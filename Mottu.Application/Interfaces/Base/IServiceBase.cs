@@ -1,4 +1,7 @@
-﻿using Mottu.Domain.Entities.Base;
+﻿using Mottu.Application.Responses;
+using Mottu.Application.Services;
+using Mottu.Domain.Entities;
+using Mottu.Domain.Entities.Base;
 using Mottu.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -10,14 +13,13 @@ namespace Mottu.Application.Interfaces.Base
 {
     public interface IServiceBase<E, R>
         where E : IEntity
-        where R : IResponse
+        where R : IRequest
     {
-        Task<IEnumerable<E>?> GetAll();
-        Task<int> GetById(Guid id);
-        Task<IEnumerable<E>> GetList();
-        Task<int> GetCount();
-        Task<E> Insert(R request);
-        Task<E> Update(R request);
-        Task<E> Delete(Guid id);
+        Task<ServiceResponseFactory<IEnumerable<E>>> GetAll();
+        Task<ServiceResponseFactory<E>> GetById(Guid id);
+        Task<ServiceResponseFactory<int>> GetCount();
+        Task<ServiceResponseFactory<E>> Insert(R request);
+        Task<ServiceResponseFactory<E>> Update(R request);
+        Task<ServiceResponseFactory<E>> Delete(Guid id);
     }
 }

@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Mottu.Application.Services
 {
-    public class NotificatedUserService : ServiceBase<NotificatedUser, NotificatedUserResponse>, INotificatedUserService
+    public class NotificatedUserService : ServiceBase<NotificatedUser, NotificatedUserRequest>, INotificatedUserService
     {
         protected readonly IMapper? _mapper;
 

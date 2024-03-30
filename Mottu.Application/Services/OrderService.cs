@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Mottu.Application.Interfaces;
 using Mottu.Application.Interfaces.Base;
+using Mottu.Application.Requests;
 using Mottu.Application.Responses;
 using Mottu.Application.Services.Base;
 using Mottu.Domain.Entities;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Mottu.Application.Services
 {
-    public class OrderService : ServiceBase<Order, OrderResponse>, IOrderService
+    public class OrderService : ServiceBase<Order, OrderRequest>, IOrderService
     {
         protected readonly IMapper? _mapper;
 
@@ -23,9 +24,10 @@ namespace Mottu.Application.Services
             _mapper = mapper;
         }
 
-        public override Task<IEnumerable<Order>?> GetAll()
+        public override async Task<ServiceResponseFactory<IEnumerable<Order>>> GetAll()
         {
-            return _unitOfWork!.orderRepository!.GetAll();
+            var list = await _unitOfWork!.orderRepository!.GetAll();
+            return ServiceResponseFactory<IEnumerable<Order>>.Return(true, Application.Helpers.EnumStatusCode.Status200OK, "Lista de Pedidos recuperada com sucesso.", list!);
         }
     }
 }

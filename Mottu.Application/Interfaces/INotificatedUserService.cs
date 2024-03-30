@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Mottu.Application.Interfaces
 {
-    public interface INotificatedUserService : IServiceBase<NotificatedUser, NotificatedUserResponse>
+    public interface INotificatedUserService : IServiceBase<NotificatedUser, NotificatedUserRequest>
     {
         Task<ServiceResponseFactory<ListNotificatedUsersResponse>> GetListOfNotificatedUsers(NotificatedUserRequest request);
     }

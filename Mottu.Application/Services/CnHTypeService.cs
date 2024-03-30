@@ -2,6 +2,7 @@
 using Mottu.Application.Helpers;
 using Mottu.Application.Interfaces;
 using Mottu.Application.Interfaces.Base;
+using Mottu.Application.Requests;
 using Mottu.Application.Responses;
 using Mottu.Application.Services.Base;
 using Mottu.Domain.Entities;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Mottu.Application.Services
 {
-    public class CnhTypeService : ServiceBase<CnhType, CnhTypeResponse>, ICnhTypeService
+    public class CnhTypeService : ServiceBase<CnhType, CnhTypeRequest>, ICnhTypeService
     {
         protected readonly IMapper? _mapper;
 
@@ -24,14 +25,10 @@ namespace Mottu.Application.Services
             _mapper = mapper;
         }
 
-        public async override Task<IEnumerable<CnhType>> GetAll()
+        public override async Task<ServiceResponseFactory<IEnumerable<CnhType>>> GetAll()
         {
-            var convert = new ConvertModelToResponse<CnhType, CnhTypeResponse>(_mapper);
-
-            var list = await _unitOfWork!.cnhTypeRepository.GetAll();
-            List<CnhTypeResponse> result = convert.GetResponsList(list!);
-
-            return list!;
+            var list = await _unitOfWork!.cnhTypeRepository!.GetAll();
+            return ServiceResponseFactory<IEnumerable<CnhType>>.Return(true, Application.Helpers.EnumStatusCode.Status200OK, "Lista de Tipos de CNH recuperada com sucesso.", list!);
         }
     }
 }

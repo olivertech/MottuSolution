@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Mottu.Application.Interfaces;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Mottu.Application.Requests
 {
-    public class AcceptedOrderRequest
+    public class AcceptedOrderRequest : IRequest
     {
         [JsonPropertyName("user_id")]
         [JsonProperty(PropertyName = "user_id")]

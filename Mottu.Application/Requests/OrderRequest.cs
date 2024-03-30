@@ -1,4 +1,5 @@
-﻿using Mottu.Application.Requests.Base;
+﻿using Mottu.Application.Interfaces;
+using Mottu.Application.Requests.Base;
 using Mottu.Domain.Entities;
 using Newtonsoft.Json;
 using System;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Mottu.Application.Requests
 {
-    public class OrderRequest : BaseRequest
+    public class OrderRequest : BaseRequest, IRequest
     {
         [JsonPropertyName("id")]
         [JsonProperty(PropertyName = "id")]

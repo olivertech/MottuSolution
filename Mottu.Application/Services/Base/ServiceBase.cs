@@ -16,7 +16,7 @@ namespace Mottu.Application.Services.Base
 {
     public class ServiceBase<E, R> : IServiceBase<E, R>
         where E : IEntity
-        where R : IResponse
+        where R : IRequest
     {
         protected readonly IUnitOfWork? _unitOfWork;
 
@@ -46,37 +46,32 @@ namespace Mottu.Application.Services.Base
             return new RequestValidationResponse(true, userId, EnumStatusCode.Status200OK, "Usuário requisitante válido");
         }
 
-        public virtual Task<IEnumerable<E>?> GetAll()
+        public virtual Task<ServiceResponseFactory<IEnumerable<E>>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public virtual Task<int> GetById(Guid id)
+        public virtual Task<ServiceResponseFactory<E>> GetById(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public virtual Task<int> GetCount()
+        public virtual Task<ServiceResponseFactory<int>> GetCount()
         {
             throw new NotImplementedException();
         }
 
-        public virtual Task<IEnumerable<E>> GetList()
+        public virtual Task<ServiceResponseFactory<E>> Insert(R request)
         {
             throw new NotImplementedException();
         }
 
-        public virtual Task<E> Insert(R request)
+        public virtual Task<ServiceResponseFactory<E>> Update(R request)
         {
             throw new NotImplementedException();
         }
 
-        public virtual Task<E> Update(R request)
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual Task<E> Delete(Guid id)
+        public virtual Task<ServiceResponseFactory<E>> Delete(Guid id)
         {
             throw new NotImplementedException();
         }

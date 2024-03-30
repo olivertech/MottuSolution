@@ -1,11 +1,12 @@
-﻿using Mottu.Application.Requests.Base;
+﻿using Mottu.Application.Interfaces;
+using Mottu.Application.Requests.Base;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace Mottu.Application.Requests
 {
-    public class FinishRentalRequest : BaseRequest
+    public class FinishRentalRequest : BaseRequest, IRequest
     {
         [JsonPropertyName("rental_id")]
         [JsonProperty(PropertyName = "rental_id")]

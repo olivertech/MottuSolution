@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Mottu.Application.Interfaces;
 using Mottu.Application.Interfaces.Base;
+using Mottu.Application.Requests;
 using Mottu.Application.Responses;
 using Mottu.Application.Services.Base;
 using Mottu.Domain.Entities;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Mottu.Application.Services
 {
-    public class RentalService : ServiceBase<Rental, RentalResponse>, IRentalService
+    public class RentalService : ServiceBase<Rental, RentalRequest>, IRentalService
     {
         protected readonly IMapper? _mapper;
 
@@ -23,9 +24,10 @@ namespace Mottu.Application.Services
             _mapper = mapper;
         }
 
-        public override Task<IEnumerable<Rental>?> GetAll()
+        public override async Task<ServiceResponseFactory<IEnumerable<Rental>>> GetAll()
         {
-            return _unitOfWork!.rentalRepository!.GetFullAll();
+            var list = await _unitOfWork!.rentalRepository!.GetFullAll();
+            return ServiceResponseFactory<IEnumerable<Rental>>.Return(true, Application.Helpers.EnumStatusCode.Status200OK, "Lista de Locações recuperada com sucesso.", list!);
         }
     }
 }

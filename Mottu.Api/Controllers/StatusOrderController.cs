@@ -28,9 +28,9 @@ namespace Mottu.Api.Controllers
         [Produces("application/json")]
         public IActionResult GetAll()
         {
-            var list = _statusOrderService!.GetAll().Result;
-            var responseList = _mapper!.Map<IEnumerable<StatusOrder>, IEnumerable<StatusOrderResponse>>(list!);
-            return Ok(ResponseFactory<IEnumerable<StatusOrderResponse>>.Success(String.Format("Lista de status de pedido recuperada com sucesso.", _nomeEntidade), responseList));
+            var result = _statusOrderService!.GetAll().Result;
+            var responseList = _mapper!.Map<IEnumerable<StatusOrder>, IEnumerable<StatusOrderResponse>>(result.Content!);
+            return Ok(ResponseFactory<IEnumerable<StatusOrderResponse>>.Success(result.Message!, responseList));
         }
 
         [HttpGet]

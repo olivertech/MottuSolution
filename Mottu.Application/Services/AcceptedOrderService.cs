@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace Mottu.Application.Services
 {
-    public class AcceptedOrderService : ServiceBase<AcceptedOrder, AcceptedOrderResponse>, IAcceptedOrderService
+    public class AcceptedOrderService : ServiceBase<AcceptedOrder, AcceptedOrderRequest>, IAcceptedOrderService
     {
         protected readonly IMapper? _mapper;
 

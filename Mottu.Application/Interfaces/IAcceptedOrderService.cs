@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Mottu.Application.Interfaces
 {
-    public interface IAcceptedOrderService : IServiceBase<AcceptedOrder, AcceptedOrderResponse>
+    public interface IAcceptedOrderService : IServiceBase<AcceptedOrder, AcceptedOrderRequest>
     {
         Task<ServiceResponseFactory<AcceptedOrderResponse>> AcceptOrder(AcceptedOrderRequest request);
     }

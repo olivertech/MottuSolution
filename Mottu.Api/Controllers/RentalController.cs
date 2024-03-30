@@ -31,9 +31,9 @@ namespace Mottu.Api.Controllers
         [Produces("application/json")]
         public IActionResult GetAll()
         {
-            var list = _rentalService!.GetAll().Result;
-            var responseList = _mapper!.Map<IEnumerable<Rental>, IEnumerable<RentalResponse>>(list!);
-            return Ok(ResponseFactory<IEnumerable<RentalResponse>>.Success(String.Format("Lista de locações recuperada com sucesso.", _nomeEntidade), responseList));
+            var result = _rentalService!.GetAll().Result;
+            var responseList = _mapper!.Map<IEnumerable<Rental>, IEnumerable<RentalResponse>>(result.Content!);
+            return Ok(ResponseFactory<IEnumerable<RentalResponse>>.Success(result.Message!, responseList));
         }
 
         [HttpGet]

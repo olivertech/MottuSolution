@@ -27,8 +27,8 @@ namespace Mottu.Api.Controllers
         [Produces("application/json")]
         public IActionResult GetAll()
         {
-            var list = _planService!.GetAll().Result;
-            var responseList = _mapper!.Map<IEnumerable<Plan>, IEnumerable<PlanResponse>>(list!);
+            var result = _planService!.GetAll().Result;
+            var responseList = _mapper!.Map<IEnumerable<Plan>, IEnumerable<PlanResponse>>(result.Content!);
             return Ok(ResponseFactory<IEnumerable<PlanResponse>>.Success(String.Format("Lista de planos recuperada com sucesso.", _nomeEntidade), responseList));
         }
 

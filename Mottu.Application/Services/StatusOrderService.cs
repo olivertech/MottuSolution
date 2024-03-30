@@ -2,6 +2,7 @@
 using Mottu.Application.Helpers;
 using Mottu.Application.Interfaces;
 using Mottu.Application.Interfaces.Base;
+using Mottu.Application.Requests;
 using Mottu.Application.Responses;
 using Mottu.Application.Services.Base;
 using Mottu.Domain.Entities;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Mottu.Application.Services
 {
-    public class StatusOrderService : ServiceBase<StatusOrder, StatusOrderResponse>, IStatusOrderService
+    public class StatusOrderService : ServiceBase<StatusOrder, StatusOrderRequest>, IStatusOrderService
     {
         protected readonly IMapper? _mapper;
 
@@ -24,9 +25,10 @@ namespace Mottu.Application.Services
             _mapper = mapper;
         }
 
-        public override Task<IEnumerable<StatusOrder>?> GetAll()
+        public override async Task<ServiceResponseFactory<IEnumerable<StatusOrder>>> GetAll()
         {
-            return _unitOfWork!.statusOrderRepository!.GetAll();
+            var list = await _unitOfWork!.statusOrderRepository!.GetAll();
+            return ServiceResponseFactory<IEnumerable<StatusOrder>>.Return(true, Application.Helpers.EnumStatusCode.Status200OK, "Lista de Status do Pedido recuperado com sucesso.", list!);
         }
     }
 }

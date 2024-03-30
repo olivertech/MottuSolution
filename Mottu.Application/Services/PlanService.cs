@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Mottu.Application.Interfaces;
 using Mottu.Application.Interfaces.Base;
+using Mottu.Application.Requests;
 using Mottu.Application.Responses;
 using Mottu.Application.Services.Base;
 using Mottu.Domain.Entities;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Mottu.Application.Services
 {
-    public class PlanService : ServiceBase<Plan, PlanResponse>, IPlanService
+    public class PlanService : ServiceBase<Plan, PlanRequest>, IPlanService
     {
         protected readonly IMapper? _mapper;
 
@@ -23,9 +24,10 @@ namespace Mottu.Application.Services
             _mapper = mapper;
         }
 
-        public override Task<IEnumerable<Plan>?> GetAll()
+        public override async Task<ServiceResponseFactory<IEnumerable<Plan>>> GetAll()
         {
-            return _unitOfWork!.planRepository!.GetAll();
+            var list = await _unitOfWork!.planRepository!.GetAll();
+            return ServiceResponseFactory<IEnumerable<Plan>>.Return(true, Application.Helpers.EnumStatusCode.Status200OK, "Lista de Planos recuperada com sucesso.", list!);
         }
     }
 }

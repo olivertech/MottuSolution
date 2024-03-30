@@ -2,6 +2,7 @@
 using Mottu.Application.Helpers;
 using Mottu.Application.Interfaces;
 using Mottu.Application.Interfaces.Base;
+using Mottu.Application.Requests;
 using Mottu.Application.Requests.Base;
 using Mottu.Application.Responses;
 using Mottu.Application.Services.Base;
@@ -15,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace Mottu.Application.Services
 {
-    public class BikeService : ServiceBase<Bike, BikeResponse>, IBikeService
+    public class BikeService : ServiceBase<Bike, BikeRequest>, IBikeService
     {
         protected readonly IMapper? _mapper;
 
