@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1-Mottu.Api", "1-Mottu.Api"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4-Mottu.Domain", "4-Mottu.Domain", "{F9E7827C-8B9D-404F-BC16-1782BAC3AD10}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2-Mottu.Infrastructure", "2-Mottu.Infrastructure", "{E4176D1F-3A6B-4CC2-85BF-C64A1417D778}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3-Mottu.Infrastructure", "3-Mottu.Infrastructure", "{E4176D1F-3A6B-4CC2-85BF-C64A1417D778}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5-Mottu.CrossCutting", "5-Mottu.CrossCutting", "{6FA3B25E-FBEB-412D-9FAB-4E3FDFC84915}"
 EndProject
@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mottu.Api", "Mottu.Api\Mott
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mottu.Infrastructure", "Mottu.Infrastructure\Mottu.Infrastructure.csproj", "{8CA2100A-C101-4DB4-8FDB-AA0B11F317E7}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3-Mottu.Application", "3-Mottu.Application", "{367306A1-5E4E-47C8-838D-016413C5755F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2-Mottu.Application", "2-Mottu.Application", "{367306A1-5E4E-47C8-838D-016413C5755F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mottu.Application", "Mottu.Application\Mottu.Application.csproj", "{A9345701-78C0-4CF4-B311-9F035E2AA321}"
 EndProject
