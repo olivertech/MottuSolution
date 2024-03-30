@@ -11,7 +11,7 @@ namespace Mottu.Domain.Entities
     {
         #region Propriedades
 
-        public string? Name { get; private set; }
+        public string? Name { get; set; }
 
         #endregion
 

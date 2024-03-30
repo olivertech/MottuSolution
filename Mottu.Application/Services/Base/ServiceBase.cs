@@ -71,7 +71,7 @@ namespace Mottu.Application.Services.Base
             throw new NotImplementedException();
         }
 
-        public virtual Task<ServiceResponseFactory<E>> Delete(Guid id)
+        public virtual Task<ServiceResponseFactory<E>> Delete(R request)
         {
             throw new NotImplementedException();
         }

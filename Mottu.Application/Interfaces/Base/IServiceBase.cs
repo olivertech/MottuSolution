@@ -20,6 +20,6 @@ namespace Mottu.Application.Interfaces.Base
         Task<ServiceResponseFactory<int>> GetCount();
         Task<ServiceResponseFactory<E>> Insert(R request);
         Task<ServiceResponseFactory<E>> Update(R request);
-        Task<ServiceResponseFactory<E>> Delete(Guid id);
+        Task<ServiceResponseFactory<E>> Delete(R request);
     }
 }

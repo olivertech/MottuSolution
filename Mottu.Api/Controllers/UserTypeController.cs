@@ -112,11 +112,11 @@ namespace Mottu.Api.Controllers
         [ProducesResponseType(typeof(int), StatusCodes.Status200OK, Type = typeof(UserTypeResponse))]
         [ProducesResponseType(typeof(int), StatusCodes.Status404NotFound, Type = typeof(UserTypeResponse))]
         [ProducesResponseType(typeof(int), StatusCodes.Status400BadRequest, Type = typeof(UserTypeResponse))]
-        public IActionResult Delete(Guid id)
+        public IActionResult Delete(UserTypeRequest request)
         {
             try
             {
-                var result = _userTypeService!.Delete(id).Result;
+                var result = _userTypeService!.Delete(request).Result;
                 var responseEntity = _mapper!.Map<UserType, UserTypeResponse>(result.Content!);
                 return Ok(ResponseFactory<UserTypeResponse>.Success(result.Message!, responseEntity));
             }
