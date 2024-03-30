@@ -1,17 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Mottu.Api.Services;
-using Mottu.Application.Interfaces;
-using Mottu.Application.Messaging;
-using Mottu.Application.Services;
-using Mottu.Application.Services.Base;
-using Mottu.Domain.Interfaces;
-using Mottu.Infrastructure.Context;
-using Mottu.Infrastructure.Repositories;
-
-namespace Mottu.Application.Dependencies
+﻿namespace Mottu.Application.Dependencies
 {
     /// <summary>
     /// Classe estática que concentra as configurações
