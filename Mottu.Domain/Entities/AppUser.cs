@@ -1,7 +1,4 @@
-﻿using Mottu.Domain.Entities.Base;
-using Mottu.Domain.Validations;
-
-namespace Mottu.Domain.Entities
+﻿namespace Mottu.Domain.Entities
 {
     public sealed class AppUser : BaseEntity
     {

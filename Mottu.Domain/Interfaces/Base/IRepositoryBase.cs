@@ -1,6 +1,4 @@
-﻿using System.Linq.Expressions;
-
-namespace Mottu.Domain.Interfaces.Base
+﻿namespace Mottu.Domain.Interfaces.Base
 {
     public interface IRepositoryBase<T> where T : class
     {

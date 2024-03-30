@@ -1,8 +1,4 @@
-﻿using Mottu.Domain.Entities.Base;
-using Mottu.Domain.Validations;
-using System.Text.Json.Serialization;
-
-namespace Mottu.Domain.Entities
+﻿namespace Mottu.Domain.Entities
 {
     public sealed class Notification : BaseEntity
     {
