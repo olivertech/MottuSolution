@@ -25,9 +25,9 @@
                 
                 return list ?? Enumerable.Empty<T>();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return null;
+                throw new Exception("RepositoryError - Não foi possível recuperar a lista.", ex);
             }
         }
 
@@ -48,9 +48,9 @@
 
                 return entity;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return null;
+                throw new Exception("RepositoryError - Não foi possível recuperar a id informado.", ex);
             }
         }
 
@@ -68,9 +68,9 @@
                 
                 return list ?? Enumerable.Empty<T>();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return null;
+                throw new Exception("RepositoryError - Não foi possível recuperar a lista.", ex);
             }
         }
 
@@ -87,9 +87,9 @@
                 
                 return list.Count;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return 0;
+                throw new Exception("RepositoryError - Não foi possível recuperar o total.", ex);
             }
         }
 
@@ -110,9 +110,9 @@
                 
                 return entity;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return null;
+                throw new Exception("RepositoryError - Não foi possível inserir a entidade.", ex);
             }
         }
 
@@ -135,9 +135,9 @@
                 
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return false;
+                throw new Exception("RepositoryError - Não foi possível atualizar a entidade.", ex);
             }
         }
 
@@ -159,9 +159,9 @@
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return false;
+                throw new Exception("RepositoryError - Não foi possível remover a entidade.", ex);
             }
         }
     }
