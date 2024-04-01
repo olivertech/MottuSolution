@@ -7,26 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Helpers\**" />
-    <Compile Remove="Interfaces\**" />
-    <Compile Remove="Requests\**" />
-    <Compile Remove="Responses\**" />
-    <Compile Remove="Services\**" />
-    <EmbeddedResource Remove="Helpers\**" />
-    <EmbeddedResource Remove="Interfaces\**" />
-    <EmbeddedResource Remove="Requests\**" />
-    <EmbeddedResource Remove="Responses\**" />
-    <EmbeddedResource Remove="Services\**" />
-    <None Remove="Helpers\**" />
-    <None Remove="Interfaces\**" />
-    <None Remove="Requests\**" />
-    <None Remove="Responses\**" />
-    <None Remove="Services\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -36,7 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Mottu.Application\Mottu.Application.csproj" />
     <ProjectReference Include="..\Mottu.Domain\Mottu.Domain.csproj" />
+    <ProjectReference Include="..\Mottu.Infrastructure\Mottu.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
