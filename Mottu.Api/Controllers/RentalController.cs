@@ -251,7 +251,7 @@
         public IActionResult Delete(Guid id)
         {
             if (id.ToString().Length == 0)
-                return BadRequest(ResponseFactory<RentalResponse>.Error("Id informado igual a 0!"));
+                return BadRequest(ResponseFactory<RentalResponse>.Error("Id inválido!"));
 
             var entity = _unitOfWork!.rentalRepository.GetById(id).Result;
 

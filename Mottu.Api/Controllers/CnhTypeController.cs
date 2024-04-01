@@ -29,9 +29,12 @@ namespace Mottu.Api.Controllers
         [Produces("application/json")]
         public IActionResult GetById(Guid id)
         {
+            if (id.ToString().Length == 0)
+                return BadRequest(ResponseFactory<CnhTypeResponse>.Error("Id inválido!"));
+
             var result = _cnhTypeService!.GetById(id).Result;
             var responseEntity = _mapper!.Map<CnhType, CnhTypeResponse>(result.Content!);
-            return Ok(ResponseFactory<CnhTypeResponse>.Success(result.Message!, responseEntity));
+            return Ok(ResponseFactory<CnhTypeResponse>.Success(result.Message!, responseEntity)); 
         }
 
         [HttpGet]

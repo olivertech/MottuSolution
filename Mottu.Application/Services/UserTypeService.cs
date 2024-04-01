@@ -129,7 +129,7 @@
                 return ServiceResponseFactory<UserType>.Return(false, validation.StatusCode, validation.Message!);
 
             if (!Guid.TryParse(request.Id.ToString(), out _))
-                return ServiceResponseFactory<UserType>.Return(false, Application.Helpers.EnumStatusCode.Status400BadRequest, "Id informado igual a 0!");
+                return ServiceResponseFactory<UserType>.Return(false, Application.Helpers.EnumStatusCode.Status400BadRequest, "Id inválido!");
 
             var entity = await _unitOfWork!.userTypeRepository.GetById(request.Id);
 

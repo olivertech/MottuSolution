@@ -27,6 +27,9 @@
         [Produces("application/json")]
         public IActionResult GetById(Guid id)
         {
+            if (!Guid.TryParse(id.ToString(), out _))
+                return BadRequest(ResponseFactory<OrderResponse>.Error("Id inválido!"));
+
             var result = _statusOrderService!.GetById(id).Result;
             var responseEntity = _mapper!.Map<StatusOrder, StatusOrderResponse>(result.Content!);
             return Ok(ResponseFactory<StatusOrderResponse>.Success(result.Message!, responseEntity));

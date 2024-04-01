@@ -128,7 +128,7 @@ namespace Mottu.Application.Services
                 return ServiceResponseFactory<CnhType>.Return(false, validation.StatusCode, validation.Message!);
 
             if (!Guid.TryParse(request.Id.ToString(), out _))
-                return ServiceResponseFactory<CnhType>.Return(false, Application.Helpers.EnumStatusCode.Status400BadRequest, "Id informado igual a 0!");
+                return ServiceResponseFactory<CnhType>.Return(false, Application.Helpers.EnumStatusCode.Status400BadRequest, "Id inválido!");
 
             var entity = _unitOfWork!.cnhTypeRepository.GetById(request.Id).Result;
 

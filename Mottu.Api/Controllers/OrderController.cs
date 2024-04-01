@@ -47,7 +47,7 @@ namespace Mottu.Api.Controllers
         [Produces("application/json")]
         public async Task<IActionResult> GetById(Guid id)
         {
-            if (id.ToString().Length == 0)
+            if (!Guid.TryParse(id.ToString(), out _))
                 return BadRequest(ResponseFactory<OrderResponse>.Error("Id inválido!"));
 
             var entities = await _unitOfWork!.orderRepository.GetById(id);

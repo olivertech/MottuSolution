@@ -194,7 +194,7 @@
         public IActionResult Delete(Guid id)
         {
             if (id.ToString().Length == 0)
-                return BadRequest(ResponseFactory<AppUserResponse>.Error("Id informado igual a 0!"));
+                return BadRequest(ResponseFactory<AppUserResponse>.Error("Id inválido!"));
 
             var entity = _unitOfWork!.userRepository.GetById(id).Result;
 

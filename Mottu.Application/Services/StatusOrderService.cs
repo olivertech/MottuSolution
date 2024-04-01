@@ -129,7 +129,7 @@ namespace Mottu.Application.Services
                 return ServiceResponseFactory<StatusOrder>.Return(false, validation.StatusCode, validation.Message!);
 
             if (!Guid.TryParse(request.Id.ToString(), out _))
-                return ServiceResponseFactory<StatusOrder>.Return(false, Application.Helpers.EnumStatusCode.Status400BadRequest, "Id informado igual a 0!");
+                return ServiceResponseFactory<StatusOrder>.Return(false, Application.Helpers.EnumStatusCode.Status400BadRequest, "Id inválido!");
 
             var entity = await _unitOfWork!.statusOrderRepository.GetById(request.Id);
 
