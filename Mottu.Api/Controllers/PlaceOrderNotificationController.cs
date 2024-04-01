@@ -2,6 +2,10 @@
 
 namespace Mottu.Api.Controllers
 {
+    /// <summary>
+    /// Controller usada pelo RabbitMQ Producer,
+    /// para envio das mensagens em broadcast
+    /// </summary>
     [Route("api/PlaceOrderNotification")]
     [SwaggerTag("ColocarPedido")]
     [ApiController]
