@@ -2,6 +2,6 @@
 {
     public interface IBikeService : IServiceBase<Bike, BikeRequest>
     {
-        Task<ServiceResponseFactory<IEnumerable<BikeResponse>>> GetAll(BaseRequest request);
+        Task<ServiceResponseFactory<IEnumerable<Bike>>> GetListByPlate(BikeByPlateRequest request);
     }
 }

@@ -32,6 +32,6 @@
         [JsonPropertyName("year")]
         [JsonProperty(PropertyName = "year")]
         [Required(ErrorMessage = "O campo Ano é obrigatório")]
-        public int Year { get; private set; }
+        public string? Year { get; set; }
     }
 }

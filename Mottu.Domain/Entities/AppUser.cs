@@ -5,12 +5,12 @@
         #region Propriedades
 
         //Propriedades comuns a todos os tipos de usuários
-        public string? Name { get; private set; }
-        public string? Login { get; private set; }
+        public string? Name { get; set; }
+        public string? Login { get; set; }
         public string? Password { get; set; }
 
         //Propriedades compartilhadas por mais de um tipo de usuário
-        public string? Cnpj { get; private set; }
+        public string? Cnpj { get; set; }
         public DateOnly? BirthDate { get; private set; }
         public string? Cnh { get; set; }
         public string? PathCnhImage { get; set; }
@@ -23,6 +23,8 @@
         public string? City { get; private set; }
         public string? Neighborhood { get; private set; }
         public string? ZipCode { get; private set; }
+
+        public Guid UserTypeId { get; set; }
 
         //Navigation Properties
         public UserType? UserType { get; set; }
@@ -39,6 +41,13 @@
 
         public AppUser()
         {
+        }
+
+        public AppUser(Guid id, string name, string login, string password)
+        {
+            DomainValidation.When(id.ToString().Length == 0, "Id inválido");
+            Id = id;
+            Validate(name, login, password);
         }
 
         #region Construtores Cadastro de Usuário - Passo 1 (Apenas Login e Password)
@@ -107,11 +116,30 @@
             Login = login;
             Password = password;
             UserType = userType;
+            Cnpj = "***";
+            Cnh = "***";
         }
 
         #endregion
 
         #region Validação Passo 2 (Perfil Administrador)
+
+        private void Validate(string name, string login, string password)
+        {
+            Name = name!.ToUpper();
+            Login = login;
+            Password = password;
+            Cnpj = "***";
+            Cnh = "***";
+
+            //var userType = new UserType
+            //{
+            //    Id = Guid.Parse("f6a2372a-b146-45f9-be70-a0be13736dd8"),
+            //    Name = "Administrator"
+            //};
+
+            //UserType!.Id = Guid.Parse("f6a2372a-b146-45f9-be70-a0be13736dd8");
+        }
 
         private void Validate(DateOnly birthDate, CnhType cnhType)
         {

@@ -26,7 +26,9 @@
             if (requester is null)
                 return new RequestValidationResponse(false, userId, Application.Helpers.EnumStatusCode.Status400BadRequest, "Request inválido!");
 
-            if (requester.UserType!.Name!.ToLower() != GetDescriptionFromEnum.GetFromUserTypeEnum(EnumUserTypes.Administrador).ToLower())
+            var adminUserType = _unitOfWork.userTypeRepository.GetList(x => x.Name!.ToLower().Equals("administrador")).Result!.FirstOrDefault();
+
+            if (requester.UserType!.Id != adminUserType!.Id)
                 return new RequestValidationResponse(false, userId, Application.Helpers.EnumStatusCode.Status400BadRequest, "Usuário solicitante inválido!");
 
             return new RequestValidationResponse(true, userId, EnumStatusCode.Status200OK, "Usuário requisitante válido");

@@ -19,8 +19,9 @@ namespace Mottu.Api.Controllers
         [Produces("application/json")]
         public IActionResult GetAll()
         {
-            var result = _cnhTypeService!.GetAll();
-            return Ok(result.Result);
+            var result = _cnhTypeService!.GetAll().Result;
+            var responseList = _mapper!.Map<IEnumerable<CnhType>, IEnumerable<CnhTypeResponse>>(result.Content!);
+            return Ok(ResponseFactory<IEnumerable<CnhTypeResponse>>.Success(result.Message!, responseList));
         }
 
         [HttpGet]

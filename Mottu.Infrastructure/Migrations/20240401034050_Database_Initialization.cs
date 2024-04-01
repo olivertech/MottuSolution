@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Mottu.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Initialize_Database : Migration
+    public partial class Database_Initialization : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,7 +18,9 @@ namespace Mottu.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    _model = table.Column<string>(type: "text", nullable: true),
                     Model = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    _plate = table.Column<string>(type: "text", nullable: true),
                     Plate = table.Column<string>(type: "text", nullable: false),
                     Year = table.Column<string>(type: "text", nullable: false),
                     IsLeased = table.Column<bool>(type: "boolean", nullable: false)
@@ -61,6 +63,7 @@ namespace Mottu.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    _name = table.Column<string>(type: "text", nullable: true),
                     Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
@@ -73,6 +76,7 @@ namespace Mottu.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    _name = table.Column<string>(type: "text", nullable: true),
                     Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
@@ -110,7 +114,7 @@ namespace Mottu.Infrastructure.Migrations
                     Password = table.Column<string>(type: "text", nullable: false),
                     CNPJ = table.Column<string>(type: "character varying(14)", maxLength: 14, nullable: false),
                     BirthDate = table.Column<DateOnly>(type: "date", nullable: true),
-                    CNH = table.Column<string>(type: "character varying(11)", maxLength: 11, nullable: false),
+                    CNH = table.Column<string>(type: "character varying(11)", maxLength: 11, nullable: true),
                     Path_CNH_Image = table.Column<string>(type: "text", nullable: true),
                     Is_Active = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true),
                     Is_Delivering = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
@@ -119,7 +123,7 @@ namespace Mottu.Infrastructure.Migrations
                     City = table.Column<string>(type: "text", nullable: true),
                     Neighborhood = table.Column<string>(type: "text", nullable: true),
                     ZipCode = table.Column<string>(type: "text", nullable: true),
-                    UserTypeId = table.Column<Guid>(type: "uuid", nullable: true),
+                    UserTypeId = table.Column<Guid>(type: "uuid", nullable: false),
                     CnhTypeId = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
@@ -134,7 +138,8 @@ namespace Mottu.Infrastructure.Migrations
                         name: "FK_User_User_Type_UserTypeId",
                         column: x => x.UserTypeId,
                         principalTable: "User_Type",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -277,9 +282,9 @@ namespace Mottu.Infrastructure.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("19e1b2f3-45f5-4351-b467-000c40abd9d5"), "AB" },
-                    { new Guid("7d033098-629f-4ba3-8809-f9366b203e9b"), "A" },
-                    { new Guid("9cad5cf7-688d-47f8-be52-49c51c174102"), "B" },
+                    { new Guid("11dcfe4c-c66a-47de-8b88-81f830919085"), "A" },
+                    { new Guid("63ad311d-c292-4374-8916-eb083be610b8"), "AB" },
+                    { new Guid("9b39cb59-7300-4634-a23b-5cac5017dbb6"), "B" },
                     { new Guid("f4958544-c796-43f4-a3cb-568ef6272a8d"), "NA" }
                 });
 
@@ -288,30 +293,35 @@ namespace Mottu.Infrastructure.Migrations
                 columns: new[] { "Id", "Daily_Value", "Description", "Fine_Percentage", "Name", "Num_Days" },
                 values: new object[,]
                 {
-                    { new Guid("22c5dcc2-df8c-4b16-99a5-08723c923fcc"), 30.0, "Plano de locação de 7 dias", 20, "Plano 7 dias", 7 },
-                    { new Guid("bf1bb59b-736f-4825-93c5-a1deb2559b0b"), 22.0, "Plano de locação de 30 dias", 60, "Plano 30 dias", 30 },
-                    { new Guid("f2299bcd-cbc5-4ca1-95b7-b2102d8f04ce"), 28.0, "Plano de locação de 15 dias", 40, "Plano 15 dias", 15 }
+                    { new Guid("4183ed75-08df-4272-8c91-44fd63c43dae"), 22.0, "Plano de locação de 30 dias", 60, "Plano 30 dias", 30 },
+                    { new Guid("71cada4b-0fb0-40be-92f0-fe9b1534816c"), 30.0, "Plano de locação de 7 dias", 20, "Plano 7 dias", 7 },
+                    { new Guid("f492d76b-e54b-4d86-8772-bcc095cc8167"), 28.0, "Plano de locação de 15 dias", 40, "Plano 15 dias", 15 }
                 });
 
             migrationBuilder.InsertData(
                 table: "Status_Order",
-                columns: new[] { "Id", "Name" },
+                columns: new[] { "Id", "Name", "_name" },
                 values: new object[,]
                 {
-                    { new Guid("5e5ce78b-a5a9-41b4-80ca-5705b9c6b556"), "ENTREGUE" },
-                    { new Guid("610cdbb5-5ec7-4f2f-87ee-ac6381e130c2"), "ACEITO" },
-                    { new Guid("f52a152a-415a-4226-979e-b7aebb34b3c0"), "DISPONÍVEL" }
+                    { new Guid("2cb64fd3-7080-41ea-9574-af6b2a16f8e9"), "DISPONÍVEL", "DISPONÍVEL" },
+                    { new Guid("a0996df0-919c-4873-8f22-20cf5d680da0"), "ACEITO", "ACEITO" },
+                    { new Guid("d1979c80-6c15-4268-9e68-010f53570498"), "ENTREGUE", "ENTREGUE" }
                 });
 
             migrationBuilder.InsertData(
                 table: "User_Type",
-                columns: new[] { "Id", "Name" },
+                columns: new[] { "Id", "Name", "_name" },
                 values: new object[,]
                 {
-                    { new Guid("ceba16aa-dafe-45ad-b0ad-368fc0e72f44"), "ENTREGADOR" },
-                    { new Guid("fa3327af-df72-4c87-aae5-f16276c4bc1a"), "CONSUMIDOR" },
-                    { new Guid("fc255338-9599-4a0f-827f-4546ddfe0098"), "ADMINISTRADOR" }
+                    { new Guid("79fd21e3-3127-4dda-ba1b-17d20a9d1d3e"), "CONSUMIDOR", "CONSUMIDOR" },
+                    { new Guid("bbd4ed2e-5f92-414c-9f7b-e7395c464898"), "ENTREGADOR", "ENTREGADOR" },
+                    { new Guid("f6a2372a-b146-45f9-be70-a0be13736dd8"), "ADMINISTRADOR", "ADMINISTRADOR" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "User",
+                columns: new[] { "Id", "Address", "BirthDate", "City", "CNH", "CnhTypeId", "CNPJ", "Is_Active", "Login", "Name", "Neighborhood", "Password", "Path_CNH_Image", "State", "UserTypeId", "ZipCode" },
+                values: new object[] { new Guid("5d277ec2-3b50-4920-9bab-422693f6017b"), null, null, null, "***", null, "***", true, "admin", "administrator", null, "123", null, null, new Guid("f6a2372a-b146-45f9-be70-a0be13736dd8"), null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Accepted_Orders_OrderId",

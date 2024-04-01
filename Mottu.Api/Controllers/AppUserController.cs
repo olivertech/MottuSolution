@@ -15,14 +15,11 @@
         [HttpGet]
         [Route(nameof(GetAll))]
         [Produces("application/json")]
-        public async Task<IActionResult> GetAll()
+        public IActionResult GetAll()
         {
-            var convert = new ConvertModelToResponse<AppUser, AppUserResponse>(_mapper);
-
-            var list = await _unitOfWork!.userRepository.GetFullAll();
-            List<AppUserResponse> result = convert.GetResponsList(list!);
-            
-            return Ok(result);
+            var result = _appUserService!.GetAll().Result;
+            var responseList = _mapper!.Map<IEnumerable<AppUser>, IEnumerable<AppUserResponse>>(result.Content!);
+            return Ok(ResponseFactory<IEnumerable<AppUserResponse>>.Success(result.Message!, responseList));
         }
 
         [HttpGet]

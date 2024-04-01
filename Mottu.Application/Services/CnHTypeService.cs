@@ -19,9 +19,17 @@ namespace Mottu.Application.Services
             return ServiceResponseFactory<IEnumerable<CnhType>>.Return(true, Application.Helpers.EnumStatusCode.Status200OK, "Lista de Tipos de CNH recuperada com sucesso.", list!);
         }
 
-        public override Task<ServiceResponseFactory<CnhType>> GetById(Guid id)
+        public override async Task<ServiceResponseFactory<CnhType>> GetById(Guid id)
         {
-            return base.GetById(id);
+            if (!Guid.TryParse(id.ToString(), out _))
+                return ServiceResponseFactory<CnhType>.Return(false, Application.Helpers.EnumStatusCode.Status400BadRequest, "Id inválido!");
+
+            var entity = await _unitOfWork!.cnhTypeRepository.GetById(id);
+
+            if (entity == null)
+                return ServiceResponseFactory<CnhType>.Return(false, Application.Helpers.EnumStatusCode.Status400BadRequest, "Id inválido!");
+
+            return ServiceResponseFactory<CnhType>.Return(true, Application.Helpers.EnumStatusCode.Status200OK, "Tipo de CNH recuperado com sucesso.", entity!);
         }
 
         public async Task<ServiceResponseFactory<IEnumerable<CnhType>>> GetListByName(string name)

@@ -14,7 +14,7 @@
                 new CnhType(Guid.NewGuid(), "A"),
                 new CnhType(Guid.NewGuid(), "B"),
                 new CnhType(Guid.NewGuid(), "AB"),
-                new CnhType(Guid.NewGuid(), "NA"));
+                new CnhType(Guid.Parse("f4958544-c796-43f4-a3cb-568ef6272a8d"), "NA"));
         }
     }
 }

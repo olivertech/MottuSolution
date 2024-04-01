@@ -52,14 +52,14 @@ namespace Mottu.Application.Services
 
         public override async Task<ServiceResponseFactory<StatusOrder>> Insert(StatusOrderRequest request)
         {
+            if (request is null)
+                return ServiceResponseFactory<StatusOrder>.Return(false, Application.Helpers.EnumStatusCode.Status400BadRequest, "Request inválido!");
+
             //Valida o requester
             var validation = await ValidateAdminRequester((Guid)request.RequestUserId!);
 
             if (!validation.IsValid)
                 return ServiceResponseFactory<StatusOrder>.Return(false, validation.StatusCode, validation.Message!);
-
-            if (request is null)
-                return ServiceResponseFactory<StatusOrder>.Return(false, Application.Helpers.EnumStatusCode.Status400BadRequest, "Request inválido!");
 
             var search = _unitOfWork!.statusOrderRepository.GetAll().Result;
 
@@ -86,14 +86,14 @@ namespace Mottu.Application.Services
 
         public override async Task<ServiceResponseFactory<StatusOrder>> Update(StatusOrderRequest request)
         {
+            if (request is null || !Guid.TryParse(request.Id.ToString(), out _))
+                return ServiceResponseFactory<StatusOrder>.Return(false, Application.Helpers.EnumStatusCode.Status400BadRequest, "Request inválido!");
+
             //Valida o requester
             var validation = await ValidateAdminRequester((Guid)request.RequestUserId!);
 
             if (!validation.IsValid)
                 return ServiceResponseFactory<StatusOrder>.Return(false, validation.StatusCode, validation.Message!);
-
-            if (request is null || !Guid.TryParse(request.Id.ToString(), out _))
-                return ServiceResponseFactory<StatusOrder>.Return(false, Application.Helpers.EnumStatusCode.Status400BadRequest, "Request inválido!");
 
             var entity = _unitOfWork!.statusOrderRepository.GetById(request.Id).Result;
 
