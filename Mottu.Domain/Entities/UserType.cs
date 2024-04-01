@@ -1,8 +1,4 @@
-﻿using Mottu.Domain.Entities.Base;
-using Mottu.Domain.Validations;
-using System.Text.Json.Serialization;
-
-namespace Mottu.Domain.Entities
+﻿namespace Mottu.Domain.Entities
 {
     /// <summary>
     /// Classe de domínio
@@ -11,7 +7,20 @@ namespace Mottu.Domain.Entities
     {
         #region Propriedades
 
-        public string? Name { get; private set; }
+        public string? _name { get; private set; }
+
+        public string? Name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                if (value != null)
+                    _name = value!.ToUpper();
+            }
+        }
 
         #endregion
 

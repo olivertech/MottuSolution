@@ -1,4 +1,4 @@
-﻿namespace Mottu.CrossCutting.Messaging
+﻿namespace Mottu.Application.Messaging
 {
     /// <summary>
     /// Classe que define o padrão de mensagem 

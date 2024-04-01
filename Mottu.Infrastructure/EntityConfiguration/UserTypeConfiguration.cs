@@ -1,8 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
-using Mottu.Domain.Entities;
-
-namespace Mottu.Infrastructure.EntityConfiguration
+﻿namespace Mottu.Infrastructure.EntityConfiguration
 {
     public class UserTypeConfiguration : IEntityTypeConfiguration<UserType>
     {
@@ -15,7 +11,7 @@ namespace Mottu.Infrastructure.EntityConfiguration
 
             //Seed
             builder.HasData(
-                new UserType(Guid.NewGuid(), "Administrador"),
+                new UserType(Guid.Parse("f6a2372a-b146-45f9-be70-a0be13736dd8"), "Administrador"),
                 new UserType(Guid.NewGuid(), "Entregador"),
                 new UserType(Guid.NewGuid(), "Consumidor"));
         }

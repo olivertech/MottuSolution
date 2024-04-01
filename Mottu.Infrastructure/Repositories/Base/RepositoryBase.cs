@@ -1,13 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Mottu.Domain.Entities.Base;
-using Mottu.Domain.Interfaces.Base;
-using Mottu.Infrastructure.Context;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq.Expressions;
-
-namespace Mottu.Infrastructure.Repositories.Base
+﻿namespace Mottu.Infrastructure.Repositories.Base
 {
-    public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : BaseEntity
+    public abstract class RepositoryBase<T> : IRepositoryBase<T> 
+        where T : BaseEntity
     {
         protected readonly AppDbContext? _context;
         protected readonly DbSet<T>? _entities;
@@ -31,9 +25,9 @@ namespace Mottu.Infrastructure.Repositories.Base
                 
                 return list ?? Enumerable.Empty<T>();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return null;
+                throw new Exception("RepositoryError - Não foi possível recuperar a lista.", ex);
             }
         }
 
@@ -54,9 +48,9 @@ namespace Mottu.Infrastructure.Repositories.Base
 
                 return entity;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return null;
+                throw new Exception("RepositoryError - Não foi possível recuperar a id informado.", ex);
             }
         }
 
@@ -74,9 +68,9 @@ namespace Mottu.Infrastructure.Repositories.Base
                 
                 return list ?? Enumerable.Empty<T>();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return null;
+                throw new Exception("RepositoryError - Não foi possível recuperar a lista.", ex);
             }
         }
 
@@ -93,9 +87,9 @@ namespace Mottu.Infrastructure.Repositories.Base
                 
                 return list.Count;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return 0;
+                throw new Exception("RepositoryError - Não foi possível recuperar o total.", ex);
             }
         }
 
@@ -116,9 +110,9 @@ namespace Mottu.Infrastructure.Repositories.Base
                 
                 return entity;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return null;
+                throw new Exception("RepositoryError - Não foi possível inserir a entidade.", ex);
             }
         }
 
@@ -141,9 +135,9 @@ namespace Mottu.Infrastructure.Repositories.Base
                 
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return false;
+                throw new Exception("RepositoryError - Não foi possível atualizar a entidade.", ex);
             }
         }
 
@@ -165,9 +159,9 @@ namespace Mottu.Infrastructure.Repositories.Base
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return false;
+                throw new Exception("RepositoryError - Não foi possível remover a entidade.", ex);
             }
         }
     }

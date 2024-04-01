@@ -1,8 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
-using Mottu.Domain.Entities;
-
-namespace Mottu.Infrastructure.EntityConfiguration
+﻿namespace Mottu.Infrastructure.EntityConfiguration
 {
     public class OrderConfiguration : IEntityTypeConfiguration<Order>
     {

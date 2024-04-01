@@ -1,9 +1,10 @@
-﻿using Mottu.Domain.Entities;
+﻿using Mottu.CrossCutting.Interfaces;
+using Mottu.Domain.Entities;
 using Newtonsoft.Json;
 
 namespace Mottu.CrossCutting.Responses
 {
-    public class NotificationResponse
+    public class NotificationResponse : IResponse
     {
         [JsonProperty(PropertyName = "notification_date")]
         public DateTime NotificationDate { get; private set; }

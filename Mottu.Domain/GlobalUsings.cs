@@ -1,0 +1,9 @@
+﻿global using System.ComponentModel.DataAnnotations.Schema;
+global using System.ComponentModel.DataAnnotations;
+global using Mottu.Domain.Interfaces;
+global using Mottu.Domain.Entities.Base;
+global using Mottu.Domain.Validations;
+global using System.Text.Json.Serialization;
+global using System.Linq.Expressions;
+global using Mottu.Domain.Entities;
+global using Mottu.Domain.Interfaces.Base;

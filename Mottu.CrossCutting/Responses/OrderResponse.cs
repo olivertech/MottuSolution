@@ -1,9 +1,10 @@
-﻿using Mottu.Domain.Entities;
+﻿using Mottu.CrossCutting.Interfaces;
+using Mottu.Domain.Entities;
 using Newtonsoft.Json;
 
 namespace Mottu.CrossCutting.Responses
 {
-    public class OrderResponse
+    public class OrderResponse : IResponse
     {
         [JsonProperty(PropertyName = "id")]
         public Guid Id { get; set; }

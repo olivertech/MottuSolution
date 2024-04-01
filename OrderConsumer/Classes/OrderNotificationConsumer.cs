@@ -1,7 +1,7 @@
 ﻿using MassTransit;
 using Microsoft.EntityFrameworkCore;
-using Mottu.CrossCutting.Helpers;
-using Mottu.CrossCutting.Messaging;
+using Mottu.Application.Helpers;
+using Mottu.Application.Messaging;
 using Mottu.Domain.Entities;
 using Mottu.Infrastructure.Context;
 using Serilog;
@@ -32,7 +32,9 @@ namespace OrderConsumer.Classes
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         public async Task Consume(ConsumeContext<NotificationMessage> context)
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
         {
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Information()

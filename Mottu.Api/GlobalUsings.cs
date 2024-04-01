@@ -1,0 +1,29 @@
+﻿//Systems usings
+global using MassTransit;
+global using OrderConsumer.Classes;
+global using AutoMapper;
+global using Microsoft.AspNetCore.Mvc;
+global using Swashbuckle.AspNetCore.Annotations;
+global using System.Diagnostics.Eventing.Reader;
+global using System.Xml.Linq;
+global using Minio.DataModel.Notification;
+global using Minio;
+global using System.Net.Http.Headers;
+global using Microsoft.OpenApi.Models;
+//Project usigns
+global using Mottu.Api.Controllers.Base;
+global using Mottu.Application.Requests;
+global using Mottu.Application.Requests.Base;
+global using Mottu.Application.Interfaces;
+global using Mottu.Application.Interfaces.Base;
+global using Mottu.Application.Responses;
+global using Mottu.Domain.Entities;
+global using Mottu.Domain.Interfaces;
+global using Mottu.Infrastructure.Repositories;
+global using Mottu.Application.Services;
+global using Mottu.Application.Helpers;
+global using Mottu.Domain.Entities.Base;
+global using Mottu.Api.Classes;
+global using Mottu.Application.Messaging;
+global using Mottu.Api.Services;
+global using Mottu.Application.Dependencies;

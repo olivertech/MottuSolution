@@ -1,15 +1,38 @@
-﻿using Mottu.Domain.Entities.Base;
-using Mottu.Domain.Validations;
-using System.Text.Json.Serialization;
-
-namespace Mottu.Domain.Entities
+﻿namespace Mottu.Domain.Entities
 {
     public sealed class Bike : BaseEntity
     {
         #region Propriedades
 
-        public string? Model { get ; private set; }
-        public string? Plate { get; set; }
+        public string? _model { get; private set; }
+        public string? Model 
+        {
+            get
+            { 
+                return _model;
+            }
+            set
+            { 
+                if(value is not null)
+                    _model = value.ToUpper();
+            }
+        }
+
+        public string? _plate{ get; private set; }
+
+        public string? Plate
+        {
+            get
+            {
+                return _plate;
+            }
+            set
+            {
+                if (value is not null)
+                    _plate = value.ToUpper();
+            }
+        }
+
         public string? Year { get; private set; }
         public bool IsLeased { get; set; }
 

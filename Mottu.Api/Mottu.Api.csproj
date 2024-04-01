@@ -35,6 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Mottu.Application\Mottu.Application.csproj" />
     <ProjectReference Include="..\Mottu.CrossCutting\Mottu.CrossCutting.csproj" />
     <ProjectReference Include="..\OrderConsumer\OrderConsumer.csproj" />
   </ItemGroup>

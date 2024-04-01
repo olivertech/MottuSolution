@@ -1,8 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
-using Mottu.Domain.Entities;
-
-namespace Mottu.Infrastructure.EntityConfiguration
+﻿namespace Mottu.Infrastructure.EntityConfiguration
 {
     public class CnhTypeConfiguration : IEntityTypeConfiguration<CnhType>
     {
@@ -18,7 +14,7 @@ namespace Mottu.Infrastructure.EntityConfiguration
                 new CnhType(Guid.NewGuid(), "A"),
                 new CnhType(Guid.NewGuid(), "B"),
                 new CnhType(Guid.NewGuid(), "AB"),
-                new CnhType(Guid.NewGuid(), "NA"));
+                new CnhType(Guid.Parse("f4958544-c796-43f4-a3cb-568ef6272a8d"), "NA"));
         }
     }
 }

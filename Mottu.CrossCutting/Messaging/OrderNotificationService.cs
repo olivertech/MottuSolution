@@ -1,8 +1,4 @@
-﻿using Mottu.CrossCutting.Messaging;
-using Newtonsoft.Json;
-using System.Text;
-
-namespace Mottu.Api.Services
+﻿namespace Mottu.Api.Services
 {
     /// <summary>
     /// Classe que chama controller 

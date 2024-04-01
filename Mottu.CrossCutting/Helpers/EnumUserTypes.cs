@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Mottu.CrossCutting.Helpers
+namespace Mottu.Application.Helpers
 {
     public enum EnumUserTypes
     {

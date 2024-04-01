@@ -1,23 +1,20 @@
-﻿using AutoMapper;
-using MassTransit;
-using Microsoft.AspNetCore.Mvc;
-using Mottu.CrossCutting.Messaging;
-using Mottu.Domain.Interfaces;
-using Swashbuckle.AspNetCore.Annotations;
+﻿using Mottu.Application.Messaging;
 
 namespace Mottu.Api.Controllers
 {
+    /// <summary>
+    /// Controller usada pelo RabbitMQ Producer,
+    /// para envio das mensagens em broadcast
+    /// </summary>
     [Route("api/PlaceOrderNotification")]
     [SwaggerTag("ColocarPedido")]
     [ApiController]
-    public class PlaceOrderNotificationController : BaseController
+    public class PlaceOrderNotificationController : Controller
     {
         private readonly IPublishEndpoint _publishEndpoint;
 
-        public PlaceOrderNotificationController(IPublishEndpoint publishEndpoint, IUnitOfWork unitOfWork, IMapper? mapper)
-            : base(unitOfWork, mapper)
+        public PlaceOrderNotificationController(IPublishEndpoint publishEndpoint)
         {
-            _nomeEntidade = "Notificação de Pedido";
             _publishEndpoint = publishEndpoint;
         }
 

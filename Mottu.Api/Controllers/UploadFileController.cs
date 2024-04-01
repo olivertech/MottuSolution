@@ -1,13 +1,4 @@
-﻿using AutoMapper;
-using MassTransit;
-using Microsoft.AspNetCore.Mvc;
-using Mottu.CrossCutting.Responses;
-using Mottu.Domain.Interfaces;
-using Swashbuckle.AspNetCore.Annotations;
-using System.Drawing;
-using static System.Net.Mime.MediaTypeNames;
-
-namespace Mottu.Api.Controllers
+﻿namespace Mottu.Api.Controllers
 {
     /// <summary>
     /// Controller que recebe arquivos e salva localmente
@@ -16,7 +7,7 @@ namespace Mottu.Api.Controllers
     [Route("api/UploadFile")]
     [SwaggerTag("UplodFile")]
     [ApiController]
-    public class UploadFileController : BaseController
+    public class UploadFileController : ControllerBase<BaseEntity, UploadResponse>
     {
         public static IWebHostEnvironment? _environment;
 
@@ -35,18 +26,18 @@ namespace Mottu.Api.Controllers
         public async Task<ActionResult<UploadResponse>> Cnh([FromForm] IFormFile arquivo, [FromForm] Guid userId)
         {
             if(userId == Guid.Empty || userId.ToString().Length == 0 || !Guid.TryParse(userId.ToString(), out _))
-                return StatusCode(StatusCodes.Status400BadRequest, ResponseFactory<UploadResponse>.Error(false, "Id do usuário inválido!"));
+                return StatusCode(StatusCodes.Status400BadRequest, ResponseFactory<UploadResponse>.Error("Id do usuário inválido!"));
 
             var user = _unitOfWork!.userRepository.GetById(userId).Result;
 
             if (user == null)
-                return StatusCode(StatusCodes.Status400BadRequest, ResponseFactory<UploadResponse>.Error(false, "Id do usuário inválido!"));
+                return StatusCode(StatusCodes.Status400BadRequest, ResponseFactory<UploadResponse>.Error("Id do usuário inválido!"));
 
             if (arquivo == null)
-                return StatusCode(StatusCodes.Status400BadRequest, ResponseFactory<UploadResponse>.Error(false, "arquivo inválido!"));
+                return StatusCode(StatusCodes.Status400BadRequest, ResponseFactory<UploadResponse>.Error("arquivo inválido!"));
 
             if((!arquivo.ContentType.ToLower().Contains("png")) && (!arquivo.ContentType.ToLower().Contains("bmp")))
-                return StatusCode(StatusCodes.Status400BadRequest, ResponseFactory<UploadResponse>.Error(false, "Formato do arquivo inválido. Enviar apenas BMP ou PNG!"));
+                return StatusCode(StatusCodes.Status400BadRequest, ResponseFactory<UploadResponse>.Error("Formato do arquivo inválido. Enviar apenas BMP ou PNG!"));
 
 
             if (arquivo.Length > 0)
@@ -70,17 +61,17 @@ namespace Mottu.Api.Controllers
                         _unitOfWork.CommitAsync().Wait();
 
                         var uploadResponse = new UploadResponse("C:\\Mottu\\Images\\CNH\\" + arquivo.FileName);
-                        return Ok(ResponseFactory<UploadResponse>.Success(true, String.Format("{0} Realizado Com Sucesso.", _nomeEntidade), uploadResponse));
+                        return Ok(ResponseFactory<UploadResponse>.Success(String.Format("{0} Realizado Com Sucesso.", _nomeEntidade), uploadResponse));
                     }
                 }
                 catch (Exception)
                 {
-                    return StatusCode(StatusCodes.Status500InternalServerError, ResponseFactory<UploadResponse>.Error(false, "Não foi possível processar o arquivo!"));
+                    return StatusCode(StatusCodes.Status500InternalServerError, ResponseFactory<UploadResponse>.Error("Não foi possível processar o arquivo!"));
                 }
             }
             else
             {
-                return StatusCode(StatusCodes.Status400BadRequest, ResponseFactory<UploadResponse>.Error(false, "arquivo inválido!"));
+                return StatusCode(StatusCodes.Status400BadRequest, ResponseFactory<UploadResponse>.Error("arquivo inválido!"));
             }
 
         }

@@ -1,6 +1,4 @@
-﻿using System.Net.Http.Headers;
-
-namespace Mottu.Api.Providers
+﻿namespace Mottu.Api.Providers
 {
     /// <summary>
     /// Classe custom que trata a recepção de arquivos enviados por formulário

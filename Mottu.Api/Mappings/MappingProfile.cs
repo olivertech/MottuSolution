@@ -1,11 +1,4 @@
-﻿using AutoMapper;
-using Mottu.Api.Classes;
-using Mottu.CrossCutting.Messaging;
-using Mottu.CrossCutting.Requests;
-using Mottu.CrossCutting.Responses;
-using Mottu.Domain.Entities;
-
-namespace Mottu.Api.Mappings
+﻿namespace Mottu.Api.Mappings
 {
     public class MappingProfile : Profile
     {
@@ -36,7 +29,6 @@ namespace Mottu.Api.Mappings
             CreateMap<Order, OrderResponse>();
             CreateMap<AcceptedOrder, AcceptedOrderResponse>();
             CreateMap<DeliveredOrder, DeliveredOrderResponse>();
-
             CreateMap<NotificationMessage, OrderResponse>();
         }
     }

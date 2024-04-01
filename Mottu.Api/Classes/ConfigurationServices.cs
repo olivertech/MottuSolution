@@ -1,7 +1,4 @@
-﻿using MassTransit;
-using OrderConsumer.Classes;
-
-namespace Mottu.Api.Classes
+﻿namespace Mottu.Api.Classes
 {
     /// <summary>
     /// Classe de configuração do MassTransit para acesso ao RabbitMQ

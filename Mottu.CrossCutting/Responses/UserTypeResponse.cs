@@ -1,8 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using Mottu.CrossCutting.Interfaces;
+using Newtonsoft.Json;
 
 namespace Mottu.CrossCutting.Responses
 {
-    public class UserTypeResponse
+    public class UserTypeResponse : IResponse
     {
         [JsonProperty(PropertyName = "id")]
         public Guid Id { get; set; }

@@ -1,10 +1,3 @@
-using MassTransit;
-using Microsoft.OpenApi.Models;
-using Minio;
-using Mottu.Api.Classes;
-using Mottu.Api.Services;
-using Mottu.CrossCutting.Dependencies;
-
 //Configurações para uso do Minio
 var endpoint = "play.min.io";
 var accessKey = "Q3AM3UQ867SPQQA43P2F";

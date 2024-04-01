@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Mottu.CrossCutting.Requests;
+using Mottu.Application.Requests;
 using Mottu.Domain.Entities;
 
 namespace Mottu.Application.Helpers
