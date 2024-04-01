@@ -20,12 +20,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Controllers\" />
     <Folder Include="logs\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Mottu.CrossCutting\Mottu.CrossCutting.csproj" />
     <ProjectReference Include="..\Mottu.Domain\Mottu.Domain.csproj" />
+    <ProjectReference Include="..\Mottu.Infrastructure\Mottu.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
