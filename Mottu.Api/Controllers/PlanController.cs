@@ -48,7 +48,7 @@
         [HttpGet]
         [Route(nameof(GetCount))]
         [Produces("application/json")]
-        public async Task<IActionResult> GetCount()
+        public IActionResult GetCount()
         {
             var result = _planService!.GetCount().Result;
             return Ok(ResponseFactory<int>.Success(result.Message!, result.Content));
