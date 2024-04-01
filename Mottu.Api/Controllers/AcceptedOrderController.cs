@@ -5,11 +5,11 @@
     [ApiController]
     public class AcceptedOrderController : ControllerBase<AcceptedOrder, AcceptedOrderResponse>
     {
-        public AcceptedOrderController(IUnitOfWork unitOfWork, IMapper? mapper)
+        public AcceptedOrderController(IUnitOfWork unitOfWork, IMapper? mapper, IAcceptedOrderService acceptedOrderService)
             : base(unitOfWork, mapper)
         {
             _nomeEntidade = "Pedido";
-            _acceptedOrderService = new AcceptedOrderService(_unitOfWork!, _mapper);
+            _acceptedOrderService = acceptedOrderService;
         }
 
         [HttpPost]

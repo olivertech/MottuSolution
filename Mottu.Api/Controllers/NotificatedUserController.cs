@@ -5,11 +5,11 @@
     [ApiController]
     public class NotificatedUserController : ControllerBase<NotificatedUser, OrderResponse>
     {
-        public NotificatedUserController(IUnitOfWork unitOfWork, IMapper? mapper)
+        public NotificatedUserController(IUnitOfWork unitOfWork, IMapper? mapper, INotificatedUserService notificatedUserService)
             : base(unitOfWork, mapper)
         {
             _nomeEntidade = "Usuário Notificado";
-            _notificatedUserService = new NotificatedUserService(_unitOfWork!, _mapper);
+            _notificatedUserService = notificatedUserService;
         }
 
         [HttpPost]

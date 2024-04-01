@@ -5,11 +5,11 @@
     [ApiController]
     public class PlanController : ControllerBase<Plan, PlanResponse>
     {
-        public PlanController(IUnitOfWork unitOfWork, IMapper? mapper)
+        public PlanController(IUnitOfWork unitOfWork, IMapper? mapper, IPlanService planService)
             : base(unitOfWork, mapper)
         {
             _nomeEntidade = "Plano";
-            _planService = new PlanService(_unitOfWork!, _mapper);
+            _planService = planService;
         }
 
         [HttpGet]

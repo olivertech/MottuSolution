@@ -7,12 +7,12 @@
     {
         public static IConfiguration? _configuration;
 
-        public RentalController(IUnitOfWork unitOfWork, IMapper? mapper, IConfiguration configuration)
+        public RentalController(IUnitOfWork unitOfWork, IMapper? mapper, IConfiguration configuration, IRentalService rentalService)
             : base(unitOfWork, mapper)
         {
             _nomeEntidade = "Locação";
             _configuration = configuration;
-            _rentalService = new RentalService(_unitOfWork!, _mapper);
+            _rentalService = rentalService;
         }
 
         [HttpGet]

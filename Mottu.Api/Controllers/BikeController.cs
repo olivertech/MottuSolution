@@ -5,11 +5,11 @@
     [ApiController]
     public class BikeController : ControllerBase<Bike, BikeResponse>
     {
-        public BikeController(IUnitOfWork unitOfWork, IMapper? mapper)
+        public BikeController(IUnitOfWork unitOfWork, IMapper? mapper, IBikeService bikeService)
             : base(unitOfWork, mapper)
         {
             _nomeEntidade = "Moto";
-            _bikeService = new BikeService(_unitOfWork!, _mapper);
+            _bikeService = bikeService;
         }
 
         [HttpPost]

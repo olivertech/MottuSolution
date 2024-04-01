@@ -19,17 +19,19 @@ namespace Mottu.Api.Controllers
                                IBus bus,
                                IPublishEndpoint publishEndpoint,
                                IOrderNotificationService orderNotificationService,
-                               INotificationMessage notificationMessage)
+                               INotificationMessage notificationMessage,
+                               IOrderService orderService)
             : base(unitOfWork, mapper)
         {
             _nomeEntidade = "Pedido";
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
             _bus = bus;
+
             _publishEndpoint = publishEndpoint;
             _orderNotificationService = orderNotificationService;
             _notificationMessage = notificationMessage;
-            _orderService = new OrderService(_unitOfWork!, _mapper);
+            _orderService = orderService;
         }
 
         [HttpGet]

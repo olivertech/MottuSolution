@@ -5,11 +5,11 @@
     [ApiController]
     public class StatusOrderController : ControllerBase<StatusOrder, StatusOrderResponse>
     {
-        public StatusOrderController(IUnitOfWork unitOfWork, IMapper? mapper) 
+        public StatusOrderController(IUnitOfWork unitOfWork, IMapper? mapper, IStatusOrderService statusOrderService) 
             : base(unitOfWork, mapper)
         {
             _nomeEntidade = "Status do Pedido";
-            _statusOrderService = new StatusOrderService(_unitOfWork!, _mapper);
+            _statusOrderService = statusOrderService;
         }
 
         [HttpGet]

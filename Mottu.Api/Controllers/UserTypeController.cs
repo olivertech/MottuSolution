@@ -5,11 +5,11 @@
     [ApiController]
     public class UserTypeController : ControllerBase<UserType, UserTypeResponse>
     {
-        public UserTypeController(IUnitOfWork unitOfWork, IMapper? mapper)
+        public UserTypeController(IUnitOfWork unitOfWork, IMapper? mapper, IUserTypeService userTypeService)
             : base(unitOfWork, mapper)
         {
             _nomeEntidade = "Tipo de Usuário";
-            _userTypeService = new UserTypeService(_unitOfWork!, _mapper);
+            _userTypeService = userTypeService;
         }
 
         [HttpGet]

@@ -5,11 +5,11 @@
     [ApiController]
     public class AppUserController : ControllerBase<AppUser, AppUserResponse>
     {
-        public AppUserController(IUnitOfWork unitOfWork, IMapper? mapper)
+        public AppUserController(IUnitOfWork unitOfWork, IMapper? mapper, IAppUserService appUserService)
             : base(unitOfWork, mapper)
         {
             _nomeEntidade = "Usuário";
-            _appUserService = new AppUserService(_unitOfWork!, _mapper);
+            _appUserService = appUserService;
         }
 
         [HttpGet]

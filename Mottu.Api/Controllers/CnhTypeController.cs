@@ -7,11 +7,11 @@ namespace Mottu.Api.Controllers
     [ApiController]
     public class CnhTypeController : ControllerBase<CnhType, CnhTypeResponse>
     {
-        public CnhTypeController(IUnitOfWork unitOfWork, IMapper? mapper)
+        public CnhTypeController(IUnitOfWork unitOfWork, IMapper? mapper, ICnhTypeService cnhTypeService)
             : base(unitOfWork, mapper)
         {
             _nomeEntidade = "Tipo de CNH";
-            _cnhTypeService = new CnhTypeService(_unitOfWork!, _mapper);
+            _cnhTypeService = cnhTypeService;
         }
 
         [HttpGet]
