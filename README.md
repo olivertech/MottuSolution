@@ -36,3 +36,4 @@ Para dar suporte a execução da solução, é preciso ter instalado o Docker lo
 
 Com a presente solução, se propõe mostrar uma meríade de tecnologias sendo utilizadas num projeto aspnet core, de forma a contemplar boas práticas e a adoção de convenções e padrões de mercado, aplicados ao desenvolvimento de sistemas, afim de ajudar a solucionar problemas existentes e enfrentados pela empresa Mottu.
 
+Na raiz da solução encontra-se um pdf que abrange mais detalhes do projeto e como instalar e rodar o mesmo localmente.
