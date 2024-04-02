@@ -1,10 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Http;
-using Mottu.Application.Interfaces;
-using Mottu.Domain.Interfaces;
-using System.Collections.Generic;
-
-namespace Mottu.Application.Services
+﻿namespace Mottu.Application.Services
 {
     public class BikeService : ServiceBase<Bike, BikeRequest>, IBikeService
     {

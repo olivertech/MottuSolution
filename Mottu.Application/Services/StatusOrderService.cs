@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-
-namespace Mottu.Application.Services
+﻿namespace Mottu.Application.Services
 {
     public class StatusOrderService : ServiceBase<StatusOrder, StatusOrderRequest>, IStatusOrderService
     {

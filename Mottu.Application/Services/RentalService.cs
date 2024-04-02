@@ -1,10 +1,4 @@
-﻿
-
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
-using System.Xml.Linq;
-
-namespace Mottu.Application.Services
+﻿namespace Mottu.Application.Services
 {
     public class RentalService : ServiceBase<Rental, RentalRequest>, IRentalService
     {
