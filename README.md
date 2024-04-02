@@ -2,16 +2,19 @@
 
 Projeto com a proposta de apresentar uma abordagem mais ampla de conhecimentos para montagem de uma solução completa em aspnet core.
 
-A solução desenvolvida segue o conceito conhecido como "Clean Architecture", utilizado em sistemas com arquiteturas modernas, permitindo maior facilidade para manutenção e expansão, e melhor entendimento do código, com divisão clara de responsabilidades para cada uma das camadas que compõem a solução.
+Esse projeto foi desenvolvido para a empresa Mottu, com objetivo de apresentar uma proposta moderna de arquitetura de sistemas, usando boas práticas para servir de solução para sistemas, que vinha apresentando problemas internos arquiteturais, e de sistemas mais desenvolvidos, sem boas práticas e com dependências fortes (altíssimo acoplamento entre projetos e camadas), causando problemas na manutenção corretiva e até mesmo evolutiva.
+
+A solução desenvolvida aqui segue o conceito arquitetural conhecido como "Clean Architecture", utilizado em sistemas com arquiteturas modernas, permitindo maior facilidade para manutenção e expansão, e melhor entendimento do código, com divisão clara de responsabilidades para cada uma das camadas que compõem a solução.
 
 A solução está dividida nas seguintes camadas/projetos:
 
-- Projeto Domain e Projeto Application - Contendo as camadas com as regras de negócio. Na atual configuração da solução, não houve necessidade a priore, de implementar a camada Application.
-- Projeto Infrastructure - Contem a camada de persistência
-- Projeto CrossCutting - Contém a camada com classes referenciadas pelos demais projetos
-- Projeto User Interface - Contem a camada de apresentação/Api
+- Projeto Domain e Projeto Application - Contém as regras de negócio
+- Projeto Infrastructure - Contém a persistência de dados
+- Projeto CrossCutting - Contém as classes referenciadas pelos demais projetos
+- Projeto User Interface - Contém a apresentação/Api
+- Projeto Consumer - Contém a lógica associada ao consumer da mensageria, usado apenas para fins de teste do RabbitMQ
 
-O projeto implementa os seguintes patterns:
+Alguns dos patterns usados no projeto:
 
 - Clean Architecture
 - n-Tier
@@ -20,9 +23,9 @@ O projeto implementa os seguintes patterns:
 - Class Mapping
 - ORM
  
-O projeto utiliza mensageria por meio do RabbitMQ em conjunto com o MassTransit.
+O projeto utiliza mensageria por meio do RabbitMQ em conjunto com o MassTransit, rodando por meio de containers.
 
-Para o banco de dados, foi utilizado o Postgrees versão 16.2, implementando a tecnologia ORM por meio do Entity Framework Core, para abstração do banco de dados. Além disso, por meio do EF Core, foi adotado a abordagem Code First para modelagem de banco de dados.
+Para o banco de dados, foi utilizado o Postgrees versão 16.2, implementando a tecnologia ORM com Entity Framework Core, para abstração do banco de dados. Além disso, por meio do EF Core, foi adotado a abordagem "Code First" para modelagem de banco de dados.
 
 A seguir, a modelagem proposta do banco de dados, de acordo com possíveis funcionalidades imaginadas para esse sistema fictício de gestão de locações de moto.
 
@@ -31,4 +34,6 @@ A seguir, a modelagem proposta do banco de dados, de acordo com possíveis funci
 
 Para dar suporte a execução da solução, é preciso ter instalado o Docker localmente. Pelo Docker, serão criados 2 containers que irão dar suporte na execução do mesmo. Um container do banco de dados e outro do Broker de mensageria RabbitMQ.
 
-Com a presente solução, se propõe mostrar uma meríade de tecnologias sendo utilizadas num projeto aspnet core, de forma a contemplar boas práticas e a adoção de convenções e padrões de mercado, aplicados ao desenvolvimento de sistemas.
+Com a presente solução, se propõe mostrar uma meríade de tecnologias sendo utilizadas num projeto aspnet core, de forma a contemplar boas práticas e a adoção de convenções e padrões de mercado, aplicados ao desenvolvimento de sistemas, afim de ajudar a solucionar problemas existentes e enfrentados pela empresa Mottu.
+
+Na raiz da solução encontra-se um pdf que abrange mais detalhes do projeto e como instalar e rodar o mesmo localmente.
