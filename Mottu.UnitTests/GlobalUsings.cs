@@ -1,0 +1,9 @@
+global using Xunit;
+global using AutoMapper;
+global using FluentAssertions;
+global using Microsoft.AspNetCore.Mvc;
+global using Moq;
+global using Mottu.Api.Controllers;
+global using Mottu.Application.Interfaces;
+global using Mottu.Domain.Interfaces;
+global using Mottu.UnitTests.MockData;

@@ -32,6 +32,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2-Mottu.Application", "2-Mo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3-Mottu.Infrastructure", "3-Mottu.Infrastructure", "{EC2B488D-C51C-4D71-8684-797ECA1405C7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "7-Mottu.UnitTests", "7-Mottu.UnitTests", "{A7316739-7439-4B6B-A927-EA4DB536CA39}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mottu.UnitTests", "Mottu.UnitTests\Mottu.UnitTests.csproj", "{3A9A06CF-6E82-494C-85E5-2BEA40182B74}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +66,10 @@ Global
 		{1F79EE2C-BAE4-4E0F-B5F1-C9D6DF365DEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F79EE2C-BAE4-4E0F-B5F1-C9D6DF365DEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F79EE2C-BAE4-4E0F-B5F1-C9D6DF365DEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A9A06CF-6E82-494C-85E5-2BEA40182B74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A9A06CF-6E82-494C-85E5-2BEA40182B74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A9A06CF-6E82-494C-85E5-2BEA40182B74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A9A06CF-6E82-494C-85E5-2BEA40182B74}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +81,7 @@ Global
 		{8CA2100A-C101-4DB4-8FDB-AA0B11F317E7} = {EC2B488D-C51C-4D71-8684-797ECA1405C7}
 		{A9345701-78C0-4CF4-B311-9F035E2AA321} = {461EA0C8-B438-4B4C-A8DC-EBB2CCA3FE5B}
 		{1F79EE2C-BAE4-4E0F-B5F1-C9D6DF365DEE} = {B3B9ED24-50D1-4E54-BCC8-A969DD6BED3A}
+		{3A9A06CF-6E82-494C-85E5-2BEA40182B74} = {A7316739-7439-4B6B-A927-EA4DB536CA39}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8984CE1F-6228-4C72-8F36-F749FACED65D}

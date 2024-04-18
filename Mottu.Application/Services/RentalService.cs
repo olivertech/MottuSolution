@@ -49,6 +49,7 @@
             if (request is null)
                 return ServiceResponseFactory<FinishRentalResponse>.Return(false, Application.Helpers.EnumStatusCode.Status400BadRequest, "Request inválido!");
 
+            //Recupera a locação
             var rental = _unitOfWork!.rentalRepository.GetFullById(request.RentalId).Result;
 
             if (rental is null)
@@ -57,29 +58,53 @@
             if (!DateOnly.TryParse(request.FinishRentalDate.ToString(), out _))
                 return ServiceResponseFactory<FinishRentalResponse>.Return(false, Application.Helpers.EnumStatusCode.Status400BadRequest, "Data inválida para fechar locação!");
 
-            ///===========================
-            /// Calcular valor da locação
-            ///===========================
-            var rentalValue = CalculateTotalRental.GetRentalValue(rental);
+            try
+            {
+                double rentalValue;
+                double fine;
 
-            ///================
-            /// Calcular multa
-            ///================
-            var fine = CalculateTotalRental.GetFineValue(ref rental, request, _configuration!);
+                try
+                {
+                    ///===========================
+                    /// Calcular valor da locação
+                    ///===========================
+                    rentalValue = CalculateTotalRental.GetRentalValue(rental);
+                }
+                catch (Exception)
+                {
+                    throw new Exception("Não foi possível calcular o valor da locação");
+                }
 
-            rental.TotalValue = rentalValue + fine;
+                try
+                {
+                    ///================
+                    /// Calcular multa
+                    ///================
+                    fine = CalculateTotalRental.GetFineValue(ref rental, request, _configuration!);
 
-            //================================================================================================
-            //TODO: LINHAS ABAIXO FICARAM COMENTADAS, POR NÃO TER FICADO CLARO SE NA REGRA DE DEVOLUÇÃO DA
-            //MOTO, SE JÁ SERÁ ENCERRADA A LOCAÇÃO, OU SE É APENAS UMA CONSULTA DO VALOR TOTAL DA LOCAÇÃO
-            //================================================================================================
-            //rental.IsActive = false;
-            //_unitOfWork.rentalRepository.Update(rental);
-            //_unitOfWork.CommitAsync().Wait();
+                    rental.TotalValue = rentalValue + fine;
+                }
+                catch (Exception)
+                {
+                    throw new Exception("Não foi possível calcular o valor da multa");
+                }
 
-            var response = new FinishRentalResponse(rental, rentalValue + fine);
+                //================================================================================================
+                //TODO: LINHAS ABAIXO FICARAM COMENTADAS, POR NÃO TER FICADO CLARO SE NA REGRA DE DEVOLUÇÃO DA
+                //MOTO, SE JÁ SERÁ ENCERRADA A LOCAÇÃO, OU SE É APENAS UMA CONSULTA DO VALOR TOTAL DA LOCAÇÃO
+                //================================================================================================
+                //rental.IsActive = false;
+                //_unitOfWork.rentalRepository.Update(rental);
+                //_unitOfWork.CommitAsync().Wait();
 
-            return ServiceResponseFactory<FinishRentalResponse>.Return(true, Application.Helpers.EnumStatusCode.Status200OK, "Total a ser pago pela Locação.", response);
+                var response = new FinishRentalResponse(rental, rentalValue + fine);
+
+                return ServiceResponseFactory<FinishRentalResponse>.Return(true, Application.Helpers.EnumStatusCode.Status200OK, "Total a ser pago pela Locação.", response);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public override async Task<ServiceResponseFactory<Rental>> Insert(RentalRequest request)
