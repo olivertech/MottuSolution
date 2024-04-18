@@ -35,7 +35,7 @@ namespace Mottu.UnitTests.MockData
             return ServiceResponseFactory<IEnumerable<UserType>>.Return(true, Application.Helpers.EnumStatusCode.Status200OK, "Lista de Tipos de Usuário por nome recuperado com sucesso.", list!);
         }
 
-        private static List<UserType> GetUserTypeList()
+        public static List<UserType> GetUserTypeList()
         {
             return new List<UserType>{
                  new UserType{
