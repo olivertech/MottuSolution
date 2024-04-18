@@ -1,12 +1,4 @@
-﻿using Mottu.Application.Services;
-using Mottu.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Mottu.UnitTests.MockData
+﻿namespace Mottu.UnitTests.MockData
 {
     public class UserTypeMockData
     {
