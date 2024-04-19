@@ -130,7 +130,7 @@ namespace Mottu.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("5d277ec2-3b50-4920-9bab-422693f6017b"),
+                            Id = new Guid("3f968142-3dea-4cfb-af46-0227341c8794"),
                             Cnh = "***",
                             Cnpj = "***",
                             IsActive = true,
@@ -166,12 +166,6 @@ namespace Mottu.Infrastructure.Migrations
                         .HasColumnType("text")
                         .HasColumnName("Year");
 
-                    b.Property<string>("_model")
-                        .HasColumnType("text");
-
-                    b.Property<string>("_plate")
-                        .HasColumnType("text");
-
                     b.HasKey("Id");
 
                     b.HasIndex("Plate")
@@ -200,17 +194,17 @@ namespace Mottu.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("11dcfe4c-c66a-47de-8b88-81f830919085"),
+                            Id = new Guid("68f48cdc-593b-47be-aa02-7b113feee22a"),
                             Name = "A"
                         },
                         new
                         {
-                            Id = new Guid("9b39cb59-7300-4634-a23b-5cac5017dbb6"),
+                            Id = new Guid("c475552c-5067-4942-9ca1-39cd4f79ac7d"),
                             Name = "B"
                         },
                         new
                         {
-                            Id = new Guid("63ad311d-c292-4374-8916-eb083be610b8"),
+                            Id = new Guid("e953369f-f8eb-4748-84a6-0240e0ac1fc4"),
                             Name = "AB"
                         },
                         new
@@ -349,7 +343,7 @@ namespace Mottu.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("71cada4b-0fb0-40be-92f0-fe9b1534816c"),
+                            Id = new Guid("2d832af3-de3c-4eb6-b3a5-e2ea75e2e0f4"),
                             DailyValue = 30.0,
                             Description = "Plano de locação de 7 dias",
                             FinePercentage = 20,
@@ -358,7 +352,7 @@ namespace Mottu.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("f492d76b-e54b-4d86-8772-bcc095cc8167"),
+                            Id = new Guid("6a6d3b92-d0ca-46f2-8107-1caaa2c376a9"),
                             DailyValue = 28.0,
                             Description = "Plano de locação de 15 dias",
                             FinePercentage = 40,
@@ -367,7 +361,7 @@ namespace Mottu.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("4183ed75-08df-4272-8c91-44fd63c43dae"),
+                            Id = new Guid("862581d6-990e-4f4f-9e9a-0945a90ae543"),
                             DailyValue = 22.0,
                             Description = "Plano de locação de 30 dias",
                             FinePercentage = 60,
@@ -442,9 +436,6 @@ namespace Mottu.Infrastructure.Migrations
                         .HasColumnType("character varying(100)")
                         .HasColumnName("Name");
 
-                    b.Property<string>("_name")
-                        .HasColumnType("text");
-
                     b.HasKey("Id");
 
                     b.ToTable("Status_Order", (string)null);
@@ -452,21 +443,18 @@ namespace Mottu.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("2cb64fd3-7080-41ea-9574-af6b2a16f8e9"),
-                            Name = "DISPONÍVEL",
-                            _name = "DISPONÍVEL"
+                            Id = new Guid("73021502-9d1a-4bda-af34-94c508effc73"),
+                            Name = "DISPONÍVEL"
                         },
                         new
                         {
-                            Id = new Guid("a0996df0-919c-4873-8f22-20cf5d680da0"),
-                            Name = "ACEITO",
-                            _name = "ACEITO"
+                            Id = new Guid("20ec6baa-eb23-4630-aa17-49f5409105fb"),
+                            Name = "ACEITO"
                         },
                         new
                         {
-                            Id = new Guid("d1979c80-6c15-4268-9e68-010f53570498"),
-                            Name = "ENTREGUE",
-                            _name = "ENTREGUE"
+                            Id = new Guid("9c197526-52ab-4d9d-8107-7cf9db22b9b8"),
+                            Name = "ENTREGUE"
                         });
                 });
 
@@ -482,9 +470,6 @@ namespace Mottu.Infrastructure.Migrations
                         .HasColumnType("character varying(100)")
                         .HasColumnName("Name");
 
-                    b.Property<string>("_name")
-                        .HasColumnType("text");
-
                     b.HasKey("Id");
 
                     b.ToTable("User_Type", (string)null);
@@ -493,20 +478,17 @@ namespace Mottu.Infrastructure.Migrations
                         new
                         {
                             Id = new Guid("f6a2372a-b146-45f9-be70-a0be13736dd8"),
-                            Name = "ADMINISTRADOR",
-                            _name = "ADMINISTRADOR"
+                            Name = "ADMINISTRADOR"
                         },
                         new
                         {
-                            Id = new Guid("bbd4ed2e-5f92-414c-9f7b-e7395c464898"),
-                            Name = "ENTREGADOR",
-                            _name = "ENTREGADOR"
+                            Id = new Guid("01968558-af91-4e32-b687-878598ede59f"),
+                            Name = "ENTREGADOR"
                         },
                         new
                         {
-                            Id = new Guid("79fd21e3-3127-4dda-ba1b-17d20a9d1d3e"),
-                            Name = "CONSUMIDOR",
-                            _name = "CONSUMIDOR"
+                            Id = new Guid("29f04989-dffe-4e16-ba3d-7032874e4f9b"),
+                            Name = "CONSUMIDOR"
                         });
                 });
 

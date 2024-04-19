@@ -7,7 +7,7 @@
     {
         #region Propriedades
 
-        public string? _name { get; private set; }
+        private string? _name { get; set; }
 
         public string? Name
         {

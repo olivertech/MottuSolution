@@ -4,7 +4,8 @@
     {
         #region Propriedades
 
-        public string? _model { get; private set; }
+        private string? _model { get; set; }
+
         public string? Model 
         {
             get
@@ -18,7 +19,7 @@
             }
         }
 
-        public string? _plate{ get; private set; }
+        private string? _plate{ get; set; }
 
         public string? Plate
         {
