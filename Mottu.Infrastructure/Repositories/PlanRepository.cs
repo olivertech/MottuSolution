@@ -1,4 +1,6 @@
-﻿namespace Mottu.Infrastructure.Repositories
+﻿using Microsoft.Extensions.Caching.Distributed;
+
+namespace Mottu.Infrastructure.Repositories
 {
     public class PlanRepository : RepositoryBase<Plan>, IPlanRepository
     {

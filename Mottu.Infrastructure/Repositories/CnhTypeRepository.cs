@@ -1,8 +1,10 @@
-﻿namespace Mottu.Infrastructure.Repositories
+﻿using Microsoft.Extensions.Caching.Distributed;
+
+namespace Mottu.Infrastructure.Repositories
 {
-    public class CnhTypeRepository : RepositoryBase<CnhType>, ICnhTypeRepository
+    public class CnhTypeRepository : RepositoryBaseWithRedis<CnhType>, ICnhTypeRepository
     {
-        public CnhTypeRepository([NotNull] AppDbContext context) : base(context)
+        public CnhTypeRepository([NotNull] AppDbContext context, IDistributedCache cache) : base(context, cache, "cnhtype")
         {
         }
     }

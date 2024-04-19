@@ -1,8 +1,10 @@
-﻿namespace Mottu.Infrastructure.Repositories
+﻿using Microsoft.Extensions.Caching.Distributed;
+
+namespace Mottu.Infrastructure.Repositories
 {
-    public class UserTypeRepository : RepositoryBase<UserType>, IUserTypeRepository
+    public class UserTypeRepository : RepositoryBaseWithRedis<UserType>, IUserTypeRepository
     {
-        public UserTypeRepository([NotNull] AppDbContext context) : base(context)
+        public UserTypeRepository([NotNull] AppDbContext context, IDistributedCache cache) : base(context, cache, "usertype")
         {
         }
     }

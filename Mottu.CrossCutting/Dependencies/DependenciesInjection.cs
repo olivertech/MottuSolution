@@ -28,7 +28,6 @@
             services.AddScoped<IUserTypeRepository, UserTypeRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<INotificationMessage, NotificationMessage>();
-            services.AddScoped<IOrderNotificationService, OrderNotificationService>();
             services.AddScoped<IDeliveredOrderRepository, DeliveredOrderRepository>();
 
             //Service injections
@@ -44,7 +43,8 @@
             services.AddScoped<IRentalService, RentalService>();
             services.AddScoped<IStatusOrderService, StatusOrderService>();
             services.AddScoped<IUserTypeService, UserTypeService>();
-            
+            services.AddScoped<IOrderNotificationService, OrderNotificationService>();
+
             return services;
         }
     }

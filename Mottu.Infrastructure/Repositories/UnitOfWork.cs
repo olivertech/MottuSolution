@@ -1,9 +1,11 @@
-﻿namespace Mottu.Infrastructure.Repositories
+﻿using Microsoft.Extensions.Caching.Distributed;
+
+namespace Mottu.Infrastructure.Repositories
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private readonly AppDbContext _context;
-
+        private readonly IDistributedCache _cache;
         private IAcceptedOrderRepository? _acceptedOrderRepository;
         private IBikeRepository? _bikeRepository;
         private ICnhTypeRepository? _cnhTypeRepository;
@@ -17,9 +19,10 @@
         private IUserTypeRepository? _userTypeRepository;
         private IDeliveredOrderRepository? _deliveredOrderRepository;
 
-        public UnitOfWork(AppDbContext context)
+        public UnitOfWork(AppDbContext context, IDistributedCache cache)
         {
             _context = context;
+            _cache = cache;
         }
 
         public IAcceptedOrderRepository acceptedOrderRepository
@@ -42,7 +45,7 @@
         {
             get
             {
-                return _cnhTypeRepository = _cnhTypeRepository ?? new CnhTypeRepository(_context);
+                return _cnhTypeRepository = _cnhTypeRepository ?? new CnhTypeRepository(_context, _cache);
             }
         }
 
@@ -90,7 +93,7 @@
         {
             get
             {
-                return _statusOrderRepository = _statusOrderRepository ?? new StatusOrderRepository(_context);
+                return _statusOrderRepository = _statusOrderRepository ?? new StatusOrderRepository(_context, _cache);
             }
         }
 
@@ -106,7 +109,7 @@
         {
             get
             {
-                return _userTypeRepository = _userTypeRepository ?? new UserTypeRepository(_context);
+                return _userTypeRepository = _userTypeRepository ?? new UserTypeRepository(_context, _cache);
             }
         }
 

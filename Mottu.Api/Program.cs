@@ -1,10 +1,16 @@
 //Configurações para uso do Minio
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.Json;
 using System.Configuration;
 
 var endpoint = "play.min.io";
 var accessKey = "Q3AM3UQ867SPQQA43P2F";
 var secretKey = "zuf+tfteSlswRu7BJ86wtrueekitnifILbZam1KYY3TG";
+
+//Referenciando o appsettings
+IConfiguration config = new ConfigurationBuilder()
+    .AddJsonFile("appsettings.json")
+    .AddEnvironmentVariables()
+    .Build();
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,7 +42,8 @@ builder.Services.AddMinio(configureClient => configureClient
 // Add Redis
 builder.Services.AddStackExchangeRedisCache(options =>
 {
-    options.Configuration = builder.Configuration.GetValue<string>("CacheSettings: ConnectionString");
+    //options.InstanceName = "redis";
+    options.Configuration = config.GetValue<string>("CacheSettings:ConnectionString");
 });
 
 var app = builder.Build();
