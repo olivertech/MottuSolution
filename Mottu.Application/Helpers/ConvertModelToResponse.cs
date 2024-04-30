@@ -13,7 +13,7 @@
 
         public List<R> GetResponsList(IEnumerable<M> list)
         {
-            List<R> result = new List<R>();
+            List<R> result = [];
             
             foreach (var item in list)
             {

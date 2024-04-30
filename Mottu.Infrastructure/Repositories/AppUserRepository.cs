@@ -37,7 +37,7 @@ namespace Mottu.Infrastructure.Repositories
         public async Task<IEnumerable<AppUser>?> GetFullListOfNotificatedUsers(Guid orderId)
         {
             var notificationList = await _context!.NotificatedUsers.Where(x => x.Notification!.Order!.Id == orderId).ToListAsync();
-            List<AppUser> usersList = new List<AppUser>();
+            List<AppUser> usersList = [];
 
             foreach (var notification in notificationList)
             {
