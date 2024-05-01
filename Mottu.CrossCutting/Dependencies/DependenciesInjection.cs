@@ -1,4 +1,7 @@
-﻿namespace Mottu.Application.Dependencies
+﻿using MongoDB.Driver;
+using Mottu.CrossCutting.Classes;
+
+namespace Mottu.Application.Dependencies
 {
     /// <summary>
     /// Classe estática que concentra as configurações
@@ -8,11 +11,20 @@
     {
         public static IServiceCollection AddDependenciesInjection(this IServiceCollection services, IConfiguration configuration) 
         {
-            //Database configuration
+            //PostGreSql Database Configuration
             services.AddDbContext<AppDbContext>(options =>
                                                 options.UseNpgsql(
                                                     configuration.GetConnectionString("DefaultConnection"))
                                                 );
+
+            //MongoDb Database Configuration
+            services.Configure<MongoDBSettings>(configuration.GetSection("MongoDBSettings"));
+
+            services.AddSingleton<IMongoClient>(_ => {
+                var connectionString =
+                    configuration.GetSection("SchoolDatabaseSettings:ConnectionString")?.Value;
+                return new MongoClient(connectionString);
+            });
 
             //Repository injections
             services.AddScoped<IAcceptedOrderRepository, AcceptedOrderRepository>();

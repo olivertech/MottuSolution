@@ -27,7 +27,9 @@ builder.Services
     .AddControllers()
     .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
+// Add Injection Dependencies
 builder.Services.AddDependenciesInjection(builder.Configuration);
+
 // MassTransit configuration to use RabbitMQ Broker
 builder.Services.AddMassTransitServices();
 
