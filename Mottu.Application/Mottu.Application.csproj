@@ -7,6 +7,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="InterfacesMDB\IAcceptedOrderServiceMDB.cs" />
+    <Compile Remove="InterfacesMDB\IAppUserServiceMDB.cs" />
+    <Compile Remove="InterfacesMDB\IBaseServiceMDB.cs" />
+    <Compile Remove="InterfacesMDB\IBikeServiceMDB.cs" />
+    <Compile Remove="InterfacesMDB\ICnhTypeServiceMDB.cs" />
+    <Compile Remove="InterfacesMDB\IDeliveredOrderServiceMDB.cs" />
+    <Compile Remove="InterfacesMDB\INotificatedUserServiceMDB.cs" />
+    <Compile Remove="InterfacesMDB\INotificationServiceMDB.cs" />
+    <Compile Remove="InterfacesMDB\IOrderServiceMDB.cs" />
+    <Compile Remove="InterfacesMDB\IPlanServiceMDB.cs" />
+    <Compile Remove="InterfacesMDB\IRentalerviceMDB.cs" />
+    <Compile Remove="InterfacesMDB\IStatusOrderServiceMDB.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.2">

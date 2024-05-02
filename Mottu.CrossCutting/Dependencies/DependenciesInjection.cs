@@ -1,5 +1,7 @@
 ﻿using MongoDB.Driver;
-using Mottu.CrossCutting.Classes;
+using Mottu.Application.Classes;
+using Mottu.Application.InterfacesMDB;
+using Mottu.Application.ServicesMDB;
 
 namespace Mottu.Application.Dependencies
 {
@@ -56,6 +58,21 @@ namespace Mottu.Application.Dependencies
             services.AddScoped<IStatusOrderService, StatusOrderService>();
             services.AddScoped<IUserTypeService, UserTypeService>();
             services.AddScoped<IOrderNotificationService, OrderNotificationService>();
+
+            //Service MongoDB injections
+            //services.AddScoped<IAcceptedOrderServiceMDB, AcceptedOrderServiceMDB>();
+            //services.AddScoped<IAppUserService, AppUserService>();
+            //services.AddScoped<IBikeService, BikeService>();
+            //services.AddScoped<ICnhTypeService, CnhTypeService>();
+            //services.AddScoped<IDeliveredOrderServiceMDB, DeliveredOrderService>();
+            //services.AddScoped<INotificatedUserServiceMDB, NotificatedUserService>();
+            //services.AddScoped<INotificationServiceMDB, NotificationService>();
+            //services.AddScoped<IOrderServiceMDB, OrderService>();
+            //services.AddScoped<IPlanServiceMDB, PlanService>();
+            //services.AddScoped<IRentalService, RentalService>();
+            //services.AddScoped<IStatusOrderServiceMDB, StatusOrderService>();
+            services.AddScoped<IUserTypeServiceMDB, UserTypeServiceMDB>();
+            //services.AddScoped<IOrderNotificationService, OrderNotificationService>();
 
             return services;
         }
