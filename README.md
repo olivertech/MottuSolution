@@ -46,3 +46,7 @@ Com a presente solução, se propõe mostrar uma meríade de tecnologias sendo u
 Na raiz da solução encontra-se um pdf que abrange mais detalhes do projeto e como instalar e rodar o mesmo localmente.
 
 Obs: O projeto segue sendo evoluído. No presente momento, segue sendo implementado o banco de dados NoSql MongoDB.
+
+Para maiores informações, ou contato profissional, me coloco a disposição pelo email olivertech@outlook.com, pelo celular (21) 99710-8994 (Ligações / WhatsApp) ou pelo Skype maclauservicos.
+
+Marcelo de Oliveira.
